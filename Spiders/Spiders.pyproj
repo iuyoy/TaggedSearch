@@ -25,9 +25,28 @@
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="spider_basic.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_crapy\test_crapy\items.py" />
+    <Compile Include="test_crapy\test_crapy\pipelines.py" />
+    <Compile Include="test_crapy\test_crapy\settings.py" />
+    <Compile Include="test_crapy\test_crapy\spiders\spider_test.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_crapy\test_crapy\spiders\__init__.py" />
+    <Compile Include="test_crapy\test_crapy\__init__.py" />
     <Compile Include="test_start1.py">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="test_crapy\" />
+    <Folder Include="test_crapy\test_crapy\" />
+    <Folder Include="test_crapy\test_crapy\spiders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="test_crapy\scrapy.cfg" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
