@@ -1,5 +1,6 @@
 """
 crawl在工程外部执行
+感觉中文有些编码问题
 """
 from twisted.internet import reactor
 from scrapy.spiders import Spider
