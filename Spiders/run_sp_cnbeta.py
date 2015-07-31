@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding:utf-8 -*-
+#author:iuyyoy 
 """
 crawl在工程外部执行
 感觉中文有些编码问题
