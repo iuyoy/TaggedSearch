@@ -15,6 +15,10 @@ http://git.oschina.net/oschina/git-osc/wikis/Home
 http://scrapy-chs.readthedocs.org/zh_CN/latest/intro/tutorial.html
 - 通用爬虫部分
 http://scrapy-chs.readthedocs.org/zh_CN/latest/topics/broad-crawls.html
+- XPath教程
+http://www.w3school.com.cn/xpath/index.asp
+- 一个通俗易懂的实例
+http://blog.csdn.net/HanTangSongMing/article/details/24454453
 
 - 比较详细的工具的介绍
 http://www.52nlp.cn/python-网页爬虫-文本处理-科学计算-机器学习-数据挖掘

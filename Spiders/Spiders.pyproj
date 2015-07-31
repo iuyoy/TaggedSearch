@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{84003a28-684e-4028-82cd-5c232fb59937}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>test_start1.py</StartupFile>
+    <StartupFile>run_sp_cnbeta.py</StartupFile>
     <SearchPath>..\..\..\python\spider\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -25,9 +25,19 @@
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="spider_basic.py">
+    <Compile Include="run_sp_cnbeta.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="sp_cnbeta\sp_cnbeta\items.py" />
+    <Compile Include="sp_cnbeta\sp_cnbeta\pipelines.py" />
+    <Compile Include="sp_cnbeta\sp_cnbeta\settings.py" />
+    <Compile Include="sp_cnbeta\sp_cnbeta\spiders\sp_cnbeta_1.py" />
+    <Compile Include="sp_cnbeta\sp_cnbeta\spiders\sp_cnbeta_main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="sp_cnbeta\sp_cnbeta\spiders\__init__.py" />
+    <Compile Include="sp_cnbeta\sp_cnbeta\__init__.py" />
+    <Compile Include="sp_cnbeta\__init__.py" />
     <Compile Include="test_crapy\test_crapy\items.py" />
     <Compile Include="test_crapy\test_crapy\pipelines.py" />
     <Compile Include="test_crapy\test_crapy\settings.py" />
@@ -41,11 +51,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="sp_cnbeta\" />
+    <Folder Include="sp_cnbeta\sp_cnbeta\" />
+    <Folder Include="sp_cnbeta\sp_cnbeta\spiders\" />
     <Folder Include="test_crapy\" />
     <Folder Include="test_crapy\test_crapy\" />
     <Folder Include="test_crapy\test_crapy\spiders\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="sp_cnbeta\scrapy.cfg" />
+    <Content Include="sp_cnbeta\sp_cnbeta\cnbeta.ini" />
     <Content Include="test_crapy\scrapy.cfg" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
