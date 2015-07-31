@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="sp_cnbeta\scrapy.cfg" />
-    <Content Include="sp_cnbeta\sp_cnbeta\cnbeta.ini" />
     <Content Include="test_crapy\scrapy.cfg" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />

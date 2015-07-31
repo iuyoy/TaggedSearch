@@ -28,15 +28,15 @@ class sp_cnbeta_1(Spider):
         if rs != None:
             id = rs.groups()[0]
             print id
-        ini.write('cnbeta','lastest',id)
+        self.set_latest_id(id)
         pass
 
     def get_latest_id(self):
         ini=INI("cnbeta.ini")
-        latest_id = ini.getint('Spider1','latest')
+        latest_id = ini.readint('Spider1','latest')
         return latest_id
 
     def set_latest_id(self,latest_id):
         ini=INI("cnbeta.ini")
-        ret = ini.set('Spider1','latest',latest_id)
+        ret = ini.write('Spider1','latest',latest_id)
         return ret
