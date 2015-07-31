@@ -10,7 +10,10 @@ import re
 
 sys.path.append('..')
 from Scripts.ini_op import INI
-from scrapy.spider import *
+try:
+    from scrapy.spider import Spider
+except:
+    from scrapy.spider import BaseSpider as Spider
 
 class sp_cnbeta_1(Spider):
     name = "cnbeta1"
