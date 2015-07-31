@@ -7,7 +7,7 @@ crawl在工程外部执行
 ceshiceshi
 """
 from twisted.internet import reactor
-from scrapy.spiders import Spider
+from scrapy.spider import Spider
 from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
 from sp_cnbeta.sp_cnbeta.spiders.sp_cnbeta_1 import sp_cnbeta_1

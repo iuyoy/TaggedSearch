@@ -12,9 +12,9 @@ from Scripts.ini_op import INI
 from sp_cnbeta.sp_cnbeta.items import SpCnbetaItem
 from scrapy.selector import Selector
 try:
-    from scrapy.spiders import Spider
+    from scrapy.spider import Spider
 except:
-    from scrapy.spiders import BaseSpider as Spider
+    from scrapy.spider import BaseSpider as Spider
 from scrapy.utils.response import get_base_url
 from scrapy.utils.url import urljoin_rfc
 from scrapy.contrib.spiders import CrawlSpider, Rule
