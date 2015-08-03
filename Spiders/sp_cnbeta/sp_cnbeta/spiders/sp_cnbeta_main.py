@@ -66,10 +66,12 @@ class sp_cnbeta_main(Spider):
             else:
                 item['author_url'] = []
                 author = section.xpath("div[@class='time']/span[2]/text()").extract()
-                if author != []:
+                if author != [] and type(author[0]) == 'string':
                     item['author_name'] = self.get_author(author[0])
+                elif type(author) == "string":
+                    item['author_name'] = self.get_author(author)
                 else:
-                    item['author_name'] = author
+                    item['author_name'] = []
             item['content'] = section.xpath("div[@class='content']/text()|div[@class='content']/p/text()|/div[@class='content']/p/a/text()|/div[@class='content']/p/a/strong/text()").extract()
             item['picture'] = section.xpath("div[@class='content']/p/a/@href|/div[@class='content']/p/img/@src").extract()
             item['media'] = section.xpath("div[@class='content']/p/embed/@src|//div[@class='content']/p/iframe/@src").extract()
@@ -119,9 +121,9 @@ class sp_cnbeta_main(Spider):
 
     #change author_name to what we need
     def get_author(self,string):
-        print string
-        pattern = re.compile(u'[:：]([\d\D]+)')
-        rs = pattern.search(string)
+        #print string
+        pattern = re.compile(u'[:：]([\d\D]+) ')
+        rs = pattern.search(str(string))
         print rs.groups()
         if rs != None:
             return rs.groups()
