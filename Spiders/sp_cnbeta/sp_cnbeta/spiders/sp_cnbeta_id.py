@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 #author:iuyyoy 
 """
-»ñÈ¡×îĞÂµÄÎÄÕÂÊı
+è·å–æœ€æ–°çš„æ–‡ç« æ•°
 """
 import scrapy
 import os,sys
@@ -15,26 +15,24 @@ try:
 except:
     from scrapy.spiders import BaseSpider as Spider
 
-class sp_cnbeta_1(Spider):
-    name = "cnbeta1"
+class sp_cnbeta_id(Spider):
+    name = "sp_cnbeta_id"
     allow_domains = ["cnbeta.com"]
     start_urls = ["http://m.cnbeta.com/wap/"]
         
     def parse(self, response):
         links = response.xpath('//div/a/@href').extract()
-        print links[0]
-        pattern = re.compile('_(\d+)\.')
-        rs = pattern.search(links[0])
-        if rs != None:
-            id = rs.groups()[0]
-            print id
+        print ("æœ€æ–°æ–‡ç« é“¾æ¥:"+str(links[0]))
+        id = self.get_id(links[0])
+        print ("æœ€æ–°çš„æ–‡ç« :"+str(links[0]))
         self.set_latest_id(id)
         pass
 
-    def get_latest_id(self):
-        ini=INI("cnbeta.ini")
-        latest_id = ini.readint('Spider1','latest')
-        return latest_id
+    def get_id(self,id):
+        pattern = re.compile(u'_(\d+)\.')
+        rs = pattern.search(id)
+        if rs != None:
+            return rs.groups()[0]
 
     def set_latest_id(self,latest_id):
         ini=INI("cnbeta.ini")

@@ -14,12 +14,17 @@ http://git.oschina.net/oschina/git-osc/wikis/Home
 - http://www.52nlp.cn
 
 ##python下的工具
-- scrapy(爬虫)使用方法
+#scrapy
+- scrapy 1.0 文档(英文)
+http://doc.scrapy.org/en/latest/index.html
+- scrapy 0.24.3 中文文档 (版本太过落后，不要使用里面的例子，仅用于理解英文文档)
 http://scrapy-chs.readthedocs.org/zh_CN/latest/intro/tutorial.html
 - 通用爬虫部分
 http://scrapy-chs.readthedocs.org/zh_CN/latest/topics/broad-crawls.html
 - XPath教程
 http://www.w3school.com.cn/xpath/index.asp
+- twisted 文档
+https://media.readthedocs.org/pdf/twisted/latest/twisted.pdf
 - 一个通俗易懂的实例
 http://blog.csdn.net/HanTangSongMing/article/details/24454453
 

@@ -13,7 +13,7 @@ BOT_NAME = 'sp_cnbeta'
 
 SPIDER_MODULES = ['sp_cnbeta.spiders']
 NEWSPIDER_MODULE = 'sp_cnbeta.spiders'
-
+ITEM_PIPELINES = {'sp_cnbeta.pipelines.SpCnbetaPipeline':300}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'sp_cnbeta (+http://www.yourdomain.com)'

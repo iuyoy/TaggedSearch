@@ -31,7 +31,7 @@
     <Compile Include="sp_cnbeta\sp_cnbeta\items.py" />
     <Compile Include="sp_cnbeta\sp_cnbeta\pipelines.py" />
     <Compile Include="sp_cnbeta\sp_cnbeta\settings.py" />
-    <Compile Include="sp_cnbeta\sp_cnbeta\spiders\sp_cnbeta_1.py" />
+    <Compile Include="sp_cnbeta\sp_cnbeta\spiders\sp_cnbeta_id.py" />
     <Compile Include="sp_cnbeta\sp_cnbeta\spiders\sp_cnbeta_main.py">
       <SubType>Code</SubType>
     </Compile>

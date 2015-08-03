@@ -9,12 +9,13 @@ import scrapy
 
 class SpCnbetaItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
+    id = scrapy.Field()
     title = scrapy.Field()
-    links = scrapy.Field()
+    url = scrapy.Field()
     date = scrapy.Field()
-    author = scrapy.Field()
+    author_name = scrapy.Field()
+    author_url = scrapy.Field()
     content = scrapy.Field()
     picture = scrapy.Field()
     media = scrapy.Field()
-    pass
+    
