@@ -41,11 +41,8 @@ class sp_cnbeta_main(Spider):
         url = None
         self.current_id = self.get_current_id()
         print self.current_id,self.latest_id
-        if (self.current_id <= self.latest_id - 2):
-            if (self.current_id%2 == 0):
-                self.current_id += 1
-            else:
-                self.current_id += 2
+        if (self.current_id <= self.latest_id - 1):
+            self.current_id += 1
             url = self.joint_url(self.current_id)
             yield scrapy.Request(url,callback = self.parse)
     
@@ -58,23 +55,30 @@ class sp_cnbeta_main(Spider):
         item['url'] = [self.joint_url(self.current_id)]
         for section in response.xpath("//section[@class='clearfix']"):
             item['title'] = section.xpath("div[@class='title']/b/text()").extract()
-            date = section.xpath("div[@class='time']/span[1]/text()").extract()[0]
-            item['date'] = self.date_to_num(self.get_date_from_web(date))
+
+            date = section.xpath("div[@class='time']/span[1]/text()").extract()
+            if date != []:
+                item['date'] = self.date_to_num(self.get_date_from_web(date[0]))
             author = section.xpath("div[@class='time']/span/a/@href").extract()
             if author != []:
                 item['author_url'] = author
                 item['author_name'] = section.xpath("div[@class='time']/span/a/text()|div[@class='time']/span/a/span/text()").extract()
             else:
                 item['author_url'] = []
-                item['author_name'] = self.get_author(section.xpath("div[@class='time']/span[2]/text()").extract()[0])
-            item['content'] = section.xpath("div[@class='content']/p/text()|/div[@class='content']/p/a/text()|/div[@class='content']/p/a/strong/text()").extract()
+                author = section.xpath("div[@class='time']/span[2]/text()").extract()
+                if author != []:
+                    item['author_name'] = self.get_author(author[0])
+                else:
+                    item['author_name'] = author
+            item['content'] = section.xpath("div[@class='content']/text()|div[@class='content']/p/text()|/div[@class='content']/p/a/text()|/div[@class='content']/p/a/strong/text()").extract()
             item['picture'] = section.xpath("div[@class='content']/p/a/@href|/div[@class='content']/p/img/@src").extract()
             item['media'] = section.xpath("div[@class='content']/p/embed/@src|//div[@class='content']/p/iframe/@src").extract()
         #for i in item:
         #    print i,item[i][0]
-        yield item
-        if(self.current_id <= self.latest_id - 2):
-            self.current_id += 2
+        if(item['content'] != []):
+            yield item
+        if(self.current_id <= self.latest_id - 1):
+            self.current_id += 1
             url = self.joint_url(self.current_id)
             yield scrapy.Request(url, callback = self.parse)
         else:
