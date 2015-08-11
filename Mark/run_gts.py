@@ -4,10 +4,10 @@
 
 import sys,os
 
-class run_mark(object):
+class Run_gts(object):
     def __init__(self):
-        super(run_mark,self).__init__()
+        super(Run_gts,self).__init__()
 
 if __name__ == "__main__":
-    rm = run_mark()
+    rm = Run_gts()
 

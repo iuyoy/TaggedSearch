@@ -4,13 +4,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>675beafa-680b-4791-9cdc-799c911914e5</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>wikidata_query.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>wikidata_parse.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Mark</Name>
+    <Name>Generate_Tags</Name>
     <RootNamespace>Mark</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -25,7 +26,13 @@
     <Compile Include="queryitem.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="run_mark.py" />
+    <Compile Include="run_gts.py" />
+    <Compile Include="wikidata_api.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="wikidata_parse.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="wikidata_query.py">
       <SubType>Code</SubType>
     </Compile>

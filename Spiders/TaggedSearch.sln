@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Scripts", "..\Scripts\Scripts.pyproj", "{923C610A-A777-4478-B943-BB8B384EBEB9}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Mark", "..\Mark\Mark.pyproj", "{675BEAFA-680B-4791-9CDC-799C911914E5}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Generate_Tags", "..\Mark\Generate_Tags.pyproj", "{675BEAFA-680B-4791-9CDC-799C911914E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
