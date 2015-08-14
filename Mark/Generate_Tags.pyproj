@@ -6,7 +6,7 @@
     <ProjectGuid>675beafa-680b-4791-9cdc-799c911914e5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>wikidata_parse.py</StartupFile>
+    <StartupFile>data_processing.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,10 +23,19 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="data_processing.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="data_save.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="queryitem.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="run_gts.py" />
+    <Compile Include="test.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="wikidata_api.py">
       <SubType>Code</SubType>
     </Compile>
