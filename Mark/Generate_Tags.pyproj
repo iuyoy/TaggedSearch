@@ -6,7 +6,7 @@
     <ProjectGuid>675beafa-680b-4791-9cdc-799c911914e5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>data_processing.py</StartupFile>
+    <StartupFile>run_gts.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

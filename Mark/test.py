@@ -6,10 +6,10 @@ a={'sitelinks': {'fiwiki': {'site': 'fiwiki', 'badges': [], 'title': 'douglas ad
 keys = ['type','id'\
         ,{'labels':{'zh-hans':'value','zh-cn':'value','zh':'value','en':'value'}\
         ,'descriptions':{'zh-hans':'value','zh-cn':'value','zh':'value'}\
-        #aliases可能有多个
+        #aliases???????à??
         ,'aliases':{'zh-hans':'value','zh-cn':'value','zh':'value'}\
         ,'claims':\
-            #各个property可能有多个
+            #?÷??property???????à??
             {'p910':{'mainsnak':{'datavalue':{'value':['entity-type','numeric-id']}}}\
             ,'p279':{'mainsnak':{'datavalue':{'value':['entity-type','numeric-id']}}}\
             ,'p31':{'mainsnak':{'datavalue':{'value':['entity-type','numeric-id']}}}\
@@ -20,7 +20,7 @@ keys = ['type','id'\
 labels = ['zh-hans','zh-cn','zh','en']
 descriptions = ['zh-hans','zh-cn','zh']
 aliases = ['zh-hans','zh-cn','zh']
-claims = {'p910':'主分类','p279':'父类','p31':'性质','p361':'属于'}
+claims = {'p910':'?÷·??à','p279':'???à','p31':'????','p361':'????'}
 properties = ['mainsnak','datavalue','value',['entity-type','numeric-id']]
 keys = {'type':'','id':'','labels':labels,'descriptions':descriptions,'aliases':aliases,'claims':claims}
 def traverse_list(wiki_dict):
