@@ -29,19 +29,32 @@ class Insert_words(object):
             id = self.insert(word[0],word[1],u'nlpcn.org') 
             if (count % 100 == 0):
                 print id
-
+    
     
     def set_table(self,table):
         self.table = self.db.SQL_filter(table)
     
 
-if __name__ == '__main__':
+def insert_word_properties(file_name):
+    fp = open(file_name)
+    db = DB('23.244.180.241','search','search&Tagged','search')
+    db.connect()
+    for line in fp:
+        word = line.split(' ')
+        sql = "INSERT INTO word_properties(`part_of_speech`,`property_name`,`comment`) VALUES(\'%s\',\'%s\',\'%s\')" %(word[0],word[1],'HanLP词性标注集') 
+        print db.insert(sql)
+        
+        
+def insert_words():
     iw = Insert_words('23.244.180.241','search','search&Tagged','search')
     if (len(sys.argv)>1):
         iw.insert_from_txt(sys.argv[1])
     else:
         iw.insert_from_txt(u'worddict360.txt')
        
-
-    
+if __name__ == '__main__':
+    if (len(sys.argv)>1):
+        insert_word_properties(argv[1])
+    else:
+        insert_word_properties('word_properties2.txt')
        
