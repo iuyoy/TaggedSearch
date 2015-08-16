@@ -37,7 +37,10 @@ class Insert_words(object):
 
 if __name__ == '__main__':
     iw = Insert_words('23.244.180.241','search','search&Tagged','search')
-    iw.insert_from_txt(u"D:/ROW/大创2015/Dac2015/语料库/360万中文词库+词性+词频/词典360万（个人整理）.txt")
+    if (len(sys.argv)>1):
+        iw.insert_from_txt(sys.argv[1])
+    else:
+        iw.insert_from_txt(u'worddict360.txt')
        
 
     
