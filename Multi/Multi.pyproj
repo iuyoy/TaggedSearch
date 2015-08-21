@@ -3,16 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>675beafa-680b-4791-9cdc-799c911914e5</ProjectGuid>
+    <ProjectGuid>190b8a48-6739-4632-b8ac-5386a964f525</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>generate_tags.py</StartupFile>
+    <StartupFile>multi.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Generate_Tags</Name>
-    <RootNamespace>Mark</RootNamespace>
+    <Name>Multi</Name>
+    <RootNamespace>multiprocessing</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,40 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ini.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="data_processing.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="data_save.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="generate_tags.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wikidata\queryitem.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="run_gts.py" />
-    <Compile Include="test.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wikidata\wikidata_api.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wikidata\wikidata_parse.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wikidata\wikidata_query.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wikidata\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wikidata\" />
+    <Compile Include="multi.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

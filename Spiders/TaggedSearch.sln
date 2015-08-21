@@ -15,9 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Scripts", "..\Scripts\Scripts.pyproj", "{923C610A-A777-4478-B943-BB8B384EBEB9}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Generate_Tags", "..\Mark\Generate_Tags.pyproj", "{675BEAFA-680B-4791-9CDC-799C911914E5}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Multi", "..\Multi\Multi.pyproj", "{190B8A48-6739-4632-B8AC-5386A964F525}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "word_segment", "..\word_segment\word_segment.pyproj", "{6B47047C-EDC8-4146-B9F9-4C39487F6D21}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Generate_Tags", "..\Generate_Tags\Generate_Tags.pyproj", "{675BEAFA-680B-4791-9CDC-799C911914E5}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "word_segment", "..\Word_Segment\Word_Segment.pyproj", "{6B47047C-EDC8-4146-B9F9-4C39487F6D21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,9 @@ Global
 		{923C610A-A777-4478-B943-BB8B384EBEB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{923C610A-A777-4478-B943-BB8B384EBEB9}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
 		{923C610A-A777-4478-B943-BB8B384EBEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{190B8A48-6739-4632-B8AC-5386A964F525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{190B8A48-6739-4632-B8AC-5386A964F525}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
+		{190B8A48-6739-4632-B8AC-5386A964F525}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{675BEAFA-680B-4791-9CDC-799C911914E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{675BEAFA-680B-4791-9CDC-799C911914E5}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
 		{675BEAFA-680B-4791-9CDC-799C911914E5}.Release|Any CPU.ActiveCfg = Release|Any CPU

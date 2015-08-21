@@ -13,7 +13,6 @@ class Queryitem(object):
     size = ''
     wordcount = ''
     timestamp = ''
-    #<p ns="0" title="Q213710" snippet="<span class="searchmatch">ƻ</span><span class="searchmatch">��</span>��Ƭ �O����Ƭ �O����Ƭ <span class="searchmatch">ƻ</span><span class="searchmatch">��</span>��Ƭ <span class="searchmatch">ƻ</span><span class="searchmatch">��</span>��Ƭ �O����Ƭ Apple Records Apple Records ??? ?????? ?? ??? Apple Records Apple Records Apple Records Apple Records Apple Records ���åץ�?�쥳�`��" size="11698" wordcount="186" timestamp="2015-03-07T14:19:40Z"/>
     xml = ''
     def __init__(self,xml=''):
         super(Queryitem,self).__init__()
@@ -63,11 +62,7 @@ class Queryitemlist(object):
         super(Queryitemlist,self).__init__()
         self.setxml(xml)
     def setlist(self):
-        #print self.xml
-        #print self.xml.xpath(u'//query/search/p')
         for i in self.xml.xpath(u'//query/search/p'):
-            #print i.attrib
-            #tempitem = Queryitem(i)
             self.itemlist.append(i.attrib)
     def setxml(self,xml):
         self.xml = xml

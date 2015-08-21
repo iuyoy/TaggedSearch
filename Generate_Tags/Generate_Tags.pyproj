@@ -26,7 +26,7 @@
     <Compile Include="ini.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="data_processing.py">
+    <Compile Include="wikidata\data_processing.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="data_save.py">

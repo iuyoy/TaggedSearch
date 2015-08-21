@@ -43,7 +43,7 @@ class Wikidata_api(object):
     #删除参数
     def delete_parameter(self,p_name):
         self.parameters.pop(p_name)
-
+        
 if __name__ == '__main__':
     test = Wikidata_api()
     test.set_parameters({'action':'query'})

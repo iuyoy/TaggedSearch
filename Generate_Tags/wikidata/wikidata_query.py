@@ -7,7 +7,6 @@ import urllib2
 import lxml.html
 
 import queryitem
-
 from wikidata_api import Wikidata_api
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -21,7 +20,6 @@ class Wikidata_query(Wikidata_api):
     ,'format':'xml'\
     ,'uselang':'zh'\
     ,'list':'search'\
-    ,'is_rawcontinue':'rawcontinue='\
     ,'srsearch':'apple'\
     ,'srnamespace':'0'\
     ,'sroffset':'0'\
@@ -77,6 +75,8 @@ class Wikidata_query(Wikidata_api):
     def set_totalhits(self,totalhits):
         super(Wikidata_query, self).update_parameter('totalhits',totalhits)
 
+    def __del__(self):
+        return 
 if __name__ == "__main__":
     rm = Wikidata_query()
     rm.run(u'苹果')
