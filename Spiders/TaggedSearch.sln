@@ -19,7 +19,9 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Multi", "..\Multi\Multi.pyp
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Generate_Tags", "..\Generate_Tags\Generate_Tags.pyproj", "{675BEAFA-680B-4791-9CDC-799C911914E5}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "word_segment", "..\Word_Segment\Word_Segment.pyproj", "{6B47047C-EDC8-4146-B9F9-4C39487F6D21}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Word_Segment", "..\Word_Segment\Word_Segment.pyproj", "{6B47047C-EDC8-4146-B9F9-4C39487F6D21}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Test", "..\Test\Test.pyproj", "{62916552-F098-4B7C-9E2A-C9C839220DE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,9 @@ Global
 		{6B47047C-EDC8-4146-B9F9-4C39487F6D21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B47047C-EDC8-4146-B9F9-4C39487F6D21}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
 		{6B47047C-EDC8-4146-B9F9-4C39487F6D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
+		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

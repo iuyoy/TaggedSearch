@@ -55,14 +55,13 @@ class Db_op(object):
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             result = False
         return result
-    #'执行 UPDATE 及 DELETE 语句'
+    #执行 UPDATE 及 DELETE 语句
     def update(self,sql):
         try:
             self.cur.execute("SET NAMES utf8") 
-            result = self._cur.execute(sql)
+            result = self.cur.execute(sql)
             self.conn.commit()
         except MySQLdb.Error, e:
-            self.error_code = e.args[0]
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             result = False
         return result
@@ -81,6 +80,7 @@ class Db_op(object):
 
     def close(self):
         try:
+            self.conn.commit()
             self.cur.close()
             self.conn.close()
         except MySQLdb.Error,e:

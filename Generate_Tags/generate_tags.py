@@ -5,12 +5,14 @@
 import sys,os
 sys.path.append('..')
 
-from ini import dbinfo
+from ini import *
 from Scripts.db_op import Db_op as DB
 from wikidata.wikidata_query import Wikidata_query as WikiQuery
-from wikidata.wikidata_parse import Wikidata_parse as WikiParse
+#from wikidata.wikidata_parse import Wikidata_parse as WikiParse
+from wikidata.wikidata_parse import Parse_stackly as Parse_Stackly
 
 class generate_tags(object):
+    parse_run = Parse_Stackly()
     db = DB(dbinfo = dbinfo)
     def __init__(self):
         super(generate_tags,self).__init__()
@@ -24,21 +26,19 @@ class generate_tags(object):
                 return
     #数据库中读取
     def get_entity(self,limit = 10,offset = 0):
-        sql = 'SELECT word_name FROM `words` AS w,`word_properties` AS p  WHERE w.property = p.part_of_speech AND p.is_need = 1\
-        LIMIT %d OFFSET %d' %(int(limit),int(offset))
+        sql = 'SELECT word_name FROM `%s` AS w,`%s` AS p  WHERE w.property = p.part_of_speech AND p.is_need = 1\
+        LIMIT %d OFFSET %d' %(words_table,word_properties_table,int(limit),int(offset))
         row_num = self.db.select(sql)
         return self.db.fetchAllRows()
 
     #得到实体不同的意向
-    def get_dif_meanings_by_wikidata_query(self,entity ):
+    def get_dif_meanings_by_wikidata_query(self,query_name):
         wikiquery = WikiQuery()
-        wikiquery.run(entity)
-        print wikiquery.parameters['totalhits']
+        wikiquery.run(query_name)
+        #print wikiquery.parameters['totalhits']
         for i in wikiquery.result.itemlist:
-            #(<span class="searchmatch">([\d\D]*?)</span>)+([\d\D]+)? 
-            for j in i['snippet'].encode('utf8').split(' '):
-            	print j
-            return 
+            PS.append(i['title'])
+            self.parse_run.run()
     #得到意向的可能的标签
     def get_tags_by_wikidata_parse(self):
         return
@@ -48,4 +48,8 @@ class generate_tags(object):
     
 if __name__ == '__main__':
     gt = generate_tags()
-    gt.run()
+    #gt.run()
+    parse_run = Parse_Stackly()
+    parse_stack.append('q1')
+    parse_run.run()
+    print 'generate_tags',parse_stack

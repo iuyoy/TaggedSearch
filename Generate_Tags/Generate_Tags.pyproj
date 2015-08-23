@@ -23,10 +23,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="data_processing.py" />
     <Compile Include="ini.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wikidata\data_processing.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="data_save.py">
@@ -52,6 +50,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="wikidata\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

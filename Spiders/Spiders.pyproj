@@ -49,6 +49,9 @@
     <Compile Include="test_start1.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sp_cnbeta\" />

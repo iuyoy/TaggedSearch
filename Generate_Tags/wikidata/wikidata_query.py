@@ -25,7 +25,7 @@ class Wikidata_query(Wikidata_api):
     ,'sroffset':'0'\
     ,'totalhits':'0'\
     ,'srlimit':'50'\
-    ,'srprop':'size|wordcount|timestamp|snippet'
+    #,'srprop':'size|wordcount|timestamp|snippet'
     #srprop = 'size|wordcount|timestamp|snippet|titlesnippet|redirecttitle|redirectsnippet|sectiontitle|sectionsnippet|isfilematch|categorysnippet'
     ,'rawcontinue':''\
     }
@@ -35,13 +35,14 @@ class Wikidata_query(Wikidata_api):
             self.set_srsearch(srsearch)
     #封装的一系列操作
     def run(self,srsearch='apple'):
-        try:
-            while (int(self.parameters['sroffset']) <= int(self.parameters['totalhits'])):
-                url = self.generate_url(srsearch)
-                xml = super(Wikidata_query, self).connect(url)
-                self.xml_process(xml)
-        except:
-            print 'Parameter sroffeset or Parameter totalhits are missing.'
+        #try:
+        while (int(self.parameters['sroffset']) <= int(self.parameters['totalhits'])):
+            url = self.generate_url(srsearch)
+            xml = super(Wikidata_query, self).connect(url)
+            print ("Wikidata_query:%s from %d to %d") %(srsearch,int(self.parameters['sroffset']),int(self.parameters['sroffset'])+int(self.parameters['srlimit']))
+            self.xml_process(xml)
+        #except:
+        #    print 'Parameter sroffeset or Parameter totalhits are missing.'
     #对获得的xml的处理
     def xml_process(self,xml=''):
         doc = lxml.etree.HTML(xml.lower().decode('utf-8'))
