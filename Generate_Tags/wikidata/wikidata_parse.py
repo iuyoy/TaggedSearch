@@ -9,7 +9,7 @@ sys.path.append('..')
 from Scripts.db_op import Db_op as DB
 from wikidata_api import Wikidata_api
 from ini import *
-import data_processing
+from data_processing import *
 
 #Wikidata_parse:解析一个页面,其实就是得到具体item的内容
 class Wikidata_parse(Wikidata_api):
@@ -36,7 +36,7 @@ class Wikidata_parse(Wikidata_api):
         url = self.generate_url(page)
         xml = super(Wikidata_parse, self).connect(url)
         print ("Wikidata_Parse:%s") %(self.parameters['page'])
-        data_process = data_processing.Get_specific_info()
+        data_process = Get_specific_info()
         wiki_dict = self.xml_process(xml)
         ret = data_process.run(wiki_dict)
         return ret
