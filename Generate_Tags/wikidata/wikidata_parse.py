@@ -9,7 +9,7 @@ sys.path.append('..')
 from Scripts.db_op import Db_op as DB
 from wikidata_api import Wikidata_api
 from ini import *
-from Generate_Tags.data_processing import *
+from data_processing import *
 
 #Wikidata_parse:解析一个页面,其实就是得到具体item的内容
 class Wikidata_parse(Wikidata_api):
