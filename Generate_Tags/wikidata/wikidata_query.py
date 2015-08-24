@@ -41,7 +41,7 @@ class Wikidata_query(Wikidata_api):
         while (int(self.parameters['sroffset']) <= int(self.parameters['totalhits'])):
             url = self.generate_url(srsearch)
             xml = super(Wikidata_query, self).connect(url)
-            print ("Wikidata_query:%s from %d total %d") %(srsearch,int(self.parameters['sroffset']),int(self.parameters['totalhits']))
+            print ("Wikidata_query:%s from %d total %d") %(srsearch.encode('utf-8'),int(self.parameters['sroffset']),int(self.parameters['totalhits']))
             self.xml_process(xml)
         #except:
         #    print 'Parameter sroffeset or Parameter totalhits are missing.'
