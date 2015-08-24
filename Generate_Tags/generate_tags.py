@@ -33,20 +33,21 @@ class generate_tags(object):
         return self.db.fetchAllRows()
 
     #得到实体不同的意向
-    def get_dif_meanings_by_wikidata_query(self,word):
+    def get_dif_meanings_by_wikidata_query(self,word): 
         word_name = word[0]
         word_id = word[1]
         print word_name.encode('utf-8'),word_id
         wikiquery = WikiQuery()
-        wikiquery.run(word_name)
-        #print wikiquery.parameters['totalhits']
         ret = False
-        for i in wikiquery.result.itemlist:
-            parse_stack.append(i['title'])
-            self.parse_run.run()
-            ret = Save_Query().save_result(word_name,word_id,i['title'])
-            if(ret != True):
-                print "Save_Query word:%s wikidata_id:%s error." %(word_name,i['title'])
+        while(not wikiquery.is_complete()):
+            wikiquery.run(word_name)
+            #print wikiquery.parameters['totalhits']
+            for i in wikiquery.result.itemlist:
+                parse_stack.append(i['title'])
+                self.parse_run.run()
+                ret = Save_Query().save_result(word_name,word_id,i['title'])
+                if(ret != True):
+                    print "Save_Query word:%s wikidata_id:%s error." %(word_name,i['title'])
         if(ret == True):
             print "Save_Query word:%s successfully." %(word_name)
     #得到意向的可能的标签

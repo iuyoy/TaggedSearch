@@ -66,3 +66,5 @@ class Queryitemlist(object):
             self.itemlist.append(i.attrib)
     def setxml(self,xml):
         self.xml = xml
+    def clear(self):
+        itemlist = []

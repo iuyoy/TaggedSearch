@@ -35,14 +35,25 @@ class Wikidata_query(Wikidata_api):
     def __init__(self,srsearch = ''):
         if (srsearch != ''):
             self.set_srsearch(srsearch)
-    #封装的一系列操作
+    #检出一次结果
     def run(self,srsearch='apple'):
-        #try:
-        while (int(self.parameters['sroffset']) <= int(self.parameters['totalhits'])):
+        if(not self.is_complete()):
+            self.result.clear()
             url = self.generate_url(srsearch)
             xml = super(Wikidata_query, self).connect(url)
-            print ("Wikidata_query:%s from %d total %d") %(srsearch.encode('utf-8'),int(self.parameters['sroffset']),int(self.parameters['totalhits']))
             self.xml_process(xml)
+            print ("Wikidata_query:%s from %d total %d") %(srsearch.encode('utf-8'),int(self.parameters['sroffset']),int(self.parameters['totalhits']))
+            
+        
+     #将结果全部检出
+    def run_all(self,srsearch='apple'):
+        #try:
+        while (not self.is_complete()):
+            url = self.generate_url(srsearch)
+            xml = super(Wikidata_query, self).connect(url)
+            self.xml_process(xml)
+            print ("Wikidata_query:%s from %d total %d") %(srsearch.encode('utf-8'),int(self.parameters['sroffset']),int(self.parameters['totalhits']))
+            
         #except:
         #    print 'Parameter sroffeset or Parameter totalhits are missing.'
     #对获得的xml的处理
@@ -67,7 +78,9 @@ class Wikidata_query(Wikidata_api):
         if (sroffset != ''):
             self.set_sroffset(sroffset)
         return super(Wikidata_query, self).generate_url()
-        
+    
+    def is_complete(self):
+        return not int(self.parameters['sroffset']) <= int(self.parameters['totalhits'])
 
     #设置参数srsearch
     def set_srsearch(self,srsearch='apple'):
