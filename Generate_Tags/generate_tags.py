@@ -57,5 +57,5 @@ class generate_tags(object):
     
 if __name__ == '__main__':
     gt = generate_tags()
-    #gt.run()
-    Save_Query().save_result('gongsi',1,'q1195543')
+    gt.run()
+    
