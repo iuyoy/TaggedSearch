@@ -1,4 +1,4 @@
-#!/usr/bin/python
+ï»¿#!/usr/bin/python
 # -*- coding:utf-8 -*-
 #author:iuyyoy 
 import sys,os
@@ -10,24 +10,24 @@ from data_save import Data_save_by_db as DBSAVE
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-#Êı¾İ´¦Àí
+#æ•°æ®å¤„ç†
 class Get_specific_info(object):
-    #ÊµÌå¸ñÊ½{ÊµÌåÃû:[±êÇ©Ãû]}
+    #å®ä½“æ ¼å¼{å®ä½“å:[æ ‡ç­¾å]}
     entity_format = {'':['']}
-    #·ÖÎöÊ±µÄ¸ñÊ½{ÊµÌåÃû:{ÊôĞÔÃû:[ÒÉËÆ±êÇ©Ãû]}}
+    #åˆ†ææ—¶çš„æ ¼å¼{å®ä½“å:{å±æ€§å:[ç–‘ä¼¼æ ‡ç­¾å]}}
     #analyse_format = {'type':'','id':'','labels':[],'descriptions':[],'aliases':[]\
-     #   ,u'Ö÷·ÖÀà':[],u'¸¸Àà':[],u'ĞÔÖÊ':[],u'ÊôÓÚ':[]} 
+     #   ,u'ä¸»åˆ†ç±»':[],u'çˆ¶ç±»':[],u'æ€§è´¨':[],u'å±äº':[]} 
     analyse_format = {'type':'','id':'','labels':[],'descriptions':[],'aliases':[]\
         ,u'main_classification':[],'father_classification':[],'property':[],'belong_to':[]} 
     #labels = ['zh-hans','zh-cn','zh','en']
     #descriptions = ['zh-hans','zh-cn','zh']
     #aliases = ['zh-hans','zh-cn','zh']
-    #claims = {'p910':'Ö÷·ÖÀà','p279':'¸¸Àà','p31':'ĞÔÖÊ','p361':'ÊôÓÚ'}
+    #claims = {'p910':'ä¸»åˆ†ç±»','p279':'çˆ¶ç±»','p31':'æ€§è´¨','p361':'å±äº'}
     properties = ['mainsnak','datavalue','value',['entity-type','numeric-id']]
     keys = {'type':'','id':'','labels':['zh-hans','zh-cn','zh','en'],'descriptions':['zh-hans','zh-cn','zh'],'aliases':['zh-hans','zh-cn','zh'],'claims':{'p910':u'main_classification','p279':u'father_classification','p31':u'property','p361':u'belong_to'}}
     def __init__(self):
         super(Get_specific_info,self).__init__()
-    #ÌáÈ¡¿ÉÄÜµÄ±êÇ©,²¢ÇÒ±£´æµ½Êı¾İ¿âÖĞ
+    #æå–å¯èƒ½çš„æ ‡ç­¾,å¹¶ä¸”ä¿å­˜åˆ°æ•°æ®åº“ä¸­
     def run(self,wiki_dict):
         if type(wiki_dict) == dict:
             self.traverse_list(wiki_dict)
@@ -47,7 +47,7 @@ class Get_specific_info(object):
                             self.analyse_format[key].append(wiki_dict[key][sub_key]['value'].decode('raw_unicode_escape'))
                         elif(type(wiki_dict[key]) == list and wiki_dict[key]!=[]):
                             self.save_error(str(wiki_dict['id'])+":"+str(wiki_dict[key])+'\n')
-                elif(key == 'aliase'):
+                elif(key == 'aliases'):
                     for sub_key in self.keys[key]:
                         if (type(wiki_dict[key]) == dict and wiki_dict[key].has_key(sub_key)):
                             for sub_dict in wiki_dict[key][sub_key]:

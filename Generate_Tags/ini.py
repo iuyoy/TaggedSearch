@@ -3,7 +3,7 @@
 #author:iuyyoy 
 
 global dbinfo
-global wikidata_entities_table,wikidata_entity_properties_table
+global wikidata_entities_table,wikidata_entity_properties_table,wikidata_word_table
 global words_table,word_properties_table
 dbinfo={\
 'host' : '23.244.180.241'\
@@ -15,6 +15,7 @@ dbinfo={\
 }
 wikidata_entities_table = 'wikidata_entities'
 wikidata_entity_properties_table = 'wikidata_entity_properties'
+wikidata_word_table = 'wikidata_word'
 words_table = 'words'
 word_properties_table = 'word_properties'
 

@@ -3,11 +3,13 @@
 #author:iuyyoy 
 import sys,os
 
+sys.path.append('..')
 import urllib2
 import lxml.html
 
 import queryitem
 from wikidata_api import Wikidata_api
+from Scripts import db_op as DB
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -24,7 +26,7 @@ class Wikidata_query(Wikidata_api):
     ,'srnamespace':'0'\
     ,'sroffset':'0'\
     ,'totalhits':'0'\
-    ,'srlimit':'50'\
+    ,'srlimit':'max'\
     #,'srprop':'size|wordcount|timestamp|snippet'
     #srprop = 'size|wordcount|timestamp|snippet|titlesnippet|redirecttitle|redirectsnippet|sectiontitle|sectionsnippet|isfilematch|categorysnippet'
     ,'rawcontinue':''\
@@ -39,7 +41,7 @@ class Wikidata_query(Wikidata_api):
         while (int(self.parameters['sroffset']) <= int(self.parameters['totalhits'])):
             url = self.generate_url(srsearch)
             xml = super(Wikidata_query, self).connect(url)
-            print ("Wikidata_query:%s from %d to %d") %(srsearch,int(self.parameters['sroffset']),int(self.parameters['sroffset'])+int(self.parameters['srlimit']))
+            print ("Wikidata_query:%s from %d to %d total %d") %(srsearch,int(self.parameters['sroffset']),int(self.parameters['sroffset'])+int(self.parameters['srlimit']),int(self.parameters['totalhits']))
             self.xml_process(xml)
         #except:
         #    print 'Parameter sroffeset or Parameter totalhits are missing.'
@@ -65,6 +67,7 @@ class Wikidata_query(Wikidata_api):
         if (sroffset != ''):
             self.set_sroffset(sroffset)
         return super(Wikidata_query, self).generate_url()
+        
 
     #设置参数srsearch
     def set_srsearch(self,srsearch='apple'):

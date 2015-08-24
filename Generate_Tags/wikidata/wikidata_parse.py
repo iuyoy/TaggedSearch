@@ -64,12 +64,12 @@ class Wikidata_parse(Wikidata_api):
         super(Wikidata_parse, self).update_parameter('page',page)
     def __del__(self):
         return 
+
 #根据parse_stack来进行解析
 class Parse_stackly(object):
     db = DB(dbinfo = dbinfo)
     def __init__(self):
         super(Parse_stackly,self).__init__()
-        
     def run(self):
         print 'wikidata_parse',parse_stack
         while (parse_stack != []):
@@ -80,7 +80,7 @@ class Parse_stackly(object):
                 print 'current',parse_stack
             else:
                 print ("Entity %s has been parsed.") %(wikidata_id.upper())
-
+    #wikidata实体是否存入数据库
     def is_entity_in_db(self,wikidata_id):
         self.db.connect()
         wikidata_id = self.db.SQL_filter(wikidata_id)
@@ -96,5 +96,5 @@ class Parse_stackly(object):
         self.db.close()
 
 if __name__ == '__main__':
-    test = Wikidata_parse('Q89')
+    test = Wikidata_parse('Q2095')
     test.run()
