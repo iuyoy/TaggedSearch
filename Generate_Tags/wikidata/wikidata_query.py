@@ -26,7 +26,7 @@ class Wikidata_query(Wikidata_api):
     ,'srnamespace':'0'\
     ,'sroffset':'0'\
     ,'totalhits':'0'\
-    ,'srlimit':'max'\
+    ,'srlimit':'50'\
     #,'srprop':'size|wordcount|timestamp|snippet'
     #srprop = 'size|wordcount|timestamp|snippet|titlesnippet|redirecttitle|redirectsnippet|sectiontitle|sectionsnippet|isfilematch|categorysnippet'
     ,'rawcontinue':''\
