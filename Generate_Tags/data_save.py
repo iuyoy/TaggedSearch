@@ -81,9 +81,8 @@ class Wikidata_query_save_with_word_by_db(object):
         super(Wikidata_query_save_with_word_by_db,self).__init__()
         self.db.connect()
     def save_result(self,word_name,word_id,wikidata_id):
-        word_id = self.db.SQL_filter(word_id)
         wikidata_id = self.db.SQL_filter(wikidata_id)
-        sql = "INSERT INTO %s (word_id,wikidata_id) VALUES(%s,%s)" %(wikidata_word_table,word_id,wikidata_id)
+        sql = "INSERT INTO %s (word_id,wikidata_id) VALUES(%d,'%s')" %(wikidata_word_table,int(word_id),wikidata_id)
         ret = self.db.insert(sql)
         return ret
     

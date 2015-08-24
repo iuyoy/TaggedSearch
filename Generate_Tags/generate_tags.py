@@ -35,7 +35,7 @@ class generate_tags(object):
     def get_dif_meanings_by_wikidata_query(self,word):
         word_name = word[0]
         word_id = word[1]
-        print word_name,word_id
+        print word_name.encode('utf-8'),word_id
         wikiquery = WikiQuery()
         wikiquery.run(word_name)
         #print wikiquery.parameters['totalhits']
@@ -57,6 +57,5 @@ class generate_tags(object):
     
 if __name__ == '__main__':
     gt = generate_tags()
-    gt.run()
-   
-
+    #gt.run()
+    Save_Query().save_result('gongsi',1,'q1195543')
