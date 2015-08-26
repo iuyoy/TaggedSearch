@@ -26,6 +26,12 @@
     <Compile Include="data_processing.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="generate_tag.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="get_data.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ini.py">
       <SubType>Code</SubType>
     </Compile>
