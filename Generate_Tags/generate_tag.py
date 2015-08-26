@@ -23,18 +23,15 @@ class generate_tag(object):
         for i in range(times):
             word = self.get_word()
             if(word != False):
-                self.query_word(word)
+                self.query_and_save_word(word)
             else:
                 print ("Not any word.")
     #数据库中读取
     def get_word(self):
-        result = Get_word().run()
-        if(result != False):
-            return result
-        else:
-            print "No word"
+        return Get_word().run()
+        
     #查找词语的不同意向，并将关系存入数据库    
-    def query_word(self,word):
+    def query_and_save_word(self,word):
         (word_id,word_name) = word
         print ("WikiQuery:%s") %(word_name.encode('utf-8'))
         wikiquery = WikiQuery()
