@@ -56,7 +56,7 @@ class generate_tag(object):
     
 if __name__ == '__main__':
     gt = generate_tag()
-    if(len(sys.argv)>0):
+    if(len(sys.argv)>1):
         gt.get_save_words_item(int(sys.argv[1]))
     else:
         gt.get_save_words_item(1)
