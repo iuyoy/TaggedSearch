@@ -56,5 +56,5 @@ class generate_tag(object):
     
 if __name__ == '__main__':
     gt = generate_tag()
-    gt.get_save_words_item(1)
+    gt.get_save_words_item(999)
     
