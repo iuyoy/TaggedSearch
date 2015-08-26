@@ -32,8 +32,9 @@ class Get_word(object):
         LIMIT %d" %(words_table,word_properties_table,word_id,1)
         result = self.db.select(sql)
         if(result):
-            word_name = self.db.fetchOneRow()[0]
-            word_id = self.db.fetchOneRow()[1]
+            result = self.db.fetchOneRow()
+            word_name = result[0]
+            word_id = result[1]
             return (word_id,word_name)
         return False
 if __name__ == '__main__':
