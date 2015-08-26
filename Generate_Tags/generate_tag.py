@@ -36,7 +36,7 @@ class generate_tag(object):
     #查找词语的不同意向，并将关系存入数据库    
     def query_word(self,word):
         (word_id,word_name) = word
-        print ("WikiQuery:%s") %(word_name)
+        print ("WikiQuery:%s") %(word_name.encode('utf-8'))
         wikiquery = WikiQuery()
         item_list = wikiquery.run_all(word_name)
         save = Save_Query()
@@ -44,7 +44,7 @@ class generate_tag(object):
             ret = save.save_result(word_id,item['title'])
             if(not ret):
                 print ("Error:save word wikidata_item error")
-        print("Query %s successfully") %(word_name)
+        print("Query %s successfully") %(word_name.encode('utf-8'))
         return True
 
     #得到意向的可能的标签
