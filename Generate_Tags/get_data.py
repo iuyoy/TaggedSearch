@@ -28,7 +28,7 @@ class Get_word(object):
         return False
     #根据id得到word_name
     def get_word_name_by_id(self,word_id):
-        sql = "SELECT word_name FROM `%s` AS w,`%s` AS p  WHERE w.property = p.part_of_speech AND p.is_need = 1 AND w.id >= %d\
+        sql = "SELECT word_name FROM `%s` AS w,`%s` AS p  WHERE w.property = p.part_of_speech AND p.is_need = 1 AND w.word_id >= %d\
         LIMIT %d" %(words_table,word_properties_table,word_id,1)
         result = self.db.select(sql)
         if(result):
