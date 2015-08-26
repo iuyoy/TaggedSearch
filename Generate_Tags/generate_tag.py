@@ -19,13 +19,13 @@ class generate_tag(object):
         super(generate_tag,self).__init__()
         self.db.connect()
     #整合各部操作
-    def get_save_word_item(self):
-        word = self.get_word()
-        self.query_word(word)
     def get_save_words_item(self,times = 1):
         for i in range(times):
             word = self.get_word()
-            self.query_word(word)
+            if(word != False):
+                self.query_word(word)
+            else:
+                print ("Not any word.")
     #数据库中读取
     def get_word(self):
         result = Get_word().run()
@@ -56,5 +56,8 @@ class generate_tag(object):
     
 if __name__ == '__main__':
     gt = generate_tag()
-    gt.get_save_words_item(2)
+    if(len(sys.argv)>0):
+        gt.get_save_words_item(int(sys.argv[1]))
+    else:
+        gt.get_save_words_item(1)
     
