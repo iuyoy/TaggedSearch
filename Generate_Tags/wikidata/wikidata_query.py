@@ -47,6 +47,7 @@ class Wikidata_query(Wikidata_api):
      #将结果全部检出
     def run_all(self,srsearch='apple'):
         self.result.clear()
+        self.reset_parameters()
         while (not self.is_complete()):
             url = self.generate_url(srsearch)
             xml = super(Wikidata_query, self).connect(url)
@@ -91,7 +92,21 @@ class Wikidata_query(Wikidata_api):
     #设置参数totalhits
     def set_totalhits(self,totalhits):
         super(Wikidata_query, self).update_parameter('totalhits',totalhits)
-
+    def reset_parameters(self):
+       self.parameters = {\
+    'action':'query'\
+    ,'format':'xml'\
+    ,'uselang':'zh'\
+    ,'list':'search'\
+    ,'srsearch':'apple'\
+    ,'srnamespace':'0'\
+    ,'sroffset':'0'\
+    ,'totalhits':'0'\
+    ,'srlimit':'50'\
+    #,'srprop':'size|wordcount|timestamp|snippet'
+    #srprop = 'size|wordcount|timestamp|snippet|titlesnippet|redirecttitle|redirectsnippet|sectiontitle|sectionsnippet|isfilematch|categorysnippet'
+    ,'rawcontinue':''\
+    }
     def __del__(self):
         return 
 if __name__ == "__main__":
