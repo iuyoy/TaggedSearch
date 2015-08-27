@@ -40,11 +40,15 @@ class generate_tag(object):
         item_list = wikisearch.run(word_name)
         save = Save_Query()
         printout ("Save:%s is running. Total records:%d" %(word_name,len(item_list)))
-        for item in item_list:
-            ret = save.save_result(word_id,item['id'])
-            if(not ret):
-                printout ("Error:save word wikidata_item error")
-        printout("Query and save %s successfully" %(word_name))
+        if (item_list != []):
+            for item in item_list:
+                ret = save.save_result(word_id,item['id'])
+                if(not ret):
+                    printout ("Error:save word wikidata_item error")
+            printout("Search and save %s successfully. Total records:%d" %(word_name),len(item_list))
+        else:
+            ret = save.save_result(word_id,'',2)
+            printout("Search and save %s successfully, but there is not any search result." %(word_name))
         return True
 
     #得到意向的可能的标签
