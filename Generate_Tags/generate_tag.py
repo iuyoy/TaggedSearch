@@ -6,12 +6,14 @@ import sys,os
 sys.path.append('..')
 from ini import *
 from Scripts.db_op import Db_op as DB
-from wikidata.wikidata_query import Wikidata_query as WikiQuery
+from Scripts.code import print_whatever_code as printout
+from wikidata.wbsearchentities import Wbsearchentities as Wikisearch
 from wikidata.wikidata_parse import Wikidata_parse as WikiParse
 from wikidata.wikidata_parse import Parse_stackly as Parse_Stackly
 from wikidata.wikidata_parse import Wikidata_parse as WP
 from data_save import Wikidata_query_save_with_word_by_db as Save_Query
 from get_data import *
+
 class generate_tag(object):
     parse_run = Parse_Stackly()
     db = DB(dbinfo = dbinfo)
@@ -25,7 +27,7 @@ class generate_tag(object):
             if(word != False):
                 self.query_and_save_word(word)
             else:
-                print ("Not any word.")
+                printout ("Not any word.")
     #数据库中读取
     def get_word(self):
         return Get_word().run()
@@ -33,15 +35,16 @@ class generate_tag(object):
     #查找词语的不同意向，并将关系存入数据库    
     def query_and_save_word(self,word):
         (word_id,word_name) = word
-        print ("WikiQuery:%s") %(word_name.encode('utf-8'))
-        wikiquery = WikiQuery()
-        item_list = wikiquery.run_all(word_name)
+        printout ("WikiSearch:%s is running" %(word_name))
+        wikisearch = Wikisearch()
+        item_list = wikisearch.run(word_name)
         save = Save_Query()
+        printout ("Save:%s is running. Total records:%d" %(word_name,len(item_list)))
         for item in item_list:
-            ret = save.save_result(word_id,item['title'])
+            ret = save.save_result(word_id,item['id'])
             if(not ret):
-                print ("Error:save word wikidata_item error")
-        print("Query %s successfully") %(word_name.encode('utf-8'))
+                printout ("Error:save word wikidata_item error")
+        printout("Query and save %s successfully" %(word_name))
         return True
 
     #得到意向的可能的标签

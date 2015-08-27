@@ -48,6 +48,9 @@
     <Compile Include="test.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="wikidata\wbsearchentities.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="wikidata\wikidata_api.py">
       <SubType>Code</SubType>
     </Compile>

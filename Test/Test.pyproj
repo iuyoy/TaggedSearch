@@ -29,6 +29,9 @@
     <Compile Include="Globalc.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="orin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="sql.py">
       <SubType>Code</SubType>
     </Compile>

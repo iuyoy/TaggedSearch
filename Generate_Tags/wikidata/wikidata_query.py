@@ -44,14 +44,16 @@ class Wikidata_query(Wikidata_api):
             self.xml_process(xml)
             print ("        end with %d total %d") %(int(self.parameters['sroffset'])-1,int(self.parameters['totalhits']))
             
-     #将结果全部检出
-    def run_all(self,srsearch='apple'):
+     #将结果全部检出, 当数据过大时，返回'big'
+    def run_all(self,srsearch='apple',big_return = 0):
         self.result.clear()
         self.reset_parameters()
         while (not self.is_complete()):
             url = self.generate_url(srsearch)
             xml = super(Wikidata_query, self).connect(url)
             self.xml_process(xml)
+            if(big_return != 0 and int(self.parameters['totalhits'])>big_return):
+                return 'big'
             if(int(self.parameters['totalhits']) > 0):
                 print ("        end with %d total %d") %(int(self.parameters['sroffset'])-1,int(self.parameters['totalhits']))
             else:

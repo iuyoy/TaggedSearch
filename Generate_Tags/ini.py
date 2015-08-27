@@ -6,7 +6,7 @@ global dbinfo
 global wikidata_entities_table,wikidata_entity_properties_table,wikidata_word_table
 global words_table,word_properties_table
 dbinfo={\
-'host' : '23.244.180.241'\
+'host' : '104.251.227.241'\
 ,'user' : 'search'\
 ,'passwd' : 'search&Tagged'\
 ,'db' : 'search'\
