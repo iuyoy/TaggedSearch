@@ -28,6 +28,9 @@
     <Compile Include="db_op.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="global_ini.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ini_op.py" />
     <Compile Include="__init__.py">
       <SubType>Code</SubType>

@@ -7,6 +7,7 @@ import lxml.html
 
 sys.path.append('..')
 from Scripts.db_op import Db_op as DB
+from Scripts.code import print_whatever_code as printout
 from wikidata_api import Wikidata_api
 from ini import *
 from data_processing import *
@@ -32,18 +33,13 @@ class Wikidata_parse(Wikidata_api):
             self.set_para_page(page)
     #根据page获取item内容并提取需要的信息存入数据库
     def run(self,page = ''):
-        #try:
         url = self.generate_url(page)
         xml = super(Wikidata_parse, self).connect(url)
-        print ("Wikidata_Parse:%s") %(self.parameters['page'])
         data_process = Get_specific_info()
         wiki_dict = self.xml_process(xml)
         ret = data_process.run(wiki_dict)
         return ret
-        #except:
-            #print ('Parameter page is missing.\n')
-            #return False
-    #对获得的xml的处理，返回dict类型
+        
     def xml_process(self,xml=''):
         #try:
         doc = lxml.etree.HTML(xml.lower().decode('utf-8'))
@@ -65,21 +61,22 @@ class Wikidata_parse(Wikidata_api):
     def __del__(self):
         return 
 
-#根据parse_stack来进行解析
-class Parse_stackly(object):
+#根据parse_queue来进行解析
+class Parse_Orderly(object):
     db = DB(dbinfo = dbinfo)
     def __init__(self):
-        super(Parse_stackly,self).__init__()
+        super(Parse_Orderly,self).__init__()
     def run(self):
-        print 'wikidata_parse',parse_stack
-        while (parse_stack != []):
-            wikidata_id = parse_stack.pop()
+        while (not parse_queue.empty()):
+            wikidata_id = parse_queue.get()
             if (not self.is_entity_in_db(wikidata_id)):
+                printout("  Sub Wikidata_parse:%s is running." %(wikidata_id)) 
                 WP = Wikidata_parse(wikidata_id)
                 ret = WP.run()
-                print 'current',parse_stack
             else:
-                print ("Entity %s has been parsed.") %(wikidata_id.upper())
+                printout("  Wikidata_entity:%s has been inserted into db." %(wikidata_id)) 
+                ret = True
+        return True
     #wikidata实体是否存入数据库
     def is_entity_in_db(self,wikidata_id):
         self.db.connect()
@@ -89,12 +86,12 @@ class Parse_stackly(object):
         is_ok = 0
         if (result == True):
             is_ok = self.db.fetchOneRow()[0]
+        self.db.close()
         #print sql,is_ok,result
         if (is_ok != 1):
             return False
         return True
-        self.db.close()
-
+        
 if __name__ == '__main__':
     test = Wikidata_parse('Q2095')
     test.run()

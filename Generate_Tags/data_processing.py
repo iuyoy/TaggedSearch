@@ -5,6 +5,7 @@ import sys,os
 import re
 
 from ini import *
+from Scripts.code import print_whatever_code as printout
 from data_save import Data_save_by_file
 from data_save import Data_save_by_db as DBSAVE
 
@@ -33,7 +34,7 @@ class Get_specific_info(object):
             self.traverse_list(wiki_dict)
             return self.save_entity()
         else:
-            print ('No wiki_data(dict)')
+            printout ('No wiki_data(dict)',2)
             return False
     def traverse_list(self,wiki_dict):
         self.reset_analyse_format()
@@ -64,8 +65,7 @@ class Get_specific_info(object):
                                     entity_type = sub_dict['mainsnak']['datavalue']['value']['entity-type']
                                     if (entity_type == 'item'):
                                         value = 'q'+str(sub_dict['mainsnak']['datavalue']['value']['numeric-id'])
-                                        if (value not in parse_stack):
-                                            parse_stack.append(value)
+                                        parse_queue.put(value)
                                     else:
                                         value = sub_dict['mainsnak']['datavalue']['value']['numeric-id']
                                     if(value not in self.analyse_format[self.keys[key][sub_key]]):

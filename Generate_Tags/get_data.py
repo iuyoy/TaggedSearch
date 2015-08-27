@@ -37,6 +37,25 @@ class Get_word(object):
             word_id = result[1]
             return (word_id,word_name)
         return False
+
+class Get_wikidata_entity(Get_word):
+    def __init__(self):
+        super(Get_wikidata_entity,self).__init__()
+    def run(self,limit = 1):
+        return self.get_from_db(limit)
+    def get_from_db(self,limit = 1):
+        sql = "SELECT wikidata_id FROM %s WHERE is_ok = %d LIMIT %d" %(wikidata_word_table,0,int(limit))
+        print sql
+        result = self.db.select(sql)
+        if(result):
+            if(limit == 1):
+                wikidata_id = self.db.fetchOneRow()[0]
+                return wikidata_id
+            else:
+                wikidata_id_lists = self.db.fetchAllRows()
+                return wikidata_id_lists
+        return []
+    
 if __name__ == '__main__':
-    ge = Get_word()
+    ge = Get_wikidata_entity()
     ge.run()
