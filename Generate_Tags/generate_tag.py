@@ -45,7 +45,7 @@ class generate_tag(object):
                 ret = save.save_result(word_id,item['id'])
                 if(not ret):
                     printout ("Error:save word wikidata_item error")
-            printout("Search and save %s successfully. Total records:%d" %(word_name),len(item_list))
+            printout("Search and save %s successfully. Total records:%d" %(word_name,len(item_list)))
         else:
             ret = save.save_result(word_id,'',2)
             printout("Search and save %s successfully, but there is not any search result." %(word_name))
