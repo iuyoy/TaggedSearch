@@ -51,7 +51,7 @@ class Wikidata_parse(Wikidata_api):
         else:
             try:
                 return self.parameters['page']
-            else:
+            except:
                 return []
         #except:
             #print ('Translate wikitext to python_dict error.\n')
