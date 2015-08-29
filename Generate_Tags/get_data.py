@@ -45,7 +45,6 @@ class Get_wikidata_entity(Get_word):
         return self.get_from_db(limit)
     def get_from_db(self,limit = 1):
         sql = "SELECT wikidata_id FROM %s WHERE is_ok = %d LIMIT %d" %(wikidata_word_table,0,int(limit))
-        print sql
         result = self.db.select(sql)
         if(result):
             if(limit == 1):

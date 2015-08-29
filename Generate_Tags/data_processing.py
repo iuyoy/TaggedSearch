@@ -33,10 +33,11 @@ class Get_specific_info(object):
         if type(wiki_dict) == dict:
             self.traverse_list(wiki_dict)
             return self.save_entity()
-        elif type(wiki_dict) == str:
-            return self.save_deleted_entity()
+        elif (wiki_dict != []):
+            printout ('wiki_data:%s has been deleted.' %(wiki_dict),2)
+            return self.save_deleted_entity(wiki_dict)
         else:
-            printout ('No wiki_data(dict) or it has been deleted.',2)
+            printout ('No wiki_data(dict).',2)
             return False
     def traverse_list(self,wiki_dict):
         self.reset_analyse_format()
