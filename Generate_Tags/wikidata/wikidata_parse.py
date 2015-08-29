@@ -44,9 +44,12 @@ class Wikidata_parse(Wikidata_api):
         #try:
         doc = lxml.etree.HTML(xml.lower().decode('utf-8'))
         wikitext = doc.xpath('//wikitext/text()')
-        wikitext[0] = wikitext[0].replace(":null,",":'',")
-        wiki_dict = eval(wikitext[0])
-        return wiki_dict
+        if(len(wikitext)>0):
+            wikitext[0] = wikitext[0].replace(":null,",":'',")
+            wiki_dict = eval(wikitext[0])
+            return wiki_dict
+        else:
+            return []
         #except:
             #print ('Translate wikitext to python_dict error.\n')
             #return []
