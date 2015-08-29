@@ -68,7 +68,12 @@ class Data_save_by_db(object):
             return True
         else:
             return False
-
+    def save_deleted_item(self,wikidata_id):
+        try:
+            sql_entity = "UPDATE `%s` SET is_ok = 3 WHERE wikidata_id = '%s'" %(wikidata_word_table,wikidata_id)
+            self.db.update(sql_entity)
+        except Exception,e:
+            record_error(str(e))
     
 class Wikidata_query_save_with_word_by_db(object):
     db = DB(dbinfo = dbinfo)

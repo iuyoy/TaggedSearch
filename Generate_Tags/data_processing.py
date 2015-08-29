@@ -33,8 +33,10 @@ class Get_specific_info(object):
         if type(wiki_dict) == dict:
             self.traverse_list(wiki_dict)
             return self.save_entity()
+        elif type(wiki_dict) == str:
+            return self.save_deleted_entity()
         else:
-            printout ('No wiki_data(dict)',2)
+            printout ('No wiki_data(dict) or it has been deleted.',2)
             return False
     def traverse_list(self,wiki_dict):
         self.reset_analyse_format()
@@ -77,7 +79,9 @@ class Get_specific_info(object):
     def save_entity(self):
         save = DBSAVE()
         return save.save_entity(self.analyse_format)
-
+    def save_deleted_entity(self,wikidata_id):
+        save = DBSAVE()
+        return save.save_deleted_item(wikidata_id)
     def save_error(self,error_info):
         fp = open('error_log.txt','a')
         fp.write(error_info)

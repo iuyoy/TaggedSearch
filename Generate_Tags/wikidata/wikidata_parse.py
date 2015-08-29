@@ -49,7 +49,10 @@ class Wikidata_parse(Wikidata_api):
             wiki_dict = eval(wikitext[0])
             return wiki_dict
         else:
-            return []
+            try:
+                return self.parameters['page']
+            else:
+                return []
         #except:
             #print ('Translate wikitext to python_dict error.\n')
             #return []
@@ -80,7 +83,7 @@ class Parse_Orderly(object):
                 printout("  Wikidata_entity:%s has been inserted into db." %(wikidata_id)) 
                 ret = True
         return True
-    #wikidata实体是否存入数据库
+    #wikidata实体是否已存入数据库
     def is_entity_in_db(self,wikidata_id):
         self.db.connect()
         wikidata_id = self.db.SQL_filter(wikidata_id)
