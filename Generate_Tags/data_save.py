@@ -70,6 +70,7 @@ class Data_save_by_db(object):
             return False
     def save_deleted_item(self,wikidata_id):
         try:
+            wikidata_id = self.db.SQL_filter(wikidata_id)
             sql_entity = "UPDATE `%s` SET is_ok = 3 WHERE wikidata_id = '%s'" %(wikidata_word_table,wikidata_id)
             self.db.update(sql_entity)
         except Exception,e:

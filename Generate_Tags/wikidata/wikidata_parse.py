@@ -10,6 +10,7 @@ from Scripts.db_op import Db_op as DB
 from Scripts.code import print_whatever_code as printout
 from wikidata_api import Wikidata_api
 from ini import *
+from Scripts.code import record_error
 from data_processing import *
 
 #Wikidata_parse:解析一个页面,其实就是得到具体item的内容
@@ -81,6 +82,7 @@ class Parse_Orderly(object):
                 ret = WP.run()
             else:
                 printout("  Wikidata_entity:%s has been inserted into db." %(wikidata_id)) 
+                self.save_inserted_item(wikidata_id)
                 ret = True
         return True
     #wikidata实体是否已存入数据库
@@ -97,7 +99,15 @@ class Parse_Orderly(object):
         if (is_ok != 1):
             return False
         return True
-        
+    def save_inserted_item(self,wikidata_id):
+        try:
+            self.db.connect()
+            wikidata_id = self.db.SQL_filter(wikidata_id)
+            sql = "UPDATE `%s` SET is_ok = 1 WHERE wikidata_id = '%s'" %(wikidata_word_table,wikidata_id)
+            self.db.update(sql)
+        except Exception,e:
+            record_error(str(e))
+            
 if __name__ == '__main__':
     test = Wikidata_parse('Q2095')
     test.run()
