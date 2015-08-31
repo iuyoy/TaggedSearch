@@ -50,7 +50,7 @@ class Word_entity(object):
 class get_entity_tags(object):
     def __init__(self):
         super(get_entity_tags,self).__init__()
-    def run(self,times = 1):
+    def run(self,times = 2):
         for i in range(times):
             wikidata_id = self.get_wiki_entity()
             if (wikidata_id != []):
@@ -74,14 +74,25 @@ class get_entity_tags(object):
 class build_tag_library(object):
     def __init__(self):
         super(build_tag_library,self).__init__()
+    def run(self,times = 1):
+        word = self.get_word()
+        self.judge(word)
     #建立实体与意向的标签
     def build_ralations(self):
         return
-    
+    def get_word(self):
+        gwft = Get_word_for_tag()
+        word_mean = gwft.run()
+        self.get_meaning_tags(word_mean)
+    def judge(self,word_mean):
+        return
+    def get_meaning_tags(self,meaning):
+        return
 if __name__ == '__main__':
     usage =u"""Generate_Tag usage:
         --word-item(-wi) [num]:执行num次wbsearchentities,否则1次
         --entity-tags(-et) [num]:执行num次get_entity_tags,否则1次
+        --build-tags(-bt) [num]:执行num次build_tag_library,否则1次
         """
     if(len(sys.argv)>1):
         if(sys.argv[1] == '--word-item' or sys.argv[1] == '-wi'):
@@ -96,6 +107,12 @@ if __name__ == '__main__':
                 et.run(int(sys.argv[2]))
             except:
                 et.run(1)
+        elif(sys.argv[1] == '--build-tags' or sys.argv[1] == '-bt'):
+            bt = build_tag_library()
+            try:
+                bt.run(int(sys.argv[2]))
+            except:
+                bt.run(1)
         else:
             printout(usage,9)
     else:

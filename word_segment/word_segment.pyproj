@@ -26,7 +26,10 @@
     <Compile Include="insert_words.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="word_segment.py" />
+    <Compile Include="word_segment.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="word_segment_test.py" />
     <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>

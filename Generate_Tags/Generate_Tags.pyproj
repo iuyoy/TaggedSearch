@@ -6,8 +6,7 @@
     <ProjectGuid>675beafa-680b-4791-9cdc-799c911914e5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>generate_tag.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,12 +32,10 @@
     <Compile Include="get_data.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ini.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="data_save.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ini.py" />
     <Compile Include="wikidata\queryitem.py">
       <SubType>Code</SubType>
     </Compile>
