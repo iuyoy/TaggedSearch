@@ -36,7 +36,7 @@ class Wikidata_parse(Wikidata_api):
     def run(self,page = ''):
         url = self.generate_url(page)
         xml = super(Wikidata_parse, self).connect(url)
-        data_process = Get_specific_info()
+        data_process = Get_wikdiata_entity_properties()
         wiki_dict = self.xml_process(xml)
         ret = data_process.run(wiki_dict)
         return ret
@@ -74,6 +74,7 @@ class Parse_Orderly(object):
     def __init__(self):
         super(Parse_Orderly,self).__init__()
     def run(self):
+        ret = True
         while (not parse_queue.empty()):
             wikidata_id = parse_queue.get()
             if (not self.is_entity_in_db(wikidata_id)):
@@ -84,19 +85,19 @@ class Parse_Orderly(object):
                 printout("  Wikidata_entity:%s has been inserted into db." %(wikidata_id)) 
                 self.save_inserted_item(wikidata_id)
                 ret = True
-        return True
+        return ret
     #wikidata实体是否已存入数据库
     def is_entity_in_db(self,wikidata_id):
         self.db.connect()
         wikidata_id = self.db.SQL_filter(wikidata_id)
-        sql = "SELECT is_ok FROM `%s` WHERE wikidata_id = '%s'" %(wikidata_entities_table,wikidata_id)
+        sql = "SELECT sign FROM `%s` WHERE wikidata_id = '%s'" %(wikidata_entities_table,wikidata_id)
         result = self.db.select(sql)
-        is_ok = 0
+        sign = 0
         if (result == True):
-            is_ok = self.db.fetchOneRow()[0]
+            sign = self.db.fetchOneRow()[0]
         self.db.close()
-        #print sql,is_ok,result
-        if (is_ok != 1):
+        #print sql,sign,result
+        if (sign != 1):
             return False
         return True
     def save_inserted_item(self,wikidata_id):

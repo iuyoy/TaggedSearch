@@ -47,30 +47,40 @@ class Word_entity(object):
         return True
 
 #获取wikidata_entity的可以作为标签的属性
-class get_entity_tags(object):
+class Get_entity_tag(object):
     def __init__(self):
-        super(get_entity_tags,self).__init__()
-    def run(self,times = 2):
-        for i in range(times):
+        super(Get_entity_tag,self).__init__()
+    #times=0则一直运行直到结束
+    def run(self,times = 1):
+        is_over = False
+        if(times <= 0):
+            times = -1
+            printout(u'预计还有 条需要检索',3)
+        else:
+            printout(u'预计还有%d条需要检索' %(times),3)
+        while((not is_over) and (times != 0)):
             wikidata_id = self.get_wiki_entity()
+            if (times > 0):
+                    times -= 1
             if (wikidata_id != []):
                 parse_queue.put(wikidata_id)
                 printout("Main Wikidata_parse:%s is running." %(wikidata_id)) 
                 ret = self.get_tags_by_wikidata_parse()
                 if(ret):
-                    printout("Main Wikidata_parse and save:%s successfully." %(wikidata_id)) 
-
+                    printout("Main Wikidata_parse and save:%s successfully." %(wikidata_id))
             else:
+                is_over = True
                 printout("Not any wikidata_entity.")
                 return True
+        if (times == 0):
+            return True
+        return False
     def get_wiki_entity(self):
         return Get_wikidata_entity().run(1)
     #得到意向的可能的标签
     def get_tags_by_wikidata_parse(self):
         wp = Wiki_parse()
-        wp.run()
-
-
+        return wp.run()
 class build_tag_library(object):
     def __init__(self):
         super(build_tag_library,self).__init__()
@@ -101,8 +111,8 @@ if __name__ == '__main__':
                 gt.get_save_words_item(int(sys.argv[2]))
             except:
                 gt.get_save_words_item(1)
-        elif(sys.argv[1] == '--entity-tags' or sys.argv[1] == '-et'):
-            et = get_entity_tags()
+        elif(sys.argv[1] == '--entity-tag' or sys.argv[1] == '-et'):
+            et = Get_entity_tag()
             try:
                 et.run(int(sys.argv[2]))
             except:

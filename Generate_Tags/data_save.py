@@ -22,11 +22,15 @@ class Data_save_by_db(object):
         super(Data_save_by_db,self).__init__()
         self.db.connect()
     def save_entity(self,entity):
+        '''entity格式
+        analyse_format = {'type':'','id':'','labels_zh-hans':'','labels_zh-cn':'','labels_zh':'','labels_en':'','descriptions_zh-hans':'','descriptions_zh-cn':'','descriptions_zh':'','aliases':[]\
+        ,u'main_classification':[],'father_classification':[],'property':[],'belong_to':[]} 
+        '''
         if(entity.has_key('id')):
             wikidata_id = self.db.SQL_filter(entity.pop('id'))
             wikidata_type = self.db.SQL_filter(entity.pop('type'))
             #保存wikidata_entity的项
-            sql_entity = "INSERT INTO `%s`(`wikidata_id`,`type`,`is_ok`) VALUES('%s','%s',%d)" %(wikidata_entities_table,wikidata_id,wikidata_type,1)
+            sql_entity = "INSERT INTO `%s`(`wikidata_id`,`type`,`sign`) VALUES('%s','%s',%d)" %(wikidata_entities_table,wikidata_id,wikidata_type,1)
             ret = self.db.insert(sql_entity)
             #保存entity对应的属性
             if (ret):
@@ -55,8 +59,9 @@ class Data_save_by_db(object):
             ret = True
             for value in values:
                 ret = self.save_entity_property2(sql_part_1,sql_part_2,sql_part_3,sql_part_4,sql_part_5,value)
-        elif(values_type == str):
-            ret = self.save_entity_property2(sql_part_1,sql_part_2,sql_part_3,sql_part_4,sql_part_5,values)  
+        elif(values_type == str or values_type == unicode):
+            if (values != ''):
+                ret = self.save_entity_property2(sql_part_1,sql_part_2,sql_part_3,sql_part_4,sql_part_5,values)  
         return ret   
     #保存实体属性时 确保property_name和value的一对一对应的value部分         
     def save_entity_property2(self,sql_part_1,sql_part_2,sql_part_3,sql_part_4,sql_part_5,value):
@@ -81,14 +86,14 @@ class Wikidata_query_save_with_word_by_db(object):
     def __init__(self):
         super(Wikidata_query_save_with_word_by_db,self).__init__()
         self.db.connect()
-    def save_result(self,word_id,wikidata_id,is_ok = 0):
+    def save_result(self,word_id,wikidata_id,sign = 0):
         wikidata_id = self.db.SQL_filter(wikidata_id)
         sql = "SELECT EXISTS(SELECT * FROM %s WHERE word_id = %d AND wikidata_id = '%s')" %(wikidata_word_table,int(word_id),wikidata_id)
         ret = self.db.select(sql)
         if (ret):
             is_exist = self.db.fetchOneRow()[0]
             if (not is_exist):
-                sql = "INSERT INTO %s (word_id,wikidata_id,is_ok) VALUES(%d,'%s',%d)" %(wikidata_word_table,int(word_id),wikidata_id,int(is_ok))
+                sql = "INSERT INTO %s (word_id,wikidata_id,sign) VALUES(%d,'%s',%d)" %(wikidata_word_table,int(word_id),wikidata_id,int(sign))
                 ret = self.db.insert(sql)
             else:
                 return True

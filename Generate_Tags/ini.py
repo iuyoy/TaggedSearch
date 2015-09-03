@@ -15,8 +15,10 @@ dbinfo={\
 ,'port' : 3306\
 ,'charset' : 'utf8'\
 }
-wikidata_entities_table = 'wikidata_entities'
-wikidata_entity_properties_table = 'wikidata_entity_properties'
+#wikidata_entities_table = 'wikidata_entities'
+#wikidata_entity_properties_table = 'wikidata_entity_properties'
+wikidata_entities_table = 'wikidata_entities_new'
+wikidata_entity_properties_table = 'wikidata_entity_properties_new'
 wikidata_word_table = 'wikidata_word'
 words_table = 'words'
 word_properties_table = 'word_properties'
