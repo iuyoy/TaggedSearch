@@ -39,7 +39,6 @@ class Wikidata_parse(Wikidata_api):
         data_process = Get_wikdiata_entity_properties()
         wiki_dict = self.xml_process(xml)
         ret = data_process.run(wiki_dict)
-        print wiki_dict
         if (ret == False and 'redirect' in wiki_dict):
             self.redirect(wiki_dict['entity'])
             ret = True 
