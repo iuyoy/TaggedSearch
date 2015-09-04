@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Spiders", "Spiders.pyproj", "{84003A28-684E-4028-82CD-5C232FB59937}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Word_Segment", "..\Word_Segment\Word_Segment.pyproj", "{6B47047C-EDC8-4146-B9F9-4C39487F6D21}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Test", "..\Test\Test.pyproj", "{62916552-F098-4B7C-9E2A-C9C839220DE5}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Demo", "..\Demo\Demo.pyproj", "{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,9 @@ Global
 		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
 		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
+		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

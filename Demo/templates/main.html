@@ -1,0 +1,85 @@
+﻿$def with (search)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tagged Search Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="static/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <link href="static/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>-->
+    <!--font-->
+    <link href='static/css/font.css' rel='stylesheet' type='text/css'>
+    <!-- dropdown -->
+    <script src="static/js/jquery.easydropdown.js"></script>
+    <script src="static/js/modernizr.custom.js"></script>
+    <!-- jQuery (Bootstrap's JavaScript plugins) -->
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <!--<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>-->
+</head>
+
+<body>
+    <div class="searchbox">
+        <div class="container">
+            <h3 class="tittle two">Tagged Search Demo</h3>
+            <ul class="f-icons">
+                <li>
+                    <a href="?action=tags">
+                        <i class="tags"></i>
+                        <h5>显示标签</h5>
+                    </a>
+                </li>
+                <li>
+                    <a href="?action=insite">
+                        <i class="twitter"></i>
+                        <h5>站内搜索</h5>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="#"</a>
+                    <h4>twitter</h4>
+                </li>
+                <li>
+                    <a href="#" class="gg"></a>
+                    <h4>gg</h4>
+                </li>
+                <li>
+                    <a href="#" class="p"></a>
+                    <h4>p</h4>
+                </li>
+                <li>
+                    <a href="#" class="ins"></a>
+                    <h4>ins</h4>
+                </li>-->
+            </ul>
+            <lable class="two"> </lable>
+            <div class="searchbox">
+
+                <div class="clearfix"></div>
+                <div class="support">
+                <form action="">
+                    $if not search.action:
+                        <input type="hidden" name="action" class="text" value="tags">
+                    $else:
+                        <input type="hidden" name="action" class="text" value="$search.action">
+                    $if not search.word:
+                        <input type="text" name="word" class="text" value="Search what your want..." onfocus="this.value = '';" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
+                    $else:
+                        <input type="text" name="word" class="text" value="$search.word" onfocus="this.value = '';" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
+                    <input type="submit" value="Search" class="botton" onclick="$('form').submit( )">
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("").ready(function () {
+            $().click(function () {
+                $('#forms').submit();
+            });
+        });
+    </script>
+
+</body>
+</html>
