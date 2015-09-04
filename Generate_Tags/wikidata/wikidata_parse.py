@@ -39,6 +39,10 @@ class Wikidata_parse(Wikidata_api):
         data_process = Get_wikdiata_entity_properties()
         wiki_dict = self.xml_process(xml)
         ret = data_process.run(wiki_dict)
+        print wiki_dict
+        if (ret == False and 'redirect' in wiki_dict):
+            self.redirect(wiki_dict['entity'])
+            ret = True 
         return ret
         
     def xml_process(self,xml=''):
@@ -65,6 +69,16 @@ class Wikidata_parse(Wikidata_api):
     #设置参数page
     def set_para_page(self,page = 'q468777'):
         super(Wikidata_parse, self).update_parameter('page',page)
+    def redirect(self,wikidata_id):
+        try:
+            db = DB(dbinfo = dbinfo)
+            db.connect()
+            wikidata_id = db.SQL_filter(wikidata_id)
+            sql_entity = "UPDATE `%s` SET is_ok = 4 WHERE wikidata_id = '%s'" %(wikidata_word_table,wikidata_id)
+            db.update(sql_entity)
+            printout("redirect wikidata_id:%s" %(wikidata_id))
+        except Exception,e:
+            record_error(str(e))
     def __del__(self):
         return 
 
