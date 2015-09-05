@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4d71e024-b03e-4d74-9ab8-57ffc7a2f4a9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Demo.py</StartupFile>
+    <StartupFile>Tsearch.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -26,13 +26,22 @@
     <Compile Include="Demo2.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="search.py">
+    <Compile Include="ini.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="search\process_data.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tsearch.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="search\get_data.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="search\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

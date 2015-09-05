@@ -27,6 +27,12 @@
                 <li>
                     <a href="?action=tags">
                         <i class="tags"></i>
+                        <h5></h5>
+                    </a>
+                </li>
+                <li>
+                    <a href="?action=tags">
+                        <i class="tags"></i>
                         <h5>显示标签</h5>
                     </a>
                 </li>
@@ -64,22 +70,18 @@
                     $else:
                         <input type="hidden" name="action" class="text" value="$search.action">
                     $if not search.word:
-                        <input type="text" name="word" class="text" value="Search what your want..." onfocus="this.value = '';" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
+                        <input type="text" name="word" class="text" value="Search what your want..." onfocus="if (this.value == 'Search what your want...') { this.value = '' };" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
                     $else:
-                        <input type="text" name="word" class="text" value="$search.word" onfocus="this.value = '';" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
+                        <input type="text" name="word" class="text" value="$search.word" onfocus="if (this.value == 'Search what your want...') { this.value = ''  };" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
                     <input type="submit" value="Search" class="botton" onclick="$('form').submit( )">
                 </form>
                 </div>
             </div>
+            $if 'tags' in search and search['tags']!=None:
+                $for i in search['tags']:
+                    $i[0] $i[1] $i[2]<br>
         </div>
     </div>
-    <script>
-        $("").ready(function () {
-            $().click(function () {
-                $('#forms').submit();
-            });
-        });
-    </script>
 
 </body>
 </html>

@@ -71,6 +71,12 @@ class Db_op(object):
     #返回结果列表
     def fetchAllRows(self):
         return self.cur.fetchall()
+    #返回结果列表，并将嵌套的list变成一个list，用于只有一列的情况
+    def fetchAllRowsOneList(self):
+        result = []
+        for line in self.cur.fetchall():
+            result.append(line[0])
+        return result
     #返回一行结果，然后游标指向下一行。到达最后一行以后，返回None
     def fetchOneRow(self):
         return self.cur.fetchone()
