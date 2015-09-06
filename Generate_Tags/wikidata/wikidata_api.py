@@ -16,7 +16,7 @@ class Wikidata_api(object):
         if url == '':
             url = self.url
         #print url
-        request = urllib2.Request(url)
+        request = urllib2.request(url)
         response = urllib2.urlopen(url)
         html = response.read()
         return html

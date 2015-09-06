@@ -1,4 +1,4 @@
-﻿$def with (search)
+﻿$def with (para)
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,68 +20,109 @@
 </head>
 
 <body>
-    <div class="searchbox">
-        <div class="container">
-            <h3 class="tittle two">Tagged Search Demo</h3>
-            <ul class="f-icons">
-                <li>
-                    <a href="?action=tags">
-                        <i class="tags"></i>
-                        <h5></h5>
-                    </a>
+    <!--web title start-->
+    $if para.word == None or para.word == '' : 
+        <div class="title">
+            <h3 class="title">Tagged Search Demo</h3>
+        </div>
+    $else:
+        <div class="smalltitle">
+            <h3 class="title two">Tagged Search Demo2</h3>
+        </div>
+    <!--web title end-->
+    <!--web body start-->
+    <div class="body container">
+        <!--function_option start-->
+        <div class="function_option">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="$para['function_option']['insite']">
+                    <a href="#insite" id="insite-tab" role="tab" data-toggle="tab" aria-controls="insite" aria-expanded="true">站内搜索</a>
                 </li>
-                <li>
-                    <a href="?action=tags">
-                        <i class="tags"></i>
-                        <h5>显示标签</h5>
-                    </a>
+                <li role="presentation" class="$para['function_option']['tags']">
+                    <a href="#tags" id="profile-tab" role="tab" data-toggle="tab" aria-controls="tags" aria-expanded="false">显示标签</a>
                 </li>
-                <li>
-                    <a href="?action=insite">
-                        <i class="twitter"></i>
-                        <h5>站内搜索</h5>
-                    </a>
+                <li role="presentation" class="$para['function_option']['dbinfo']">
+                    <a href="#dbinfo" id="dbinfo-tab" role="tab" data-toggle="tab" aria-controls="dbinfo" aria-expanded="true">数据库情况</a>
                 </li>
-                <!--<li>
-                    <a href="#"</a>
-                    <h4>twitter</h4>
-                </li>
-                <li>
-                    <a href="#" class="gg"></a>
-                    <h4>gg</h4>
-                </li>
-                <li>
-                    <a href="#" class="p"></a>
-                    <h4>p</h4>
-                </li>
-                <li>
-                    <a href="#" class="ins"></a>
-                    <h4>ins</h4>
+                <!--<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">选项 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#option1" role="checkbox" data-toggle="checkbox">@fat</a></li>
+                        <li><a href="#option2" role="checkbox" data-toggle="checkbox">@mdo</a></li>
+                    </ul>
                 </li>-->
             </ul>
-            <lable class="two"> </lable>
-            <div class="searchbox">
-
-                <div class="clearfix"></div>
-                <div class="support">
-                <form action="">
-                    $if not search.action:
-                        <input type="hidden" name="action" class="text" value="tags">
-                    $else:
-                        <input type="hidden" name="action" class="text" value="$search.action">
-                    $if not search.word:
-                        <input type="text" name="word" class="text" value="Search what your want..." onfocus="if (this.value == 'Search what your want...') { this.value = '' };" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
-                    $else:
-                        <input type="text" name="word" class="text" value="$search.word" onfocus="if (this.value == 'Search what your want...') { this.value = ''  };" onblur="if (this.value == '') { this.value = 'Search what your want...'; }">
-                    <input type="submit" value="Search" class="botton" onclick="$('form').submit( )">
-                </form>
+            <div id="myTabContent" class="tab-content">
+                <!--tag search start-->
+                <div role="tabpanel" class="tab-pane fade $para['function_option']['tags']" id="tags" aria-labelledby="tags-tab">
+                    <div class="searchbox">
+                        <div class="support">
+                            <form action="">
+                                <input type="hidden" name="action" class="text" value="tags">
+                                $if not para.word:
+                                    <input type="text" name="word" class="text" placeholder="Search what your want...">
+                                $else:
+                                    <input type="text" name="word" class="text" value="$para.word" placeholder="Search what your want...">
+                                <input type="submit" value="GO!" class="botton" onclick="$('form').submit( )">
+                            </form>
+                        </div>
+                        $if 'tags' in para and para['tags']!=None:
+                            $for i in para['tags']:
+                                $i[0] $i[1] $i[2]<br>
+                    </div>
                 </div>
+                <!--tag search end-->
+                <!--insite search start-->
+                <div role="tabpanel" class="tab-pane fade $para['function_option']['insite']" id="insite" aria-labelledby="insite-tab">
+                    insite
+                </div>
+                <!--insite search end-->
+                <!--get dbinfo start-->
+                <div role="tabpanel" class="tab-pane fade $para['function_option']['dbinfo']" id="dbinfo" aria-labelledby="dbinfo-tab">
+                    dbinfo
+                </div>
+                <!--get dbinfo end-->
             </div>
-            $if 'tags' in search and search['tags']!=None:
-                $for i in search['tags']:
-                    $i[0] $i[1] $i[2]<br>
+           
         </div>
+        <!--function_option end-->
     </div>
-
+    <!--web body start-->
 </body>
 </html>
+<!--<ul class="f-icons">
+                   <li>
+                       <a href="?action=dbinfo">
+                           <i class="tags"></i>
+                           <h5>数据库情况</h5>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="?action=tags">
+                           <i class="tags"></i>
+                           <h5>显示标签</h5>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="?action=insite">
+                           <i class="twitter"></i>
+                           <h5>站内搜索</h5>
+                       </a>
+                   </li>
+                   <!--<li>
+                       <a href="#"</a>
+                       <h4>twitter</h4>
+                   </li>
+                   <li>
+                       <a href="#" class="gg"></a>
+                       <h4>gg</h4>
+                   </li>
+                   <li>
+                       <a href="#" class="p"></a>
+                       <h4>p</h4>
+                   </li>
+                   <li>
+                       <a href="#" class="ins"></a>
+                       <h4>ins</h4>
+                   </li>->
+               </ul>-->

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: #000;
+    background: #fff;
     font-family: 'Raleway', sans-serif;
 }
 
@@ -13,41 +13,107 @@ body {
         -o-transition: 0.5s all;
         -ms-transition: 0.5s all;
     }
-
-h3.tittle {
-    font-size: 3.5em;
-    font-weight: 400;
-    color: #00b29f;
-    font-family: 'Poiret One', cursive;
-    float: left;
+/*--Web title start---*/
+.title {
+    margin-top: 5%;
 }
 
-/*--Search---*/
+h3.title {
+    font-size: 3.5em;
+    font-weight: 400;
+    color: #ff6a00;
+    font-family: 'Poiret One', cursive;
+    text-align: center;
+}
+
+.smalltitle {
+    margin-right: 27%;
+    float:right;
+}
+}
+/*--Web title end---*/
+
+/*--Web body start---*/
+.body {
+}
+
+/*--Web body end---*/
+
+/*--function_option start---*/
+.function_option {
+    margin-top: 5%;
+    margin-left: 13%;
+    margin-right: 13%;
+}
+/*--function_option end---*/
+
+/*--SearchBox start---*/
 .searchbox {
     /*background: url(../images/bottom-bg.jpg)no-repeat;*/
-    min-height: 400px;
+    /*min-height: 400px;*/
     background-size: cover;
     -o-background-size: cover;
     -moz-background-size: cover;
     -ms-background-size: cover;
     -webkit-background-size: cover;
-    padding-top: 2.5em;
+    /*padding-top: 2.5em;*/
 }
 
-h3.tittle.two {
-    color: #fff;
-    
-
+.support {
+    margin: 1em 0em 0em 0em;
+    background-color: #fff;
+    padding: 0em 0em;
+    text-align: center;
 }
 
-.searchbox {
-    margin-top: 3em;
-}
+    .support input[type="text"] {
+        width: 79%;
+        padding: 10px;
+        font-size: 15px;
+        text-align: left;
+        font-weight: 400;
+        border: 1px solid #808080;
+        outline: none;
+        margin: 0px 0px 0 0;
+        webkit-appearance: none;
+    }
+
+        .support input[type="text"]:hover {
+            border: 1px solid #ff6a00;
+        }
+
+    .support input[type="submit"] {
+        background: #00b29f;
+        cursor: pointer;
+        border: 0;
+        color: #fff;
+        font-weight: 400;
+        font-size: 15px;
+        text-transform: uppercase;
+        padding: 10px;
+        text-align: center;
+        webkit-appearance: none;
+        outline: none;
+        width: 20%;
+        transition: 0.5s all;
+        -webkit-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+    }
+
+        .support input[type="submit"]:hover {
+            background: #8CD0B4;
+        }
+
+
+/*--SearchBox end --*/
+
 
 ul.f-icons {
     text-align: center;
     float: right;
-    margin-top: 20px
+    margin-top: 20px;
 }
 
     ul.f-icons li {
@@ -55,9 +121,11 @@ ul.f-icons {
         display: inline-block;
         margin-right: 2em;
     }
+
         ul.f-icons li.selected {
             background-color: #024034;
         }
+
         ul.f-icons li:active {
             text-decoration: none;
             background-color: #808080;
@@ -108,7 +176,7 @@ ul.f-icons {
             color: #8CD0B4;
         }
 
-        /*ul.f-icons li:hover {
+/*ul.f-icons li:hover {
             transform: rotateY(360deg);
             -webkit-transform: rotateY(360deg);
             -moz-transform: rotateY(360deg);
@@ -117,46 +185,3 @@ ul.f-icons {
             -moz-transition: 0.8s;
             -o-transition: 0.8s;
         }*/
-
-.support input[type="text"] {
-    width: 79%;
-    padding: 12px;
-    font-size: 15px;
-    text-align: left;
-    font-weight: 400;
-    border: 1px solid #fff;
-    outline: none;
-    margin: 0px 0px 0 0;
-    webkit-appearance: none;
-}
-
-.support input[type="submit"] {
-    background: #00b29f;
-    cursor: pointer;
-    border: 0;
-    color: #fff;
-    font-weight: 400;
-    font-size: 15px;
-    text-transform: uppercase;
-    padding: 0.88em;
-    text-align: center;
-    webkit-appearance: none;
-    outline: none;
-    width: 20%;
-    transition: 0.5s all;
-    -webkit-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -o-transition: 0.5s all;
-    -ms-transition: 0.5s all;
-}
-
-    .support input[type="submit"]:hover {
-        background: #8CD0B4;
-    }
-
-.support {
-    margin: 2em 0em 0 0;
-    background-color: rgba(42, 137, 115, 0.52);
-    padding: 2em 2em;
-}
-/*-- search end --*/
