@@ -2,6 +2,7 @@
 #版本
 - python 2.7
 - scrapy 1.0.1
+- web.py 0.37
 
 #一些资料
 ##GIT使用方法

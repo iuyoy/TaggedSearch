@@ -5,7 +5,7 @@ import os,sys
 import web
 from Tsearch import Search_for_tags_by_word as get_tags
 reload(sys)
-sys.setdefaultencoding( "utf-8" )
+sys.setdefaultencoding("utf-8")
 
 render = web.template.render('templates/')
 urls = (

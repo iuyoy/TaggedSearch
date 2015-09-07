@@ -27,10 +27,17 @@ h3.title {
 }
 
 .smalltitle {
-    margin-right: 27%;
-    float:right;
+    float: right;
 }
+
+h4.title {
+    font-size: 1.4em;
+    font-weight: 300;
+    color: #ff6a00;
+    font-family: 'Poiret One', cursive;
+    text-align: center;
 }
+
 /*--Web title end---*/
 
 /*--Web body start---*/
@@ -41,7 +48,6 @@ h3.title {
 
 /*--function_option start---*/
 .function_option {
-    margin-top: 5%;
     margin-left: 13%;
     margin-right: 13%;
 }
@@ -105,10 +111,13 @@ h3.title {
         .support input[type="submit"]:hover {
             background: #8CD0B4;
         }
-
-
 /*--SearchBox end --*/
 
+/*--SearchResult start --*/
+.searchresult{
+    margin-top: 10px;
+}
+/*--SearchResult end --*/
 
 ul.f-icons {
     text-align: center;

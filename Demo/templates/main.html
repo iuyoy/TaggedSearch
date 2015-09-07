@@ -25,15 +25,18 @@
         <div class="title">
             <h3 class="title">Tagged Search Demo</h3>
         </div>
-    $else:
-        <div class="smalltitle">
-            <h3 class="title two">Tagged Search Demo2</h3>
-        </div>
     <!--web title end-->
     <!--web body start-->
     <div class="body container">
         <!--function_option start-->
         <div class="function_option">
+            $if not( para.word == None or para.word == '') :
+                <div class="smalltitle hidden-xs">
+                    <h4 class="title two">Tagged Search Demo2</h4>
+                </div>
+                <div class="visible-xs-block">
+                    <h4 class="title two">Tagged Search Demo2</h4>
+                </div>
             <ul id="myTab" class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="$para['function_option']['insite']">
                     <a href="#insite" id="insite-tab" role="tab" data-toggle="tab" aria-controls="insite" aria-expanded="true">站内搜索</a>
@@ -51,7 +54,9 @@
                         <li><a href="#option2" role="checkbox" data-toggle="checkbox">@mdo</a></li>
                     </ul>
                 </li>-->
+            
             </ul>
+
             <div id="myTabContent" class="tab-content">
                 <!--tag search start-->
                 <div role="tabpanel" class="tab-pane fade $para['function_option']['tags']" id="tags" aria-labelledby="tags-tab">
@@ -66,9 +71,14 @@
                                 <input type="submit" value="GO!" class="botton" onclick="$('form').submit( )">
                             </form>
                         </div>
-                        $if 'tags' in para and para['tags']!=None:
-                            $for i in para['tags']:
-                                $i[0] $i[1] $i[2]<br>
+                        <div class="searchresult">
+                        $if 'tags' in para and para['tags']!=None and para['tags']!=[]:
+                            <p>共有$len(para['tags'])条记录:<p>
+                            $for tag in para['tags']:
+                                <button class="btn btn-primary" type="button">
+                                    <span class="hidden">$tag[0]</span>$tag[1] <span class="badge">$tag[2]</span>
+                                </button>
+                        </div>
                     </div>
                 </div>
                 <!--tag search end-->
