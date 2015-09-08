@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 #author:iuyyoy 
 import sys,os
-
+sys.path.append('..')
 import urllib2
 #Wikidata_api 各个具体api封装的基类
 class Wikidata_api(object):
@@ -16,7 +16,7 @@ class Wikidata_api(object):
         if url == '':
             url = self.url
         #print url
-        request = urllib2.request(url)
+        request = urllib2.Request(url)
         response = urllib2.urlopen(url)
         html = response.read()
         return html

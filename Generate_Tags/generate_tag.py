@@ -4,6 +4,7 @@
 
 import sys,os
 sys.path.append('..')
+
 from ini import *
 from Scripts.db_op import Db_op as DB
 from Scripts.code import print_whatever_code as printout
@@ -108,21 +109,24 @@ if __name__ == '__main__':
         if(sys.argv[1] == '--word-item' or sys.argv[1] == '-wi'):
             gt = Word_entity()
             try:
-                gt.get_save_words_item(int(sys.argv[2]))
+                int(sys.argv[2])
             except:
-                gt.get_save_words_item(1)
+                sys.argv[2] = 1
+            gt.get_save_words_item(int(sys.argv[2]))
         elif(sys.argv[1] == '--entity-tag' or sys.argv[1] == '-et'):
             et = Get_entity_tag()
             try:
-                et.run(int(sys.argv[2]))
+                int(sys.argv[2])
             except:
-                et.run(1)
+                sys.argv[2] = 1
+            et.run(int(sys.argv[2]))
         elif(sys.argv[1] == '--build-tags' or sys.argv[1] == '-bt'):
             bt = build_tag_library()
             try:
-                bt.run(int(sys.argv[2]))
+                int(sys.argv[2])
             except:
-                bt.run(1)
+                sys.argv[2] = 1
+            bt.run(int(sys.argv[2]))
         else:
             printout(usage,9)
     else:
