@@ -25,6 +25,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Test", "..\Test\Test.pyproj
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Demo", "..\Demo\Demo.pyproj", "{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Text_to_tags", "..\Title_to_tags\Text_to_tags.pyproj", "{D072A557-041B-44E3-9041-39857C4783B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,9 @@ Global
 		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
 		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D072A557-041B-44E3-9041-39857C4783B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D072A557-041B-44E3-9041-39857C4783B4}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
+		{D072A557-041B-44E3-9041-39857C4783B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

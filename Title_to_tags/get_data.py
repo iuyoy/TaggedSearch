@@ -8,58 +8,35 @@ from Scripts.db_op import Db_op as DB
 try:
     from Demo.ini import *
 except:
-    from ini import *
-
+    from Generate_Tags.ini import *
+from Generate_Tags.ini import *
 #get_data基类
-class get_data(object):
+class Get_data(object):
     db = DB(dbinfo = dbinfo)
     def __init__(self):
-        super(get_data, self).__init__()
+        super(Get_data, self).__init__()
         self.db.connect()
     def __delete__(self):
         self.db.close()
 
-class get_word(get_data):
-    def get_wordid_by_wordname(self,word_name):
-        word_name = self.db.SQL_filter(word_name)
-        sql = "SELECT id FROM %s WHERE word_name = '%s' " %(words_table,word_name)
+class Get_article(Get_data):
+    def __init__(self):
+        super(Get_article, self).__init__()
+    def get_one_cnbeta_article(self , id = 0):
+        id = int(id)
+        if (id == 0):
+            sql = "SELECT id,title,content FROM %s WHERE `level` = 0 LIMIT 1  " %(cnbeta_table)
+        else:
+            sql = "SELECT id,title,content FROM %s WHERE `level` = 0 AND id = %d" %(cnbeta_table,id)
         result = self.db.select(sql)
         if(result):
-            return self.db.fetchAllRowsOneList()
+            return self.db.fetchOneRow()
         else:
             return []
-   
-class get_wikidata_entity(get_data):
-    #def get_wikidataid_by_wordid(self,word_id):
-    #    sql = "SELECT wikidata_id FROM %s WHERE word_id = %d" %(wikidata_word_table,int(word_id))
-    #    result = self.db.select(sql)
-    #    if(result):
-    #        return self.db.fetchAllRowsOneList()
-    #    else:
-    #        return []
-    #def  get_likely_property_by_wikidataid(self,wikidata_id,property_name = '%labels_zh%'):
-    #    sql = "SELECT property_name,`value` FROM %s WHERE entity_id = '%s' AND property_name like '%s'" %(wikidata_entity_properties_table,wikidata_id,property_name)
-    #    result = self.db.select(sql)
-    #    if(result):
-    #        return self.db.fetchAllRows()
-    #    else:
-    #        return []
-    #def  get_property_by_wikidataid(self,wikidata_id,property_name = 'labels_zh-hans'):
-    #    sql = "SELECT `value` FROM %s WHERE entity_id = '%s' AND property_name = '%s'" %(wikidata_entity_properties_table,wikidata_id,property_name)
-    #    result = self.db.select(sql)
-    #    if(result):
-    #        return self.db.fetchAllRowsOneList()
-    #    else:
-    #        return []
-    #def get_tag_ids(self,wikidata_id,level = 15):
-    #    tag_ids = []
-    #    level_list = {'father_classification':1,'main_calssification':2,'property':4,'belong_to':8}
-    #    for property_name,rank in level_list.items():
-    #        if(level - rank >=0):
-    #           tag_ids.extent(self.get_property_by_wikidataid(wikidata_id,property_name))
-    #           level -= rank
-    #    return tag_ids
-    def get_meaningnames_by_wordname(self,word_name):
+class Get_tags(Get_data):
+    def __init__(self):
+        super(Get_tags, self).__init__()
+    def get_all_level1_tags(self,word_name):
         word_name = self.db.SQL_filter(word_name)
         sql = """SELECT
 	entity_id,
@@ -105,9 +82,7 @@ GROUP BY
             return rs
         else:
             return []
-        
-        
-    def get_tagnames_by_wordname(self,word_name):
+    def get_all_level2_tags(self,word_name):
         word_name = self.db.SQL_filter(word_name)
         sql = """SELECT
 	entity_id,
@@ -164,17 +139,6 @@ AND we.sign = 1
 GROUP BY
 	entity_id
         """ %(wikidata_entity_properties_table,wikidata_entity_properties_table,wikidata_word_table,words_table,word_name,wikidata_entities_table)
-        result = self.db.select(sql)
-        if(result):
-            rs = self.db.fetchAllRows()
-            return rs
-        else:
-            return []
-
-    def get_meanings_by_wordname(self,word_name):
-        word_name = self.db.SQL_filter(word_name)
-        sql = "SELECT ww.id AS words_table_id,ww.wikidata_id,is_ok,wep.id AS wep_table_id,property_name,`value` FROM %s AS wep,%s AS ww,%s AS w WHERE w.id = ww.word_id AND ww.wikidata_id = wep.entity_id AND word_name = '%s'" %(wikidata_entity_properties_table,wikidata_word_table,words_table,word_name)
-       
         result = self.db.select(sql)
         if(result):
             rs = self.db.fetchAllRows()

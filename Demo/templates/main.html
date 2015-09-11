@@ -72,9 +72,14 @@
                             </form>
                         </div>
                         <div class="searchresult">
-                        $if 'tags' in para and para['tags']!=None and para['tags']!=[]:
-                            <p>共有$len(para['tags'])条记录:<p>
-                            $for tag in para['tags']:
+                        $if 'tags' in para and para['tags']!=None:
+                            <p>共有$len(para['tags'][0])条1级标签:<p>
+                            $for tag in para['tags'][0]:
+                                <button class="btn btn-primary" type="button">
+                                    <span class="hidden">$tag[0]</span>$tag[1]
+                                </button>
+                            <p>共有$len(para['tags'][1])条2级标签:<p>
+                            $for tag in para['tags'][1]:
                                 <button class="btn btn-primary" type="button">
                                     <span class="hidden">$tag[0]</span>$tag[1] <span class="badge">$tag[2]</span>
                                 </button>

@@ -23,9 +23,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Demo.py" />
-    <Compile Include="Demo2.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ini.py">
       <SubType>Code</SubType>
     </Compile>

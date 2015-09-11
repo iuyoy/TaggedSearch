@@ -1,25 +1,41 @@
-#!/usr/bin/python
+ï»¿#!/usr/bin/python
 # -*- coding:utf-8 -*-
 #author:iuyyoy 
 
 import jieba
 import jieba.posseg as pseg
+import jieba.analyse
 
 class Word_segment(object):
     def __init__(self):
         return super(Word_segment, self).__init__()
-    def run(self,str,flag = False,mode = False):
-        return self.segment(str,flag = False,mode = False)
 
-    def segment(self,str,flag = False,mode = False):
-        if (flag):
-            words = pseg.cut(str)
-            return words
+    def segment(self,string,mode = False,flag = False,search=False):
+        if (search):
+            words = jieba.cut_for_search(string)
+        elif (flag):
+            words = pseg.cut(string)
         else:
-            seg_list = jieba.cut(str, cut_all=mode)
-            return seg_list
+            words = jieba.cut(string, cut_all=mode)
+        return words
+    #æå–å…³é”®è¯ mode=0ä¸ºtextrankï¼Œmode=1ä¸ºTF-IDF,flagä¸ºå¸¦è¯æ€§
+    def get_keywords(self,string,mode = 0,num = 20,withWeight = False,allowPOS = ('ns', 'n', 'vn', 'v')):
+        if (mode):
+            return jieba.analyse.extract_tags(string, topK=num, withWeight=withWeight, allowPOS=allowPOS)
+        else:
+            return jieba.analyse.textrank(string, topK=num, withWeight=withWeight, allowPOS=allowPOS)
+
+
 if __name__ == "__main__":
     ws = Word_segment()
-    ws.segment(" --word-item(-wi) [num]:Ö´ĞĞnum´Îwbsearchentities,·ñÔò1´Î")
-    ws.segment(" --word-item(-wi) [num]:Ö´ĞĞnum´Îwbsearchentities,·ñÔò1´Î",True,False)
-    ws.segment(" --word-item(-wi) [num]:Ö´ĞĞnum´Îwbsearchentities,·ñÔò1´Î",True,True)
+    str = 'å°æ˜ç¡•å£«æ¯•ä¸šäºä¸­å›½ç§‘å­¦é™¢è®¡ç®—æ‰€ï¼Œååœ¨æ—¥æœ¬äº¬éƒ½å¤§å­¦æ·±é€ '
+    ws.segment(str)
+    print u"å…¨æ¨¡å¼"
+    for i in ws.segment(str,mode = True):
+        print i
+    print u"ç²¾ç¡®æ¨¡å¼"
+    for i in ws.segment(str,flag = True):
+        print i
+    print u"æœç´¢æ¨¡å¼"
+    for i in  ws.segment(str,search = True):
+        print i
