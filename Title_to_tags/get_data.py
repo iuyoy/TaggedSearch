@@ -40,28 +40,52 @@ class Get_tags(Get_data):
         word_name = self.db.SQL_filter(word_name)
         sql = """SELECT
 	entity_id,
-	MAX(
-		CASE wep.property_name
-		WHEN 'labels_zh-hans' THEN
-			wep.`value`
-		WHEN 'labels_zh-cn' THEN
-			wep.`value`
-		WHEN 'labels_zh' THEN
-			wep.`value`
-		WHEN 'labels_en' THEN
-			wep.`value`
-		WHEN 'descriptions_zh-hans' THEN
-			wep.`value`
-		WHEN 'descriptions_zh-cn' THEN
-			wep.`value`
-		WHEN 'descriptions_zh' THEN
-			wep.`value`
-		WHEN 'descriptions_en' THEN
-			wep.`value`
-		ELSE
-			''
-		END
-	) AS `name`
+	(
+		IF (
+			MAX(
+				CASE wep.property_name
+				WHEN 'labels_zh-hans' THEN
+					wep.`value`
+				WHEN 'labels_zh-cn' THEN
+					wep.`value`
+				WHEN 'labels_zh' THEN
+					wep.`value`
+				WHEN 'labels_en' THEN
+					wep.`value`
+				ELSE
+					''
+				END
+			) != '',
+			MAX(
+				CASE wep.property_name
+				WHEN 'labels_zh-hans' THEN
+					wep.`value`
+				WHEN 'labels_zh-cn' THEN
+					wep.`value`
+				WHEN 'labels_zh' THEN
+					wep.`value`
+				WHEN 'labels_en' THEN
+					wep.`value`
+				ELSE
+					''
+				END
+			),
+			MAX(
+				CASE wep.property_name
+				WHEN 'descriptions_zh-hans' THEN
+					wep.`value`
+				WHEN 'descriptions_zh-cn' THEN
+					wep.`value`
+				WHEN 'descriptions_zh' THEN
+					wep.`value`
+				WHEN 'descriptions_en' THEN
+					wep.`value`
+				ELSE
+					''
+				END
+			)
+		)
+	) AS `name`,
 FROM
 	%s AS we,
 	%s AS wep,

@@ -10,7 +10,7 @@ from search.get_data import *
 
 class search_for_tags_by_words(object):
     def __init__(self):
-        super(search_for_tags,self).__init__()
+        super(search_for_tags_by_words,self).__init__()
     def run(self):
         return
     

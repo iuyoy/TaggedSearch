@@ -14,7 +14,7 @@ except:
 class get_data(object):
     db = DB(dbinfo = dbinfo)
     def __init__(self):
-        super(get_data, self).__init__()
+        super(get_data,self).__init__()
         self.db.connect()
     def __delete__(self):
         self.db.close()
@@ -30,35 +30,6 @@ class get_word(get_data):
             return []
    
 class get_wikidata_entity(get_data):
-    #def get_wikidataid_by_wordid(self,word_id):
-    #    sql = "SELECT wikidata_id FROM %s WHERE word_id = %d" %(wikidata_word_table,int(word_id))
-    #    result = self.db.select(sql)
-    #    if(result):
-    #        return self.db.fetchAllRowsOneList()
-    #    else:
-    #        return []
-    #def  get_likely_property_by_wikidataid(self,wikidata_id,property_name = '%labels_zh%'):
-    #    sql = "SELECT property_name,`value` FROM %s WHERE entity_id = '%s' AND property_name like '%s'" %(wikidata_entity_properties_table,wikidata_id,property_name)
-    #    result = self.db.select(sql)
-    #    if(result):
-    #        return self.db.fetchAllRows()
-    #    else:
-    #        return []
-    #def  get_property_by_wikidataid(self,wikidata_id,property_name = 'labels_zh-hans'):
-    #    sql = "SELECT `value` FROM %s WHERE entity_id = '%s' AND property_name = '%s'" %(wikidata_entity_properties_table,wikidata_id,property_name)
-    #    result = self.db.select(sql)
-    #    if(result):
-    #        return self.db.fetchAllRowsOneList()
-    #    else:
-    #        return []
-    #def get_tag_ids(self,wikidata_id,level = 15):
-    #    tag_ids = []
-    #    level_list = {'father_classification':1,'main_calssification':2,'property':4,'belong_to':8}
-    #    for property_name,rank in level_list.items():
-    #        if(level - rank >=0):
-    #           tag_ids.extent(self.get_property_by_wikidataid(wikidata_id,property_name))
-    #           level -= rank
-    #    return tag_ids
     def get_meaningnames_by_wordname(self,word_name):
         word_name = self.db.SQL_filter(word_name)
         sql = """SELECT
@@ -111,27 +82,51 @@ GROUP BY
         word_name = self.db.SQL_filter(word_name)
         sql = """SELECT
 	entity_id,
-	MAX(
-		CASE wep.property_name
-		WHEN 'labels_zh-hans' THEN
-			wep.`value`
-		WHEN 'labels_zh-cn' THEN
-			wep.`value`
-		WHEN 'labels_zh' THEN
-			wep.`value`
-		WHEN 'labels_en' THEN
-			wep.`value`
-		WHEN 'descriptions_zh-hans' THEN
-			wep.`value`
-		WHEN 'descriptions_zh-cn' THEN
-			wep.`value`
-		WHEN 'descriptions_zh' THEN
-			wep.`value`
-		WHEN 'descriptions_en' THEN
-			wep.`value`
-		ELSE
-			''
-		END
+	(
+		IF (
+			MAX(
+				CASE wep.property_name
+				WHEN 'labels_zh-hans' THEN
+					wep.`value`
+				WHEN 'labels_zh-cn' THEN
+					wep.`value`
+				WHEN 'labels_zh' THEN
+					wep.`value`
+				WHEN 'labels_en' THEN
+					wep.`value`
+				ELSE
+					''
+				END
+			) != '',
+			MAX(
+				CASE wep.property_name
+				WHEN 'labels_zh-hans' THEN
+					wep.`value`
+				WHEN 'labels_zh-cn' THEN
+					wep.`value`
+				WHEN 'labels_zh' THEN
+					wep.`value`
+				WHEN 'labels_en' THEN
+					wep.`value`
+				ELSE
+					''
+				END
+			),
+			MAX(
+				CASE wep.property_name
+				WHEN 'descriptions_zh-hans' THEN
+					wep.`value`
+				WHEN 'descriptions_zh-cn' THEN
+					wep.`value`
+				WHEN 'descriptions_zh' THEN
+					wep.`value`
+				WHEN 'descriptions_en' THEN
+					wep.`value`
+				ELSE
+					''
+				END
+			)
+		)
 	) AS `name`,
     count
 FROM
