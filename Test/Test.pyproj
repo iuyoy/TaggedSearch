@@ -47,6 +47,9 @@
     <Compile Include="sub\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="wikimediaapi.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sub\" />
