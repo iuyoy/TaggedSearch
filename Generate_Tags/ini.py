@@ -8,9 +8,9 @@ global dbinfo
 global wikidata_entities_table,wikidata_entity_properties_table,wikidata_word_table
 global words_table,word_properties_table
 dbinfo={\
-'host' : '104.251.227.241'\
-,'user' : 'search'\
-,'passwd' : 'search&Tagged'\
+'host' : 'localhost'\
+,'user' : 'root'\
+,'passwd' : 'root'\
 ,'db' : 'search'\
 ,'port' : 3306\
 ,'charset' : 'utf8'\
