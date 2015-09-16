@@ -23,7 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Demo.py" />
-    <Compile Include="ini.py">
+    <Compile Include="config.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="search\process_data.py">

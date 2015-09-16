@@ -6,7 +6,7 @@
     <ProjectGuid>d072a557-041b-44e3-9041-39857c4783b4</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>text_to_tags.py</StartupFile>
+    <StartupFile>web_operation.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -27,6 +27,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="text_to_tags.py" />
+    <Compile Include="web_operation.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>

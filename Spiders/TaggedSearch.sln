@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Spiders", "Spiders.pyproj", "{84003A28-684E-4028-82CD-5C232FB59937}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76A3A782-2DD8-43E9-B2D0-740185EA8CCF}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
@@ -13,21 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Scripts", "..\Scripts\Scripts.pyproj", "{923C610A-A777-4478-B943-BB8B384EBEB9}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Multi", "..\Multi\Multi.pyproj", "{190B8A48-6739-4632-B8AC-5386A964F525}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Generate_Tags", "..\Generate_Tags\Generate_Tags.pyproj", "{675BEAFA-680B-4791-9CDC-799C911914E5}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Word_Segment", "..\Word_Segment\Word_Segment.pyproj", "{6B47047C-EDC8-4146-B9F9-4C39487F6D21}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Test", "..\Test\Test.pyproj", "{62916552-F098-4B7C-9E2A-C9C839220DE5}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Demo", "..\Demo\Demo.pyproj", "{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Text_to_tags", "..\Title_to_tags\Text_to_tags.pyproj", "{D072A557-041B-44E3-9041-39857C4783B4}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "wikidata", "..\wikidata\wikidata.pyproj", "{B4D55EE9-3FB0-4277-8486-5E442F20304C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,33 +20,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{84003A28-684E-4028-82CD-5C232FB59937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84003A28-684E-4028-82CD-5C232FB59937}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{84003A28-684E-4028-82CD-5C232FB59937}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{923C610A-A777-4478-B943-BB8B384EBEB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{923C610A-A777-4478-B943-BB8B384EBEB9}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{923C610A-A777-4478-B943-BB8B384EBEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{190B8A48-6739-4632-B8AC-5386A964F525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{190B8A48-6739-4632-B8AC-5386A964F525}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{190B8A48-6739-4632-B8AC-5386A964F525}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{675BEAFA-680B-4791-9CDC-799C911914E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{675BEAFA-680B-4791-9CDC-799C911914E5}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{675BEAFA-680B-4791-9CDC-799C911914E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B47047C-EDC8-4146-B9F9-4C39487F6D21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B47047C-EDC8-4146-B9F9-4C39487F6D21}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{6B47047C-EDC8-4146-B9F9-4C39487F6D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{62916552-F098-4B7C-9E2A-C9C839220DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
 		{4D71E024-B03E-4D74-9AB8-57FFC7A2F4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D072A557-041B-44E3-9041-39857C4783B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D072A557-041B-44E3-9041-39857C4783B4}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{D072A557-041B-44E3-9041-39857C4783B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4D55EE9-3FB0-4277-8486-5E442F20304C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4D55EE9-3FB0-4277-8486-5E442F20304C}.Nobebug|Any CPU.ActiveCfg = Release|Any CPU
-		{B4D55EE9-3FB0-4277-8486-5E442F20304C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

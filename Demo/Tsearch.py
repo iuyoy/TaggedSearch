@@ -5,7 +5,7 @@
 import sys,os
 sys.path.append('..')
 from Scripts.db_op import Db_op as DB
-from ini import *
+from config import *
 from search.get_data import *
 
 class search_for_tags_by_words(object):

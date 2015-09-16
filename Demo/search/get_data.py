@@ -5,10 +5,8 @@
 import sys,os
 sys.path.append('..')
 from Scripts.db_op import Db_op as DB
-try:
-    from Demo.ini import *
-except:
-    from ini import *
+from Demo.config import *
+
 
 #get_data基类
 class get_data(object):

@@ -5,10 +5,6 @@
 import sys,os
 sys.path.append('..')
 from Scripts.db_op import Db_op as DB
-try:
-    from Demo.ini import *
-except:
-    from Generate_Tags.ini import *
 from Generate_Tags.ini import *
 #get_data基类
 class Get_data(object):
@@ -17,7 +13,10 @@ class Get_data(object):
         super(Get_data, self).__init__()
         self.db.connect()
     def __delete__(self):
-        self.db.close()
+        try:
+            self.db.close()
+        except:
+            pass
 class Get_wikidata(Get_data):
     def __init__(self):
         super(Get_wikidata, self).__init__()
@@ -65,6 +64,7 @@ class Get_article(Get_data):
             return self.db.fetchOneRow()
         else:
             return []
+
 class Get_tags(Get_data):
     def __init__(self):
         super(Get_tags, self).__init__()
