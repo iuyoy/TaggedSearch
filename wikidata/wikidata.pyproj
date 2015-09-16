@@ -3,15 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>62916552-f098-4b7c-9e2a-c9c839220de5</ProjectGuid>
+    <ProjectGuid>b4d55ee9-3fb0-4277-8486-5e442f20304c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Globala.py</StartupFile>
+    <StartupFile>wikidata.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Test</Name>
-    <RootNamespace>Test</RootNamespace>
+    <Name>wikidata</Name>
+    <RootNamespace>wikidata</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,40 +22,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Globala.py" />
-    <Compile Include="Globalb.py">
+    <Compile Include="config.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Globalc.py">
+    <Compile Include="wikidata.py" />
+    <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="json_test.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="loop.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="orin.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="queue_test.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="sql.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="sub\globald.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="sub\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wikimediaapi.py">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="sub\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

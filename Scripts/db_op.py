@@ -33,23 +33,36 @@ class Db_op(object):
         try:
             self.conn = MySQLdb.connect(host=self.host,user=self.user,passwd=self.passwd,db=self.db,port=self.port,charset=self.charset)
             self.cur = self.conn.cursor()
+            self.cur.execute("SET NAMES "+self.charset)
+            return True
         except MySQLdb.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            return False
+    
     #执行 SELECT 语句
     def select(self,sql):
         try:
-            self.cur.execute("SET NAMES "+self.charset)
             result = self.cur.execute(sql)
         except MySQLdb.Error, e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             result = False
         return result
     #执行 INSERT 语句。如主键为自增长int，则返回新生成的ID
-    def insert(self,sql):
+    def insert(self,sql,para = ''):
         try:
-            self.cur.execute("SET NAMES "+self.charset)
-            self.cur.execute(sql)
+            if (para == ''):
+                self.cur.execute(sql)
+            else:
+                self.cur.execute(sql,para)
             result = self.conn.insert_id()
+            self.conn.commit()
+        except MySQLdb.Error, e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            result = False
+        return result
+    def insert_list(self,sql,para_list):
+        try:
+            result = self.cur.executemany(sql,para_list)
             self.conn.commit()
         except MySQLdb.Error, e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
@@ -58,7 +71,6 @@ class Db_op(object):
     #执行 UPDATE 及 DELETE 语句
     def update(self,sql):
         try:
-            self.cur.execute("SET NAMES utf8") 
             result = self.cur.execute(sql)
             self.conn.commit()
         except MySQLdb.Error, e:
