@@ -34,15 +34,19 @@ class Db_op(object):
             self.conn = MySQLdb.connect(host=self.host,user=self.user,passwd=self.passwd,db=self.db,port=self.port,charset=self.charset)
             self.cur = self.conn.cursor()
             self.cur.execute("SET NAMES "+self.charset)
+            self.conn.commit()
             return True
         except MySQLdb.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             return False
     
     #执行 SELECT 语句
-    def select(self,sql):
+    def select(self,sql,para = ''):
         try:
-            result = self.cur.execute(sql)
+            if (para == ''):
+                result = self.cur.execute(sql)
+            else:
+                result = self.cur.execute(sql,para)
         except MySQLdb.Error, e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             result = False
@@ -69,9 +73,12 @@ class Db_op(object):
             result = False
         return result
     #执行 UPDATE 及 DELETE 语句
-    def update(self,sql):
+    def update(self,sql,para = ''):
         try:
-            result = self.cur.execute(sql)
+            if (para == ''):
+               result =  self.cur.execute(sql)
+            else:
+               result =  self.cur.execute(sql,para)
             self.conn.commit()
         except MySQLdb.Error, e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])

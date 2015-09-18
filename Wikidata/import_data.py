@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/python
 # -*- coding:utf-8 -*-
 #author:iuyyoy 
+
 import os,sys
 sys.path.append('..')
 import time
@@ -27,6 +28,7 @@ class wikidata(object):
                     return False
                 if(line_num % 1000 == 0):
                     printout('line_num:%d' %(line_num),4)
+                    #防止过于频繁的连接导致中断
                     time.sleep(1)
             elif(line_num % 100000 == 0):
                 printout('pass line_num:%d' %(line_num),4)
