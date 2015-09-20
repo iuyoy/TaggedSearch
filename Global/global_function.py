@@ -13,15 +13,16 @@ def printout(level = 1,*strings):
                 error_info = str(e) + " | print string error"
                 record_error(error_info)
                 try:
-                    print string.encode('utf-8')
+                    print string.encode('utf-8'),
                 except Exception,e:
                     error_info = str(e) + " | print utf_8 encode string error"
                     record_error(error_info)
                     try:
-                        print string.encode('raw_unicode_escape')
+                        print string.encode('raw_unicode_escape'),
                     except Exception,e:
                         error_info = str(e) + " | print raw_unicode_escape string error"
                         record_error(error_info)
+        print 
 
 def record_error(error_info):
     try:

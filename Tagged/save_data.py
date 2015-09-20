@@ -1,4 +1,4 @@
-#!/usr/bin/python
+ï»¿#!/usr/bin/python
 # -*- coding:utf-8 -*-
 #author:iuyyoy 
 
@@ -7,6 +7,8 @@ sys.path.append('..')
 from Global.config import *
 from Global.db_op import Db_op as DB
 from Global.global_function import printout
+
+from get_data import *
 
 class Save_data(object):
     db = DB(dbinfo = dbinfo)
@@ -24,20 +26,11 @@ class Save_data(object):
         except:
             pass
 
-class Words(Save_data):
+class Save_word(Save_data):
     def __init__(self):
-        super(Words, self).__init__()
-    #µÃµ½word£¬Ò²¿ÉÓÃÓÚÅĞ¶ÏwordÊÇ·ñ´æÔÚ
-    def check_word(self,word_name,pos):
-        word_name = self.db.SQL_filter(word_name)
-        pos = self.db.SQL_filter(pos)
-        sql = "SELECT `id`,`word_name`,`sign` FROM `"+wiki_db+"`.`"+words_table+"` WHERE word_name = %s"
-        para = [word_name]
-        result = self.db.select(sql,para)
-        if(result):
-            return self.db.fetchOneRow()
-        return result
-    #Ìí¼ÓĞÂword
+        super(Save_word, self).__init__()
+   
+    #æ·»åŠ æ–°word
     def add_word(self,word_name,pos,sign = 0):
         word_name = self.db.SQL_filter(word_name)
         pos = self.db.SQL_filter(pos)
@@ -46,7 +39,7 @@ class Words(Save_data):
         para = [word_name,pos,sign]
         id = self.db.insert(sql,para)
         return id
-    #ĞŞ¸Äword sign
+    #ä¿®æ”¹word sign
     def change_word_sign(self,word_id,sign = 0):
         word_id = int(word_id)
         sign = int(sign)
@@ -54,23 +47,40 @@ class Words(Save_data):
         para = [sign,word_id]
         result = self.db.update(sql,para)
         return result
-    #Ìí¼ÓwordºÍentityµÄ¹ØÏµ
-    def add_word_entity_relations(self,word_id,word_name,sign = 0):
+    #æ·»åŠ wordå’Œentityçš„å…³ç³»
+    #è¿”å›-1æ²¡æœ‰wikidata_idå¯¹åº”çš„entity_id
+    #è¿”å›Falseæ’å…¥å¤±è´¥,TrueæˆåŠŸ
+    def add_word_entity_relation(self,word_id,wikidata_id,sign = 0):
         word_id = int(word_id)
-        word_name = self.db.SQL_filter(word_name)
-        sign = int (sign)
-        sql = "INSERT INTO `"+wiki_db+"`.`"+word_entity_table+"` \
-        (`word_id`,`entity_id`,`sign`) \
-        SELECT "+str(word_id)+",id,"+str(sign)+" FROM entities \
-        WHERE `label_zh-hans` LIKE '%"+word_name+"%'\
-        OR `label_zh-cn` LIKE '%"+word_name+"%'\
-        OR `label_zh` LIKE '%"+word_name+"%'\
-        OR `label_en` LIKE '%"+word_name+"%'\
-        OR `description_zh-hans` LIKE '%"+word_name+"%'\
-        OR `description_zh-cn` LIKE '%"+word_name+"%'\
-        OR `description_zh` LIKE '%"+word_name+"%'\
-        OR `description_en` LIKE '%"+word_name+"%'\
-        "
-        result = self.db.insert(sql)
-        return result
-    #²éÑ¯³ö
+        entity = Get_entity().get_id(wikidata_id)
+        if (entity):
+            (entity_id,sign) = entity
+            sign = int(sign)
+            sql = "INSERT INTO `"+wiki_db+"`.`"+word_entity_table+"`(`word_id`,`entity_id`,`sign`) VALUES(%s,%s,%s)" 
+            para = [word_id,entity_id,sign]
+            ret = self.db.insert(sql,para)
+        else:
+            return -1
+        return ret
+    ##æ·»åŠ wordå’Œentityçš„å…³ç³»
+    #def add_word_entity_relations(self,word_id,word_name,sign = 0):
+    #    word_id = int(word_id)
+    #    word_name = self.db.SQL_filter(word_name)
+    #    sign = int (sign)
+    #    sql = "INSERT INTO `"+wiki_db+"`.`"+word_entity_table+"` \
+    #    (`word_id`,`entity_id`,`sign`) \
+    #    SELECT "+str(word_id)+",id,"+str(sign)+" FROM entities \
+    #    WHERE `label_zh-hans` LIKE '%"+word_name+"%'\
+    #    OR `label_zh-cn` LIKE '%"+word_name+"%'\
+    #    OR `label_zh` LIKE '%"+word_name+"%'\
+    #    OR `label_en` LIKE '%"+word_name+"%'\
+    #    OR `description_zh-hans` LIKE '%"+word_name+"%'\
+    #    OR `description_zh-cn` LIKE '%"+word_name+"%'\
+    #    OR `description_zh` LIKE '%"+word_name+"%'\
+    #    OR `description_en` LIKE '%"+word_name+"%'\
+    #    "
+    #    result = self.db.insert(sql)
+    #    return result
+    #æŸ¥è¯¢å‡º
+
+   

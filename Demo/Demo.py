@@ -3,7 +3,7 @@
 #author:iuyyoy 
 import os,sys
 import web
-from Tsearch import Search_for_tags_by_word as get_tags
+from Tsearch import Search_tags_by_word as get_tags
 reload(sys)
 sys.setdefaultencoding("utf-8")
 

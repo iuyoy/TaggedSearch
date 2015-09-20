@@ -18,6 +18,11 @@ class Get_data(object):
             self.db.connect()
         except:
             pass
+    def return_oneresult(self,result):
+        if(result):
+            return self.db.fetchOneRow()
+        else:
+            return False
     def __delete__(self):
         try:
             self.db.close()
@@ -27,7 +32,6 @@ class Get_data(object):
 class Get_web(Get_data):
     def __init__(self):
         super(Get_web, self).__init__()
-
     def get_one_cnbeta_article(self , id = 0):
         id = int(id)
         if (id == 0):
@@ -39,3 +43,58 @@ class Get_web(Get_data):
             return self.db.fetchOneRow()
         else:
             return []
+class Get_entity(Get_data):
+    def __init__(self):
+        super(Get_entity, self).__init__()
+    def get_id(self,wikidata_id):
+        wikidata_id = self.db.SQL_filter(wikidata_id)
+        sql = "SELECT id,sign FROM `"+wiki_db+"`.`"+entities_table+"` WHERE wikidata_id = %s"
+        para = [wikidata_id]
+        result = self.db.select(sql,para)
+        return self.return_oneresult(result)
+
+    def get_entity_by_word(self,word_name = '',word_id = 0,):
+        if (word_id == 0):
+            word = Get_word().check_word(word_name)
+            if(word):
+                word_id = word[0]
+        word_id = int(word_id)
+        sql = "SELECT we.id,we.wikidata_id,\
+        IF(`label_zh-hans`= '',IF(`label_zh-cn` = '',IF(`label_zh` = '',IF(`label_en` = '',IF (`description_zh-hans` = '',IF (`description_zh-cn` = '',IF (`description_zh` = '',`description_en`,`description_zh`),`description_zh-cn`),`description_zh-hans`),`label_en`),`label_zh`),`label_zh-cn`),`label_zh-hans`) \
+        AS `name`\
+        FROM `"+wiki_db+"`.`"+entities_table+"` AS we , `"+wiki_db+"`.`"+word_entity_table+"` AS wwe \
+        WHERE wwe.entity_id = we.id AND wwe.word_id = %s "
+        para = [word_id]
+        entities = self.db.select(sql,para)
+        if entities:
+            return self.db.fetchAllRows()
+        return False  
+    def get_deep_entity_by_word(self,word_name = '',word_id = 0):
+        if (word_id == 0):
+            word = Get_word().check_word(word_name)
+            if(word):
+                word_id = word[0]
+        word_id = int(word_id)
+        sql = "SELECT we.id,wikidata_id,IF(`label_zh-hans`= '',IF(`label_zh-cn` = '',IF(`label_zh` = '',IF(`label_en` = '',IF (`description_zh-hans` = '',IF (`description_zh-cn` = '',IF (`description_zh` = '',`description_en`,`description_zh`),`description_zh-cn`),`description_zh-hans`),`label_en`),`label_zh`),`label_zh-cn`),`label_zh-hans`) \
+        AS `name`,count(we.id) AS `count`\
+        FROM `"+wiki_db+"`.`"+entities_table+"` AS we , `"+wiki_db+"`.`"+word_entity_table+"` AS wwe , `"+wiki_db+"`.`"+entity_properties_table+"` AS wep\
+        WHERE wwe.entity_id = wep.entity_id AND we.wikidata_id = wep.property_value AND wwe.word_id = %s GROUP BY id\
+        ORDER BY `count` DESC"
+        para = [word_id]
+        entities = self.db.select(sql,para)
+        if entities:
+            return self.db.fetchAllRows()
+        return False  
+class Get_word(Get_data):
+    def __init__(self):
+        super(Get_word, self).__init__()
+    #得到word，也可用于判断word是否存在
+    def check_word(self,word_name,pos = ''):
+        word_name = self.db.SQL_filter(word_name)
+        pos = self.db.SQL_filter(pos)
+        sql = "SELECT `id`,`word_name`,`sign` FROM `"+wiki_db+"`.`"+words_table+"` WHERE word_name = %s"
+        para = [word_name]
+        result = self.db.select(sql,para)
+        if(result):
+            return self.db.fetchOneRow()
+        return result

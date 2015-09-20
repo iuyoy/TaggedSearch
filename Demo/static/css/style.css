@@ -184,13 +184,3 @@ ul.f-icons {
             line-height: 1.8em;
             color: #8CD0B4;
         }
-
-/*ul.f-icons li:hover {
-            transform: rotateY(360deg);
-            -webkit-transform: rotateY(360deg);
-            -moz-transform: rotateY(360deg);
-            -o-transform: rotateY(360deg);
-            -webkit-transition: 0.8s;
-            -moz-transition: 0.8s;
-            -o-transition: 0.8s;
-        }*/

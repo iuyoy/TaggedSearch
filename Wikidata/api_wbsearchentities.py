@@ -88,4 +88,6 @@ class Wbsearchentities(Wikidata_api):
             print ('Parameter continue need to be number.')
 if __name__ == '__main__':
     ws = Wbsearchentities()
-    ws.run('苹果')
+    result = ws.run('苹果')
+    for i in result:
+        print i

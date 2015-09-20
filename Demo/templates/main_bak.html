@@ -1,0 +1,178 @@
+﻿
+<body>
+    <div class="wrapper">
+        <!-- BEGIN .left-side -->
+        <div class="left-side">
+
+            <div class="left-block-top"></div>
+            <!-- BEGIN .left-block -->
+            <div class="left-block">
+
+                <!-- BEGIN .logo -->
+                <div class="logo">
+                    <!--<h1>Project 10</h1>-->
+                    <a href="#"><img src="static/images/logo.png" alt="" title="" /></a>
+                    <!-- END .logo -->
+                </div>
+
+                <!-- BEGIN .menu -->
+                <ul class="menu">
+                    <li>
+                        <a href="index-sexy.html"><span>Homepage</span></a>
+                        <ul class="sub-menu">
+                            <li><a href="index.html">Homepage Style 2</a></li>
+                            <li><a href="index-bg.html">Homepage Style 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blog.html"><span>Blog</span></a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Blog 1</a></li>
+                            <li>
+                                <a href="#"><span>Blog 2</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">Blog 3</a></li>
+                                    <li><a href="#">Blog 4</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Blog 5</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="shortcodes.html"><span>Shortcodes</span></a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Submenu 1</a></li>
+                            <li>
+                                <a href="#"><span>Submenu 2</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">Submenu 3</a></li>
+                                    <li><a href="#">Submenu 4</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Submenu 5</a></li>
+                            <li><a href="#">Submenu 6</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="full-width-page.html">Full Width Page</a></li>
+                    <li><a href="photo-gallery.html">Photo Gallery</a></li>
+                    <li><a href="archive.html">Archive</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <!-- END .menu -->
+                </ul>
+
+                <!-- BEGIN .search -->
+                <div class="search">
+                    <div>
+                        <form action="#" method="get">
+                            <input name="search" type="text" placeholder="Search something.." />
+                            <input type="submit" value=" " />
+                        </form>
+                    </div>
+                    <!-- END .search -->
+                </div>
+
+                <p>Pro verear aliquam noluisse ad. Vitae abhorreant cotidieque id vim, eam salutandi id. At option suavitate qui. At purto, dicat iusto.</p>
+                <div class="left-block-bottom"></div>
+
+                <!-- BEGIN .left-social-icons -->
+                <div class="left-social-icons">
+                    <a href="#" class="social-facebook"><span>&nbsp;</span></a>
+                    <a href="#" class="social-twitter"><span>&nbsp;</span></a>
+                    <a href="#" class="social-digg"><span>&nbsp;</span></a>
+                    <a href="#" class="social-google"><span>&nbsp;</span></a>
+                    <a href="#" class="social-rss"><span>&nbsp;</span></a>
+                    <!-- END .left-social-icons -->
+                </div>
+
+                <!-- END .left-block -->
+            </div>
+            <!-- END .left-side -->
+        </div>
+
+        <!--web title start-->
+        $if para.word == None or para.word == '' :
+        <div class="title">
+            <h3 class="title">Tagged Search Demo</h3>
+        </div>
+        <!--web title end-->
+        <!--web body start-->
+        <div class="container">
+            <!--function_option start-->
+            <div class="function_option">
+                $if not( para.word == None or para.word == '') :
+                <div class="smalltitle hidden-xs">
+                    <h4 class="title two">Tagged Search Demo2</h4>
+                </div>
+                <div class="visible-xs-block">
+                    <h4 class="title two">Tagged Search Demo2</h4>
+                </div>
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="$para['function_option']['insite']">
+                        <a href="#insite" id="insite-tab" role="tab" data-toggle="tab" aria-controls="insite" aria-expanded="true">站内搜索</a>
+                    </li>
+                    <li role="presentation" class="$para['function_option']['tags']">
+                        <a href="#tags" id="profile-tab" role="tab" data-toggle="tab" aria-controls="tags" aria-expanded="false">显示标签</a>
+                    </li>
+                    <li role="presentation" class="$para['function_option']['dbinfo']">
+                        <a href="#dbinfo" id="dbinfo-tab" role="tab" data-toggle="tab" aria-controls="dbinfo" aria-expanded="true">数据库情况</a>
+                    </li>
+                    <!--<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">选项 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#option1" role="checkbox" data-toggle="checkbox">@fat</a></li>
+                            <li><a href="#option2" role="checkbox" data-toggle="checkbox">@mdo</a></li>
+                        </ul>
+                    </li>-->
+
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <!--tag search start-->
+                    <div role="tabpanel" class="tab-pane fade $para['function_option']['tags']" id="tags" aria-labelledby="tags-tab">
+                        <div class="searchbox">
+                            <div class="support">
+                                <form action="">
+                                    <input type="hidden" name="action" class="text" value="tags">
+                                    $if not para.word:
+                                    <input type="text" name="word" class="text" placeholder="Search what your want...">
+                                    $else:
+                                    <input type="text" name="word" class="text" value="$para.word" placeholder="Search what your want...">
+                                    <input type="submit" value="GO!" class="botton" onclick="$('form').submit( )">
+                                </form>
+                            </div>
+                            <div class="searchresult">
+                                $if 'tags' in para and para['tags']!=None:
+
+                                <p>共有$len(para['tags'][0])条1级标签:<p>
+                                    $for tag in para['tags'][0]:
+                                    <button class="btn btn-primary" type="button">
+                                        <span class="hidden">$tag[0]</span>$tag[2]<span class="hidden">$tag[1]</span>
+                                    </button>
+                                    $if(len(para['tags'])>1):
+                                <p>共有$len(para['tags'][1])条2级标签:<p>
+                                    $for tag in para['tags'][1]:
+                                    <button class="btn btn-primary" type="button">
+                                        <span class="hidden">$tag[0]</span>$tag[2]<span class="hidden">$tag[1]</span><span class="badge">$tag[3]</span>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--tag search end-->
+                    <!--insite search start-->
+                    <div role="tabpanel" class="tab-pane fade $para['function_option']['insite']" id="insite" aria-labelledby="insite-tab">
+                        insite
+                    </div>
+                    <!--insite search end-->
+                    <!--get dbinfo start-->
+                    <div role="tabpanel" class="tab-pane fade $para['function_option']['dbinfo']" id="dbinfo" aria-labelledby="dbinfo-tab">
+                        dbinfo
+                    </div>
+                    <!--get dbinfo end-->
+                </div>
+
+            </div>
+            <!--function_option end-->
+        </div>
+        <!--web body start-->
+    </div>
+</body>
