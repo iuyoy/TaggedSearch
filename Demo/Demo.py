@@ -24,7 +24,7 @@ class index:
             if(para.action == 'tags'):
                 para['tags'] = self.show_tags(word_name)
             elif(para.action == 'insite'):
-                para['result'] = self.insite_serch(word_name)
+                para['result'] = self.insite_serch()
         return render.main(para)
 
     def show_tags(self,word_name):

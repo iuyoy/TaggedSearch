@@ -15,7 +15,7 @@ body {
     }
 /*--Web title start---*/
 .title {
-    margin-top: 5%;
+    margin-top: 4%;
 }
 
 h3.title {
@@ -48,6 +48,7 @@ h4.title {
 
 /*--function_option start---*/
 .function_option {
+    margin-top: 2%;
     margin-left: 13%;
     margin-right: 13%;
 }
@@ -73,7 +74,7 @@ h4.title {
 }
 
     .support input[type="text"] {
-        width: 79%;
+        width: 79.5%;
         padding: 10px;
         font-size: 15px;
         text-align: left;
@@ -111,10 +112,14 @@ h4.title {
         .support input[type="submit"]:hover {
             background: #8CD0B4;
         }
+
+.search_form {
+    background: #00b29f;
+}
 /*--SearchBox end --*/
 
 /*--SearchResult start --*/
-.searchresult{
+.searchresult {
     margin-top: 10px;
 }
 /*--SearchResult end --*/

@@ -32,7 +32,7 @@ li.dropdown1:hover{
 }
 /* Main element of the naviagtion */
 .nav > li {
-	  display: inline-block;
+  display: inline-block;
   float: left;
   background: none; 
 }
