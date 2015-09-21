@@ -4,7 +4,7 @@
 
 import sys,os
 sys.path.append('..')
-from config import *
+from Global.config import *
 from Tagged.get_data import *
 from Tagged.web_tags import Web_tags
 class search(object):
