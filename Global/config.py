@@ -12,7 +12,7 @@
 #,'charset' : 'utf8'\
 #}
 dbinfo={\
-'host' : 'loacalhost'\
+'host' : 'localhost'\
 ,'user' : 'search'\
 ,'passwd' : 'search&Tagged'\
 ,'db' : 'search'\
