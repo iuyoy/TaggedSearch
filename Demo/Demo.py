@@ -4,6 +4,7 @@
 import os,sys
 import web
 from Tsearch import Search_tags_by_word as get_tags
+from Tsearch import Search_insite
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -24,14 +25,19 @@ class index:
             if(para.action == 'tags'):
                 para['tags'] = self.show_tags(word_name)
             elif(para.action == 'insite'):
-                para['result'] = self.insite_serch()
+                try:
+                    web_id = int(word_name)
+                except:
+                    web_id = 51200    
+                para['insite'] = self.search_insite(web_id)
         return render.main(para)
 
     def show_tags(self,word_name):
         result = get_tags().run(word_name)
         return result
-    def insite_search(self,word_name):
-        return '还没有上线'
+    def search_insite(self,word_name):
+        result = Search_insite().run(word_name)
+        return result
 
     def choose_function(self,option = 'insite'):
         if option in self.function_option:

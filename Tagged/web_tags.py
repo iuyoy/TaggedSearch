@@ -43,9 +43,9 @@ class Web_tags(object):
             self.get_words()
             self.add_word()
         if (return_tag):
-            return (self.used_words,self.level1_tags,self.level2_tags)
+            return (self.used_words,self.level1_tags,self.level2_tags,self.title,self.content)
         else:
-            return self.used_words
+            return (self.used_words,self.title,self.content)
     #得到一个web页面内容
     def get_web(self,id = 0):
         web = Get_web().get_one_cnbeta_article(id)
@@ -62,7 +62,7 @@ class Web_tags(object):
     #将得到的词语添加到数据库中
     def add_word(self):
         for word_name,pos in self.words:
-            #printout(2,word_name,pos)
+            printout(2,word_name,pos)
             word_name = word_name.encode('utf-8')
             if (pos not in self.filter_pos):
                 self.used_words.append([word_name,pos])
@@ -124,6 +124,8 @@ class Web_tags(object):
         self.filter_pos.extend(filter_pos)
     def clear_words(self):
         self.words = []
+        self.level1_tags = {}
+        self.level2_tags = {}
     def set_return_tag(self,return_tag):
         self.return_tag = return_tag
 
