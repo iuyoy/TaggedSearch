@@ -3,29 +3,30 @@
 #author:iuyyoy 
 
 #数据库信息
-#dbinfo={\
-#'host' : 'localhost'\
-#,'user' : 'root'\
-#,'passwd' : 'root'\
-#,'db' : 'wiki'\
-#,'port' : 3306\
-#,'charset' : 'utf8'\
-#}
 dbinfo={\
 'host' : 'localhost'\
-,'user' : 'search'\
-,'passwd' : 'search&Tagged'\
-,'db' : 'search'\
+,'user' : 'root'\
+,'passwd' : 'root'\
+,'db' : 'wiki'\
 ,'port' : 3306\
 ,'charset' : 'utf8'\
 }
+#dbinfo={\
+#'host' : 'localhost'\
+#,'user' : 'search'\
+#,'passwd' : 'search&Tagged'\
+#,'db' : 'search'\
+#,'port' : 3306\
+#,'charset' : 'utf8'\
+#}
 #db
 search_db = 'search'
-#wiki_db = 'wiki'
-wiki_db = 'search'
+wiki_db = 'wiki'
+#wiki_db = 'search'
 #table
 entities_table = 'entities'
 entity_properties_table = 'entity_properties'
+entity_aliases_table = 'entity_aliases'
 
 wikidata_entities_table = 'wikidata_entities_new'
 wikidata_entity_properties_table = 'wikidata_entity_properties_new'
@@ -37,3 +38,6 @@ cnbeta_table = 'sp_cnbeta'
 
 #输出等级
 print_level = 0
+
+#结巴字典文件路径
+jieba_words_dict_path = r'C:\0pros\Python27\Lib\site-packages\jieba\dict.txt'

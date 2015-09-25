@@ -63,7 +63,7 @@ class Get_entity(Get_data):
         IF(`label_zh-hans`= '',IF(`label_zh-cn` = '',IF(`label_zh` = '',IF(`label_en` = '',IF (`description_zh-hans` = '',IF (`description_zh-cn` = '',IF (`description_zh` = '',`description_en`,`description_zh`),`description_zh-cn`),`description_zh-hans`),`label_en`),`label_zh`),`label_zh-cn`),`label_zh-hans`) \
         AS `name`\
         FROM `"+wiki_db+"`.`"+entities_table+"` AS we , `"+wiki_db+"`.`"+word_entity_table+"` AS wwe \
-        WHERE wwe.entity_id = we.id AND wwe.word_id = %s "
+        WHERE wwe.entity_id = we.id AND wwe.word_id = %s AND we.sign     = 1"
         para = [word_id]
         entities = self.db.select(sql,para)
         if entities:
@@ -78,13 +78,21 @@ class Get_entity(Get_data):
         sql = "SELECT we.id,wikidata_id,IF(`label_zh-hans`= '',IF(`label_zh-cn` = '',IF(`label_zh` = '',IF(`label_en` = '',IF (`description_zh-hans` = '',IF (`description_zh-cn` = '',IF (`description_zh` = '',`description_en`,`description_zh`),`description_zh-cn`),`description_zh-hans`),`label_en`),`label_zh`),`label_zh-cn`),`label_zh-hans`) \
         AS `name`,count(we.id) AS `count`\
         FROM `"+wiki_db+"`.`"+entities_table+"` AS we , `"+wiki_db+"`.`"+word_entity_table+"` AS wwe , `"+wiki_db+"`.`"+entity_properties_table+"` AS wep\
-        WHERE wwe.entity_id = wep.entity_id AND we.wikidata_id = wep.property_value AND wwe.word_id = %s GROUP BY id\
-        ORDER BY `count` DESC"
+        WHERE wwe.entity_id = wep.entity_id AND we.wikidata_id = wep.property_value AND wwe.word_id = %s AND we.sign = 1\
+        GROUP BY id ORDER BY `count` DESC"
         para = [word_id]
         entities = self.db.select(sql,para)
         if entities:
             return self.db.fetchAllRows()
         return False  
+    def get_all_entity_name(self,language):
+        language = self.db.SQL_filter(language)
+        sql = "SELECT DISTINCT `"+language+"` FROM `"+wiki_db+"`.`"+entities_table+"` WHERE `"+language+"` != '' AND sign = 1"
+        entities = self.db.select(sql)
+        if entities:
+            return self.db.fetchAllRows()
+        return False  
+
 class Get_word(Get_data):
     def __init__(self):
         super(Get_word, self).__init__()

@@ -119,7 +119,7 @@
                                 <p>共有$len(para.insite['level2_tags'])条2级标签:<p><br>
                                 $for (id,tag) in para.insite['level2_tags']:
                                     <button class="btn btn-primary" type="button">
-                                        <span class="hidden">$id,$tag[0]</span>$tag[1]<span class="badge">$tag[2]</span>
+                                        <span class="hidden">$id,$tag[0]</span>$tag[1].encode('utf-8')<span class="badge">$tag[2]</span>
                                     </button>
                                 
                         </div>
