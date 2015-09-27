@@ -3,7 +3,7 @@
 #author:iuyyoy 
 
 import os,sys
-sys.path.append(sys.path[0]+'\..')
+sys.path.append(sys.path[0]+'/..')
 from Global.config import *
 from Global.db_op import Db_op as DB
 from Global.global_function import printout
