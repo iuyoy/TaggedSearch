@@ -106,3 +106,13 @@ class Get_word(Get_data):
         if(result):
             return self.db.fetchOneRow()
         return result
+
+class Get_alias(Get_data):
+    def __init__(self):
+        super(Get_alias, self).__init__()
+    def get_all_aliases_value(self):
+        sql = "SELECT DISTINCT `value` FROM `"+wiki_db+"`.`"+entity_aliases_table+"` WHERE sign = 0"
+        entities = self.db.select(sql)
+        if entities:
+            return self.db.fetchAllRows()
+        return False  

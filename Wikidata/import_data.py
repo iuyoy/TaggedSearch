@@ -19,6 +19,7 @@ class wikidata(object):
     property_needs = {'p910':1,'p106':2,'p1647':3,'p279':4,'p31':5,'p361':6}
     def __init__(self):
         super(wikidata,self).__init__()
+        self.db.connect()
     #将wikidata的json数据按要求存入数据库
     def import_jsondata_to_db(self,filepath,start_line = 1,end_line = 2):
         line_num = 0
@@ -39,7 +40,7 @@ class wikidata(object):
                 return
     #对json数据进行处理，提取需要的成分，存入数据库
     def json_process(self,json_str):
-        if(self.db.connect()):
+        if():
             json_str = json_str.replace(":null,",":'',")
             entity_dict = eval(json_str)
             wikidata_id = entity_dict['id'].lower()
