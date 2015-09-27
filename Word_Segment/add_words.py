@@ -84,9 +84,13 @@ class add_words():
         return False
     #生成新词典
     def generate_new_dict(self,dict_name = 'wikidata_word_dict'):
-        with open(dict_name,'w') as new_dict:
+        count = 0
+        while (os.path.exists(dict_name)):
+            count += 1
+            printout(9,"%s file exists , save to %s" %(dict_name,dict_name+"_"+str(count)))
+            dict_name = dict_name+"_"+str(count)
+        with open(dict_name,'a') as new_dict:
             content = ''
-            printout(3,"total:%d" %(len(self.new_words)))
             for index,word in enumerate(self.new_words):
                 try:
                     content += word+' 1 wd\n'
@@ -95,13 +99,19 @@ class add_words():
                     content += word.encode('utf-8')+' 1 wd\n'
                 if index%10000 == 0:
                     printout(3,"total:%d finished %d " %(len(self.new_words),index))
+                    try:
+                        new_dict.write(content)
+                    except:
+                        new_dict.write(content.encode('utf-8'))
+                    content = ''
             try:
                 new_dict.write(content)
                 return True
             except:
-                ret = new_dict.write(content.encode('utf-8'))
-                return True
+                new_dict.write(content.encode('utf-8'))    
+                return True    
         return False
+
     #去除有空格的词，去掉有分号的词分号前的部分
     def delete_blank_and_colon(self,word):
         if ' ' in word:
