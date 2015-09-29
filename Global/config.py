@@ -52,3 +52,4 @@ print_level = 0
 
 #结巴字典文件路径
 jieba_words_dict_path = r'C:\0pros\Python27\Lib\site-packages\jieba\dict.txt'
+stopwords_path = 'D:\ROW\DChuan2015\stopwords.txt'

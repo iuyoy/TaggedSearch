@@ -3,7 +3,7 @@
 #author:iuyyoy 
 
 import sys,os
-sys.path.append('..')
+sys.path.append(sys.path[0]+'/..')
 from Global.config import *
 from Tagged.get_data import *
 from Tagged.web_tags import Web_tags

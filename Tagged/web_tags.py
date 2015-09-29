@@ -12,7 +12,6 @@ import jieba
 import jieba.posseg as pseg
 from get_data import Get_web
 from Word_Segment.word_segment import Word_segment
-
 from save_data import *
 from get_data import *
 from Wikidata.api_wbsearchentities import Wbsearchentities as Wbsearch
@@ -22,14 +21,16 @@ class Web_tags(object):
     content = ''
     words = []
     used_words = []
+    stopwords = []
     return_tag = False
     #tag:{'id':[wikidata_id,name,count]}
     level1_tags = {}
     level2_tags = {}
     #过滤的词性
-    filter_pos = ['x','p','ul','f','d','c','l','uj','a','r','s','an','ad']
+    filter_pos = ['x','p','ul','f','d','c','l','uj','a','r','s','an','ad','u','m','k','y']
     def __init__(self,filter_pos = ''):
         super(Web_tags,self).__init__()
+        self.set_stopwords(stopwords_path)
         if (filter_pos != ''):
             self.set_filter_pos(filter_pos)
     #运行的入口
@@ -64,7 +65,7 @@ class Web_tags(object):
         for word_name,pos in self.words:
             printout(2,word_name,pos)
             word_name = word_name.encode('utf-8')
-            if (pos not in self.filter_pos):
+            if (pos not in self.filter_pos and word_name not in self.stopwords):
                 self.used_words.append([word_name,pos])
                 word = Get_word().check_word(word_name,pos)
                 sign = -1
@@ -117,7 +118,11 @@ class Web_tags(object):
                     tags_lib[tag[0]][2] +=1# tag[3]
                 else:
                     tags_lib[tag[0]]=[tag[1],tag[2],1]#tag[3]]
-        
+    #设置停止词
+    def set_stopwords(self,stopwords_file):
+        with open(stopwords_file,'r') as stopwords:
+            self.stopwords.extend(stopwords.read().split())
+
     def set_filter_pos(self,filter_pos):
         self.filter_pos = filter_pos
     def add_filter_pos(self,filter_pos):
@@ -133,6 +138,7 @@ if __name__ == "__main__":
     wt = Web_tags()
     #51250
     for i in range(51200,51201):
+        i = 400001
         print i
         rs = wt.run(i,return_tag = True)
         (words,l1_tags,l2_tags) = rs

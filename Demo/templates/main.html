@@ -111,6 +111,11 @@
                             $if 'insite' in para:
                                 <p>title:$para.insite['title']</p>
                                 <p>content:$para.insite['content']</p>
+                                <p>共有$len(para.insite['words'])个词语:<p><br>
+                                    $for (word,pos) in para.insite['words']:
+                                        <button class="btn btn-primary" type="button">
+                                            $word<span class="badge">$pos</span>
+                                        </button>
                                 <p>共有$len(para.insite['level1_tags'])条1级标签:<p><br>
                                 $for (id,tag) in para.insite['level1_tags']:
                                     <button class="btn btn-primary" type="button">
