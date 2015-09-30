@@ -129,6 +129,7 @@ class Web_tags(object):
         self.filter_pos.extend(filter_pos)
     def clear_words(self):
         self.words = []
+        self.used_words = []
         self.level1_tags = {}
         self.level2_tags = {}
     def set_return_tag(self,return_tag):

@@ -45,8 +45,10 @@ wikidata_word_table = 'wikidata_word'
 words_table = 'words'
 word_properties_table = 'word_properties'
 word_entity_table = 'word_entity'
-cnbeta_table = 'sp_cnbeta'
 
+cnbeta_table = 'sp_cnbeta'
+sogou_all_table = 'sogou_all'
+sogou_sogou_table = 'sogou_sogou'
 #输出等级
 print_level = 0
 
