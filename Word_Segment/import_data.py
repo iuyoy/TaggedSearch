@@ -31,8 +31,9 @@ class Import_sogou(object):
                 for i in xrange(times):
                     self.read_one_record(fp)
             else:
-                while(fp):
-                    self.read_one_record(fp)
+                ret = True
+                while(fp and ret):
+                    ret = self.read_one_record(fp)
         """
      	数据格式：
         <doc>
@@ -49,8 +50,8 @@ class Import_sogou(object):
             content = ''
             while ( '<doc>' not in content ):
                 content = fp.readline()
-                if content == '':
-                    return 
+                if not content :
+                    return False
             url = fp.readline()[5:-7]
             docno = fp.readline()[7:-9]
             title = fp.readline()[14:-16]
@@ -60,7 +61,7 @@ class Import_sogou(object):
                 id = self.save_one_record((url,docno,title.decode('gbk','ignore'),content.decode('gbk','ignore')),0)
                 if (id and id%10000 == 0):
                     printout(2,"%d records has been saved!" %(id))
-
+            return True
     def save_one_record(self,record,sign):
        
         sql = "INSERT INTO `"+search_db+"`.`"+sogou_sogou_table+"` (`url`, `docno`,`title`,`content`,`sign`) VALUES (%s, %s, %s ,%s ,"+str(sign)+")"
