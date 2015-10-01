@@ -62,25 +62,18 @@ class Save_word(Save_data):
         else:
             return -1
         return ret
-    ##添加word和entity的关系
-    #def add_word_entity_relations(self,word_id,word_name,sign = 0):
-    #    word_id = int(word_id)
-    #    word_name = self.db.SQL_filter(word_name)
-    #    sign = int (sign)
-    #    sql = "INSERT INTO `"+wiki_db+"`.`"+word_entity_table+"` \
-    #    (`word_id`,`entity_id`,`sign`) \
-    #    SELECT "+str(word_id)+",id,"+str(sign)+" FROM entities \
-    #    WHERE `label_zh-hans` LIKE '%"+word_name+"%'\
-    #    OR `label_zh-cn` LIKE '%"+word_name+"%'\
-    #    OR `label_zh` LIKE '%"+word_name+"%'\
-    #    OR `label_en` LIKE '%"+word_name+"%'\
-    #    OR `description_zh-hans` LIKE '%"+word_name+"%'\
-    #    OR `description_zh-cn` LIKE '%"+word_name+"%'\
-    #    OR `description_zh` LIKE '%"+word_name+"%'\
-    #    OR `description_en` LIKE '%"+word_name+"%'\
-    #    "
-    #    result = self.db.insert(sql)
-    #    return result
-    #查询出
 
+class Save_website(Save_data):
+    def __init__(self):
+        super(Save_website, self).__init__()
+    def build_website_word_relation(self,website_id,word_id,count,sign,rank):
+        sql = "INSERT INTO `"+wiki_db+"`.`"+websites_words_table+"`(`website_id`,`word_id`,`count`,`sign`,`rank`) VALUES(%s,%s,%s,%s,%s)" 
+        para = (website_id,word_id,count,sign,rank)
+        ret = self.db.insert(sql,para)
+        return ret
+    def build_website_tag_relation(self,website_id,entity_id,count,sign,rank):
+        sql = "INSERT INTO `"+wiki_db+"`.`"+websites_tags_table+"`(`website_id`,`entity_id`,`count`,`sign`,`rank`) VALUES(%s,%s,%s,%s,%s)" 
+        para = (website_id,entity_id,count,sign,rank)
+        ret = self.db.insert(sql,para)
+        return ret
    
