@@ -9,6 +9,7 @@ from Global.config import *
 from Global.global_function import *
 from lru import LRUCache
 from jieba import posseg as pseg
+import jieba
 
 from Tagged.get_data import Get_website
 from Tagged.get_data import Get_word
@@ -50,11 +51,12 @@ class Website_entities(object):
             if websites:
                 for website in websites:
                     self.clear_mem()
-                    (id,url,docno,title,content,sign) = website
+                    (website_id,url,docno,title,content,sign) = website
+                    printout(3,'Start website_id:%d' %(website_id))
                     (titile_words,content_words) = self.segment_words(title,content)
-                    printout(3,'website_id:%d' %(id))
-                    self.website_tags(id,titile_words,True)
-                    self.website_tags(id,content_words,True)
+                    self.website_tags(website_id,titile_words,True)
+                    self.website_tags(website_id,content_words,True)
+                    self.build_all_relations(website_id)
             if(number>0 or not websites):
                 return True
                 
@@ -63,7 +65,6 @@ class Website_entities(object):
         if have_pos:
             for word_name,pos in words:
                 word_name = word_name.encode('utf-8')
-                
                 if (pos not in self.filter_pos and word_name not in self.stop_words):
                     ret = self.get_word_tags(website_id,word_name,pos)
         else:
@@ -71,7 +72,6 @@ class Website_entities(object):
                 word_name = word_name.encode('utf-8')
                 if (word_name not in self.stop_words):
                     ret =  self.get_word_tags(website_id,word_name,self.default_pos)
-        self.build_all_relations(website_id)
     #建立所有连接
     def build_all_relations(self,website_id):
         for word_id,count in self.words.items():
@@ -109,7 +109,6 @@ class Website_entities(object):
             self.tags[(tag_id,tag_type)] += count
         else:
             self.tags[(tag_id,tag_type)] = count
-    
 
     #查询得到word 
     def get_word(self,word_name,pos):
@@ -152,7 +151,12 @@ class Website_entities(object):
         else:
             return False
     #分词
-    def segment_words(self,title,content):
+    def segment_words(self,title,content,parallel = 4):
+        if parallel:
+            try:
+                jieba.enable_parallel(parallel) # 
+            except Exception,e:
+                record_error(e)
         title_words = pseg.lcut(title)
         content_words = pseg.lcut(content)
         return (title_words,content_words)
@@ -202,6 +206,6 @@ class Website_entities(object):
         self.tags = {}
 
 if __name__ == "__main__":
-    we = Website_entities(stop_words = stopwords_path)
-    we.auto_run(1,10)
+    we = Website_entities(stop_words = stopwords_path,cache_items=2000)
+    we.auto_run(1,0)
             
