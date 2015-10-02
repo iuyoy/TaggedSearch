@@ -41,19 +41,22 @@ class Website_entities(object):
         self.word_cache = LRUCache(cache_items)
     #自动执行的入口
     def auto_run(self,start_id = 0,number = 0):
-        if number > 0:
-            websites = self.get_website(start_id,number)
-        else:
-            websites = self.get_website(start_id,number,self.offset)
-            self.offset += self.number_per_select
-        if websites:
-            for website in websites:
-                self.clear_mem()
-                (id,url,docno,title,content,sign) = website
-                (titile_words,content_words) = self.segment_words(title,content)
-                printout(3,'website_id:%d' %(id))
-                self.website_tags(id,titile_words,True)
-                self.website_tags(id,content_words,True)
+        while(True):
+            if(number<=0):
+                websites = self.get_website(start_id,self.number_per_select,self.offset)
+                self.offset += self.number_per_select
+            else:
+                websites = self.get_website(start_id,number)
+            if websites:
+                for website in websites:
+                    self.clear_mem()
+                    (id,url,docno,title,content,sign) = website
+                    (titile_words,content_words) = self.segment_words(title,content)
+                    printout(3,'website_id:%d' %(id))
+                    self.website_tags(id,titile_words,True)
+                    self.website_tags(id,content_words,True)
+            if(number>0 or not websites):
+                return True
                 
     #建立索引(website-words&tags)
     def website_tags(self,website_id,words,have_pos = True):
