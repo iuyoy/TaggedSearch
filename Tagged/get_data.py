@@ -55,6 +55,10 @@ class Get_website(Get_data):
             return self.db.fetchAllRows()
         else:
             return []
+    def get_new_sogou_website_id(self):
+        sql = "SELECT max(`website_id`) FROM `"+wiki_db+"`.`"+websites_words_table+"`"
+        result = self.db.select(sql)
+        return self.db.fetchOneRow()
 class Get_entity(Get_data):
     def __init__(self):
         super(Get_entity, self).__init__()

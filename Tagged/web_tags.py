@@ -24,7 +24,7 @@ class Website_entities(object):
     #停止词
     stop_words = set()
     
-    number_per_select = 100
+    number_per_select = 1
     #已经遍历的website数
     offset = 0
     default_pos = 'wt'
@@ -42,10 +42,18 @@ class Website_entities(object):
         self.word_cache = LRUCache(cache_items)
     #自动执行的入口
     def auto_run(self,start_id = 0,number = 0):
+        if(start_id <= 0):
+            start_id = Get_website().get_new_sogou_website_id()
+            print start_id
+            if(start_id and start_id[0] ):
+                start_id = int(start_id[0])+1
+            else:
+                start_id = 1
+            print start_id
         while(True):
             if(number<=0):
-                websites = self.get_website(start_id,self.number_per_select,self.offset)
-                self.offset += self.number_per_select
+                websites = self.get_website(start_id,self.number_per_select)
+                start_id += self.number_per_select
             else:
                 websites = self.get_website(start_id,number)
             if websites:
@@ -206,6 +214,6 @@ class Website_entities(object):
         self.tags = {}
 
 if __name__ == "__main__":
-    we = Website_entities(stop_words = stopwords_path,cache_items=2000)
-    we.auto_run(1,0)
+    we = Website_entities(stop_words = stopwords_path,cache_items=10000)
+    we.auto_run(0,0)
             
