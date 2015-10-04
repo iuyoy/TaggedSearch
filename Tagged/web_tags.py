@@ -44,12 +44,10 @@ class Website_entities(object):
     def auto_run(self,start_id = 0,number = 0):
         if(start_id <= 0):
             start_id = Get_website().get_new_sogou_website_id()
-            print start_id
             if(start_id and start_id[0] ):
                 start_id = int(start_id[0])+1
             else:
                 start_id = 1
-            print start_id
         while(True):
             if(number<=0):
                 websites = self.get_website(start_id,self.number_per_select)
@@ -159,12 +157,7 @@ class Website_entities(object):
         else:
             return False
     #分词
-    def segment_words(self,title,content,parallel = 4):
-        if parallel:
-            try:
-                jieba.enable_parallel(parallel) # 
-            except Exception,e:
-                record_error(e)
+    def segment_words(self,title,content):
         title_words = pseg.lcut(title)
         content_words = pseg.lcut(content)
         return (title_words,content_words)
@@ -214,6 +207,6 @@ class Website_entities(object):
         self.tags = {}
 
 if __name__ == "__main__":
-    we = Website_entities(stop_words = stopwords_path,cache_items=10000)
+    we = Website_entities(stop_words = stopwords_path,cache_items=2000)
     we.auto_run(0,0)
             
