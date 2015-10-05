@@ -6,16 +6,12 @@ import os,sys
 sys.path.append(sys.path[0]+'/..')
 
 from Global.config import *
+from Global.db_op import Db_op as DB
 from Global.global_function import *
 from lru import LRUCache
 from jieba import posseg as pseg
 import jieba
 
-from Tagged.get_data import Get_website
-from Tagged.get_data import Get_word
-from Tagged.get_data import Get_entity
-from Tagged.save_data import Save_word
-from Tagged.save_data import Save_website
 from Wikidata.api_wbsearchentities import Wbsearchentities as Wbsearch
 
 class Website_entities(object):
@@ -33,6 +29,7 @@ class Website_entities(object):
     #type:0,1,2,3,5,6
     #(id,type):count
     tags={}
+    db = DB(dbinfo = dbinfo)
     def __init__(self,filter_pos = [],stop_words = '',cache_items = 1000):
         super(Website_entities,self).__init__()
         self.set_filter_pos(filter_pos)
@@ -40,10 +37,11 @@ class Website_entities(object):
         #用于存已经查询过的word
         #word_name:(word_id,set())
         self.word_cache = LRUCache(cache_items)
+        self.db.connect()
     #自动执行的入口
     def auto_run(self,start_id = 0,number = 0):
         if(start_id <= 0):
-            start_id = Get_website().get_new_sogou_website_id()
+            start_id = self.get_new_sogou_website_id()
             if(start_id and start_id[0] ):
                 start_id = int(start_id[0])+1
             else:
@@ -65,7 +63,11 @@ class Website_entities(object):
                     self.build_all_relations(website_id)
             if(number>0 or not websites):
                 return True
-                
+    #得到最大的没有检索过的website_id
+    def get_new_sogou_website_id(self):  
+        sql = "SELECT max(`website_id`) FROM `"+wiki_db+"`.`"+websites_words_table+"`"
+        result = self.db.select(sql)
+        return self.db.fetchOneRow()          
     #建立索引(website-words&tags)
     def website_tags(self,website_id,words,have_pos = True):
         if have_pos:
@@ -79,11 +81,15 @@ class Website_entities(object):
                 if (word_name not in self.stop_words):
                     ret =  self.get_word_tags(website_id,word_name,self.default_pos)
     #建立所有连接
-    def build_all_relations(self,website_id):
+    def build_all_relations(self,website_id,rank=0):
         for word_id,count in self.words.items():
-            Save_website().build_website_word_relation(website_id,word_id,count,0,0) 
+            sql = "INSERT INTO `"+wiki_db+"`.`"+websites_words_table+"`(`website_id`,`word_id`,`count`,`sign`,`rank`) VALUES(%s,%s,%s,%s,%s)" 
+            para = (website_id,word_id,count,0,rank)
+            ret = self.db.insert(sql,para)
         for (entity_id,sign),count in self.tags.items():
-            Save_website().build_website_tag_relation(website_id,entity_id,count,sign,0) 
+            sql = "INSERT INTO `"+wiki_db+"`.`"+websites_tags_table+"`(`website_id`,`entity_id`,`count`,`sign`,`rank`) VALUES(%s,%s,%s,%s,%s)" 
+            para = (website_id,entity_id,count,sign,rank)
+            ret = self.db.insert(sql,para)
     #得到website对应的words和tags
     def get_word_tags(self,website_id,word_name,pos):
         #如果word在cache中，从中提取word_id,和tag_ids
@@ -118,42 +124,111 @@ class Website_entities(object):
 
     #查询得到word 
     def get_word(self,word_name,pos):
-        word = Get_word().check_word(word_name)
+        word_name = self.db.SQL_filter(word_name)
+        pos = self.db.SQL_filter(pos)
+        sql = "SELECT `id`,`word_name`,`pos`,`sign` FROM `"+wiki_db+"`.`"+words_table+"` WHERE word_name = %s"
+        para = [word_name]
+        result = self.db.select(sql,para)
+        if(result):
+            word = self.db.fetchOneRow()
+        else:
+            word = result
         if (not word):
             sign = 0
-            word_id = Save_word().add_word(word_name,pos,sign = sign)
+            word_id = self.add_word(word_name,pos,sign = sign)
             self.build_word_tag_relation(word_id,word_name)
             word = (word_id,word_name,pos,sign)
         return word
+    def add_word(self,word_name,pos,sign):
+        word_name = self.db.SQL_filter(word_name)
+        pos = self.db.SQL_filter(pos)
+        sign = int(sign)
+        sql = "INSERT INTO `"+wiki_db+"`.`"+words_table+"` (`word_name`, `pos`, `sign`) VALUES (%s, %s, %s)"
+        para = [word_name,pos,sign]
+        id = self.db.insert(sql,para)
+        return id
     #建立word和tag的关系
     def build_word_tag_relation(self,word_id,word_name):
         #wbsearch查询得到relations
         relation_list = Wbsearch().run(word_name)
         result = True
         for relation in relation_list:
-            result = Save_word().add_word_entity_relation(word_id,relation['id'])
+            result = self.add_word_entity_relation(word_id,relation['id'])
         if(result):
-            Save_word().change_word_sign(word_id,1)
+            self.change_word_sign(word_id,1)
+    def change_word_sign(self,word_id,sign = 0):
+        word_id = int(word_id)
+        sign = int(sign)
+        sql = "UPDATE `"+wiki_db+"`.`"+words_table+"` SET `sign` = %s WHERE `id` = %s"
+        para = [sign,word_id]
+        result = self.db.update(sql,para)
+        return result
+    def add_word_entity_relation(self,word_id,wikidata_id,sign = 0):
+        word_id = int(word_id)
+        entity = self.get_entity_id(wikidata_id)
+        sign = int(sign)
+        if (entity):
+            (entity_id,sign) = entity
+            sign = int(sign)
+            sql = "INSERT INTO `"+wiki_db+"`.`"+word_entity_table+"`(`word_id`,`entity_id`,`sign`) VALUES(%s,%s,%s)" 
+            para = [word_id,entity_id,sign]
+            ret = self.db.insert(sql,para)
+        else:
+            return -1
+        return ret
+    def get_entity_id(self,wikidata_id):
+        wikidata_id = self.db.SQL_filter(wikidata_id)
+        sql = "SELECT id,sign FROM `"+wiki_db+"`.`"+entities_table+"` WHERE wikidata_id = %s"
+        para = [wikidata_id]
+        result = self.db.select(sql,para)
+        return self.db.fetchOneRow()
     #得到标签
     def get_tags(self,word_id):
         tags = []
-        l1_tags = Get_entity().get_entity_by_word(word_id=word_id)
+        l1_tags = self.get_l1_tags(word_id)
         if(l1_tags):
-            for id,wiki_id,name in l1_tags:
+            for id in l1_tags:
                 tags.append([id,0,1])
-            l2_tags = Get_entity().get_deep_entity_by_word(word_id=word_id)
+            l2_tags = self.get_l2_tags(word_id)
             if(l2_tags):
-                for id,wiki_id,name,property_type,count in l2_tags:
+                for id,property_type,count in l2_tags:
                     tags.append([id,property_type,count])
             return tags
         else:
             printout(0,"Not any tags!")
             return []
+    def get_l1_tags(self,word_id = 0,):
+        word_id = int(word_id)
+        sql = "SELECT we.id \
+        FROM `"+wiki_db+"`.`"+entities_table+"` AS we , `"+wiki_db+"`.`"+word_entity_table+"` AS wwe \
+        WHERE wwe.entity_id = we.id AND wwe.word_id = %s AND we.sign = 1"
+        para = [word_id]
+        entities = self.db.select(sql,para)
+        if entities:
+            return self.db.fetchAllRows()
+        return False  
+    def get_l2_tags(self,word_id = 0):
+        word_id = int(word_id)
+        sql = "SELECT we.id,`property_name`,count(we.id) AS `count`\
+        FROM `"+wiki_db+"`.`"+entities_table+"` AS we , `"+wiki_db+"`.`"+word_entity_table+"` AS wwe , `"+wiki_db+"`.`"+entity_properties_table+"` AS wep\
+        WHERE wwe.entity_id = wep.entity_id AND we.wikidata_id = wep.property_value AND wwe.word_id = %s AND we.sign = 1\
+        GROUP BY id ORDER BY `count` DESC"
+        para = [word_id]
+        entities = self.db.select(sql,para)
+        if entities:
+            return self.db.fetchAllRows()
+        return False  
     #得到一个web页面内容
-    def get_website(self,id=0,number=1,offset=0):
-        web = Get_website().get_sogou_news_by_id(id,number)
-        if (web):
-            return web
+    def get_website(self,id=0,number=1,sign=0):
+        id = int(id)
+        number = int(number)
+        sign = int(sign)
+        sql = "SELECT `id`,`url`,`docno`,`title`,`content`,`sign` FROM `"+search_db+"`.`"+sogou_sogou_table+\
+            "` WHERE `sign` = %s AND id >= %s LIMIT %s"
+        para = (sign,id,number)
+        result = self.db.select(sql,para)
+        if(result):
+            return self.db.fetchAllRows()
         else:
             return False
     #分词
