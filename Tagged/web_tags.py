@@ -60,6 +60,7 @@ class Website_entities(object):
                     (titile_words,content_words) = self.segment_words(title,content)
                     self.website_tags(website_id,titile_words,True)
                     self.website_tags(website_id,content_words,True)
+                    printout(2,'    Start build_relations:%d' %(website_id))
                     self.build_all_relations(website_id)
             if(number>0 or not websites):
                 return True
@@ -90,6 +91,7 @@ class Website_entities(object):
             sql = "INSERT INTO `"+wiki_db+"`.`"+websites_tags_table+"`(`website_id`,`entity_id`,`count`,`sign`,`rank`) VALUES(%s,%s,%s,%s,%s)" 
             para = (website_id,entity_id,count,sign,rank)
             ret = self.db.insert(sql,para)
+
     #得到website对应的words和tags
     def get_word_tags(self,website_id,word_name,pos):
         #如果word在cache中，从中提取word_id,和tag_ids
@@ -188,7 +190,7 @@ class Website_entities(object):
         l1_tags = self.get_l1_tags(word_id)
         if(l1_tags):
             for id in l1_tags:
-                tags.append([id,0,1])
+                tags.append([id[0],0,1])
             l2_tags = self.get_l2_tags(word_id)
             if(l2_tags):
                 for id,property_type,count in l2_tags:
@@ -283,5 +285,5 @@ class Website_entities(object):
 
 if __name__ == "__main__":
     we = Website_entities(stop_words = stopwords_path,cache_items=2000)
-    we.auto_run(0,0)
+    we.auto_run(1,0)
             
