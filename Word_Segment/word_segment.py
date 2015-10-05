@@ -29,7 +29,7 @@ class Word_segment(object):
 
 if __name__ == "__main__":
     ws = Word_segment()
-    str = '小明硕士毕业于中国科学院计算所，后在日本京都大学深造'
+    str = '12345678901234567890'
     ws.segment(str)
     print u"全模式"
     for i in ws.segment(str,mode = True):
