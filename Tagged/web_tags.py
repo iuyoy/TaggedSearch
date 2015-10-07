@@ -91,7 +91,6 @@ class Website_entities(object):
             sql = "INSERT INTO `"+wiki_db+"`.`"+websites_tags_table+"`(`website_id`,`entity_id`,`count`,`sign`,`rank`) VALUES(%s,%s,%s,%s,%s)" 
             para = (website_id,entity_id,count,sign,rank)
             ret = self.db.insert(sql,para)
-
     #得到website对应的words和tags
     def get_word_tags(self,website_id,word_name,pos):
         #如果word在cache中，从中提取word_id,和tag_ids
@@ -106,11 +105,13 @@ class Website_entities(object):
             if word:
                 (word_id,name,pos,sign) = word
                 self.add_words(word_id,1)
-                tags = self.get_tags(word_id)
+                if sign == 1:
+                    tags = self.get_tags(word_id)
+                else:
+                    tags = []
                 self.word_cache[word_name] =(word_id,tags)#加入cache
                 for (tag_id,tag_type,count) in tags:
                     self.add_tags(tag_id,tag_type,count)
-
     #words的增加或新建
     def add_words(self,id,count=1):
         if id in self.words:
@@ -261,7 +262,13 @@ class Website_entities(object):
                     self.stop_words |= set(stopwords.read().split())
                     return True
             except Exception,e:
-                printout(0,e)
+                printout(5,e)
+                while 1:
+                    go_on = raw_input("Y:continue , N:stop | Your choice:")
+                    if go_on[0] == 'y' or go_on[0] == 'Y':
+                        break;
+                    if go_on[0] == 'n' or go_on[0] == 'N':
+                        sys.exit()
                 return False
         elif(words_type == set):
             self.stop_words |= stop_words
