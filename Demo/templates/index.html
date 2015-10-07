@@ -7,6 +7,7 @@
     <link href="static/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="static/css/style.css" rel="stylesheet" type="text/css" />
     <link href="static/css/left-side.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="static/css/spinkit.css" rel="stylesheet" type="text/css" />
     <!--<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>-->
     <!-- Css end-->
     <!--Font start-->
@@ -36,15 +37,31 @@
         <!--tag searchbox start-->
         <div class="searchbox">
             <div class="support">
-                <form action="" id="search">
+                <form action="" id="search" method="get">
                     <input type="hidden" name="action" id="action" class="text" value="search">
                     <input type="text" name="ss" id="ss" class="text" placeholder="Search what your want...">
-                    <input type="submit" name="submit" id="submit" value="GO!" class="botton">
                 </form>
+                <button>GO!</button>
             </div>
+        </div>
+        <div class="sk-wandering-cubes" id="loading" style="display:none;">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
         </div>
         <!--tag searchbox end-->
     </div>
     <!--web body end-->
+    <script>
+        $$(document).ready(function () {
+            $$("button").click(function () {
+                var sentence = $$(ss).val();
+                var url_search = "";
+                if (sentence != "" && typeof (sentence) != "undefined") {
+                    $$(loading).show();
+                    $$("form").submit();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

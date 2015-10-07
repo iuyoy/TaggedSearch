@@ -10,7 +10,6 @@
     <link href="static/css/style.css" rel="stylesheet" type="text/css" />
     <link href="static/css/left-side.css" rel="stylesheet" type="text/css" media="all" />
     <link href="static/css/spinkit.css" rel="stylesheet" type="text/css" />
-
     <!--<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>-->
     <!-- Css end-->
     <!--Font start-->
@@ -36,11 +35,12 @@
         <!--searchbox start-->
         <div class="searchbox_small">
             <div class="support_small">
-                <form action="" id="search" class="">
+                <form action="" id="search" method="get">
                     <input type="hidden" name="action" id="action" class="text" value="search">
                     <input type="text" name="ss" id="ss" class="text" placeholder="Search what your want..." value="$para.ss">
-                    <input type="submit" name="submit" id="submit" value="GO!" class="botton">
+                    <!--<input type="submit" name="submit" id="submit" value="GO!" class="botton"-->
                 </form>
+                <button>GO!</button>
             </div>
         </div>
         <div class="top_right">
@@ -59,40 +59,50 @@
     <!--search_result start-->
     <div class="search_result">
         <div class="content">
-            <p>123</p>
-            <div class="sk-wandering-cubes" id="content_loading" style="display:block   ;">
+            共有$para['webs']['total']条记录,当前第$para['webs']['page']页
+            <hr>
+            $for i in xrange(para['webs']['npp']):
+                <a href="$para['webs'][i][0]" target="_blank">$para['webs'][i][1]</a>
+                <br>
+                <p> $para['webs'][i][2] </p>
+                <br>
+            <div class="sk-wandering-cubes" id="content_loading" style="display:none;">
                 <div class="sk-cube sk-cube1"></div>
                 <div class="sk-cube sk-cube2"></div>
-                <div class="sk-cube sk-cube3"></div>
-                <div class="sk-cube sk-cube4"></div>
-            </div>
+            </div>  
 
         </div>
         <!--search_result end-->
         <div class="search_right">
-            <p>123</p>
-            <div class="sk-wandering-cubes" id="right_loading" style="display:block   ;">
+            <p>分词列表</p>
+            $for word in para['words']:
+                $word
+            <p>标签列表</p>
+            $for id,tag in para['l2_tags'].items():
+                $tag[2]
+
+            $if(len(para['l1_tags'])>0):
+                <br>
+                <p>wikidata条目</p>
+            $for id,tag in para['l1_tags'].items():
+                <button class="btn btn-primary" type="button">
+                    <a href="http://www.wikidata.org/wiki/$tag[1]" target="_blank">$tag[2]</a>
+                </button>
+            <div class="sk-wandering-cubes" id="right_loading" style="display:none;">
                 <div class="sk-cube sk-cube1"></div>
                 <div class="sk-cube sk-cube2"></div>
-                <div class="sk-cube sk-cube3"></div>
-                <div class="sk-cube sk-cube4"></div>
             </div>
         </div>
     </div>
     <script>
         $$(document).ready(function () {
-            var url_get_tags = "tags?ss=$para.ss&action=$para.action";
-            $$.get(url_get_tags, function (data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
-                if (status == 'success')
-                {
-                    $$(right_loading).hide();
-                }
-            });
-            $$.get(url, function (data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
-                if (status == 'success') {
-                    $$(content_loading).hide();
+            $$("button").click(function () {
+                var sentence = $$(ss).val();
+                var url_search = "";
+                if (sentence != "" && typeof (sentence) != "undefined") {
+                    $$(right_loading).show();
+                    $$(content_loading).show();
+                    $$("form").submit();
                 }
             });
         });
