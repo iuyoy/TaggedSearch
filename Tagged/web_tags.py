@@ -58,8 +58,8 @@ class Website_entities(object):
                     (website_id,url,docno,title,content,sign) = website
                     printout(3,'Start website_id:%d' %(website_id))
                     (titile_words,content_words) = self.segment_words(title,content)
-                    self.website_tags(website_id,titile_words,True)
-                    self.website_tags(website_id,content_words,True)
+                    self.website_tags(website_id,titile_words,False)
+                    self.website_tags(website_id,content_words,False)
                     printout(2,'    Start build_relations:%d' %(website_id))
                     self.build_all_relations(website_id)
             if(number>0 or not websites):
@@ -236,8 +236,8 @@ class Website_entities(object):
             return False
     #分词
     def segment_words(self,title,content):
-        title_words = pseg.lcut(title)
-        content_words = pseg.lcut(content)
+        title_words = jieba.lcut_for_search(title)
+        content_words = jieba.lcut_for_search(content)
         return (title_words,content_words)
     #设置过滤的词性
     def set_filter_pos(self,filter_pos):
@@ -292,5 +292,5 @@ class Website_entities(object):
 
 if __name__ == "__main__":
     we = Website_entities(stop_words = stopwords_path,cache_items=2000)
-    we.auto_run(1,0)
+    we.auto_run(0,0)
             

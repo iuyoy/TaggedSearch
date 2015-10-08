@@ -7,7 +7,9 @@ import time
 reload(sys)
 sys.setdefaultencoding("utf-8")
 sys.path.append(sys.path[0]+'/..')
+
 from Tagged.search import Search
+from Tasks import search_results
 
 render = web.template.render('templates/')
 urls = (
@@ -17,14 +19,18 @@ urls = (
     )
 class main:
     def GET(self):
-        self.para = web.input(ss=None,action=None)
+        self.para = web.input(ss=None,action=None,page=None)
         if (self.para.ss == None or self.para.ss == ''):
             return render.index()
         else:
-            self.get_tags()
+            try:
+                page = int(self.para.page)
+            except:
+                page = 1
+            self.search(page)
             return render.search(self.para)
-    def get_tags(self):
-        (words,l1_tags,l2_tags,webs) = Search().search_sentence_op(self.para.ss)
+    def search(self,page = 1):
+        (words,l1_tags,l2_tags,webs) = Search().search_sentence_op(self.para.ss,page)
         self.para['words']=words
         self.para['l1_tags']=l1_tags
         self.para['l2_tags']=l2_tags

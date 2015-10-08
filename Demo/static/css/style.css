@@ -241,16 +241,27 @@ h5.title {
     display: inline;
     position: relative;
     min-height: 300px;
-    min-width: 550px;
-    max-width:55%;
+    width:730px;
+    padding-right:5px;
 }
-
+.url{
+    
+    text-decoration:underline;
+    
+    margin-bottom: 1px;
+}
+.url a{
+    color:#1020d0;
+    font-size:medium;
+}
 .search_right {
-    float: right;
+    float: left;
     display: inline;
-    position: relative;
+    padding: 5px;
+    position: absolute;
     min-height: 300px;
-    width: 300px;
+    min-width:250px;
+    width:300px;
     border-left: groove;
 }
 /*--second style end --*/

@@ -1,4 +1,5 @@
 ﻿$def with (para)
+
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +11,6 @@
     <link href="static/css/style.css" rel="stylesheet" type="text/css" />
     <link href="static/css/left-side.css" rel="stylesheet" type="text/css" media="all" />
     <link href="static/css/spinkit.css" rel="stylesheet" type="text/css" />
-    <!--<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>-->
     <!-- Css end-->
     <!--Font start-->
     <link href='static/css/font.css' rel='stylesheet' type='text/css'>
@@ -25,6 +25,9 @@
     <!-- Scripts end -->
 </head>
 <body>
+    <script>
+        
+    </script>
     <!--top start-->
     <div class="top">
         <!--title start-->
@@ -40,7 +43,7 @@
                     <input type="text" name="ss" id="ss" class="text" placeholder="Search what your want..." value="$para.ss">
                     <!--<input type="submit" name="submit" id="submit" value="GO!" class="botton"-->
                 </form>
-                <button>GO!</button>
+                <button id="go">GO!</button>
             </div>
         </div>
         <div class="top_right">
@@ -62,30 +65,74 @@
             共有$para['webs']['total']条记录,当前第$para['webs']['page']页
             <hr>
             $for i in xrange(para['webs']['npp']):
-                <a href="$para['webs'][i][0]" target="_blank">$para['webs'][i][1]</a>
-                <br>
+                <div class="url">
+                <a href="$para['webs'][i][0]" target="_blank" >$para['webs'][i][1]</a>
+                </div>
                 <p> $para['webs'][i][2] </p>
                 <br>
+            $ page_count = 0
+            $ show_page = para['webs']['page'] - 2
+            $ total_page = para['webs']['total']/10+1 if (para['webs']['total']%10 == 0) else para['webs']['total']/10
+            共有 $total_page页记录,当前第$para['webs']['page']页
+            <nav>
+                $if(para['webs']['total']/10 > 0):
+                    <ul class="pagination">
+                        $if(para['webs']['page']==1):
+                            <li class="disabled">
+                                <a aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        $else:
+                            <li>
+                                <a href="/?action=search&ss=$para.ss&page=$(para['webs']['page']-1)" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        
+                        $while(1):
+                            $if show_page>0:
+                                $if show_page <= total_page and page_count <= 10:
+                                    $if show_page == para['webs']['page']:
+                                        <li class="active"><a href="/?action=search&ss=$para.ss&page=$show_page">$show_page</a></li>
+                                    $else:
+                                        <li><a href="/?action=search&ss=$para.ss&page=$show_page">$show_page</a></li>
+                                    $ page_count += 1
+                                $else:
+                                    $break
+                            $ show_page += 1
+                            
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+            </nav>
             <div class="sk-wandering-cubes" id="content_loading" style="display:none;">
                 <div class="sk-cube sk-cube1"></div>
                 <div class="sk-cube sk-cube2"></div>
             </div>  
-
         </div>
         <!--search_result end-->
         <div class="search_right">
-            <p>分词列表</p>
+            <b>分词列表</b>
             $for word in para['words']:
-                $word
-            <p>标签列表</p>
+                <button class="btn btn-primary" type="button">
+                    $word
+                </button>
+            $if(len(para['l2_tags'])>0):
+                <br><br>
+                <b>标签列表</b>
             $for id,tag in para['l2_tags'].items():
-                $tag[2]
-
+                <button class="btn btn-primary" type="button">
+                    $tag[2]
+                </button>
             $if(len(para['l1_tags'])>0):
-                <br>
+                <hr>
                 <p>wikidata条目</p>
             $for id,tag in para['l1_tags'].items():
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-info" type="button">
                     <a href="http://www.wikidata.org/wiki/$tag[1]" target="_blank">$tag[2]</a>
                 </button>
             <div class="sk-wandering-cubes" id="right_loading" style="display:none;">
@@ -96,7 +143,7 @@
     </div>
     <script>
         $$(document).ready(function () {
-            $$("button").click(function () {
+            $$(go).click(function () {
                 var sentence = $$(ss).val();
                 var url_search = "";
                 if (sentence != "" && typeof (sentence) != "undefined") {
@@ -105,8 +152,13 @@
                     $$("form").submit();
                 }
             });
+            $$(ss).keypress(function (e) {
+                if (event.witch == 13 || event.keyCode ==13) {
+                    $$(go).click()
+                }
+            });
         });
-
+        
     </script>
 </body>
 </html>

@@ -9,23 +9,23 @@ print_level = 1
 
 #数据库信息
 
-#dbinfo={\
-#'host' : 'localhost'\
-#,'user' : 'root'\
-#,'passwd' : 'root'\
-#,'db' : 'wiki'\
-#,'port' : 3306\
-#,'charset' : 'utf8'\
-#}
-
 dbinfo={\
-'host' : '192.168.99.127'\
+'host' : 'localhost'\
 ,'user' : 'root'\
 ,'passwd' : 'root'\
-,'db' : 'search'\
+,'db' : 'wiki'\
 ,'port' : 3306\
 ,'charset' : 'utf8'\
 }
+
+#dbinfo={\
+#'host' : '192.168.99.127'\
+#,'user' : 'root'\
+#,'passwd' : 'root'\
+#,'db' : 'search'\
+#,'port' : 3306\
+#,'charset' : 'utf8'\
+#}
 
 
 #dbinfo={\
@@ -38,8 +38,8 @@ dbinfo={\
 #}
 #db
 search_db = 'search'
-#wiki_db = 'wiki'
-wiki_db = 'search'
+wiki_db = 'wiki'
+#wiki_db = 'search'
 #table
 entities_table = 'entities'
 entity_properties_table = 'entity_properties'
