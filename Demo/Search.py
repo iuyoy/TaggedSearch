@@ -33,7 +33,7 @@ class Search(object):
         self.db = DB(dbinfo = dbinfo)
         self.db.connect()
     def run(self,search_sentence):
-        print len(search_sentence),search_sentence
+        printout(1,len(search_sentence),search_sentence)
         self.search_sentence_op(search_sentence)
         return words
     
@@ -65,13 +65,13 @@ class Search(object):
         tfidf = models.TfidfModel(self.corpus)
         index = similarities.SparseMatrixSimilarity(tfidf[self.corpus], num_features=self.num_features)
         sims = index[tfidf[self.vec]]
-        print self.vec
+        printout(1,self.vec)
         self.result = sorted(enumerate(sims), key=lambda e:e[1], reverse=True)
      
     #获得页面信息       
     def get_websites(self,page = 1,npp=10):
         webs = {'page':page,'npp':0,'total':len(self.websites)}
-        print self.websites,len(self.websites),page
+        printout(1,self.websites,len(self.websites),page)
         if (type(self.websites) == list):
             for index in xrange((page-1)*npp,page*npp):
                 if index < webs['total']:
@@ -81,7 +81,7 @@ class Search(object):
                 else:
                     index -= 1
                     break
-            print 'index',index
+            printout(1,'index',index)
             webs['npp'] = index-(page-1)*npp+1
         return webs
     def get_website(self,page_id):

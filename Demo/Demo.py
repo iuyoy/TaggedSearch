@@ -3,51 +3,62 @@
 #author:iuyyoy 
 import os,sys
 import web
-from Tsearch import Search_tags_by_word as get_tags
-from Tsearch import Search_insite
+import time
 reload(sys)
 sys.setdefaultencoding("utf-8")
+sys.path.append(sys.path[0]+'/..')
+abspath = os.path.dirname(__file__)
+sys.path.append(abspath)
+os.chdir(abspath)
+
+from Search import Search
 
 render = web.template.render('templates/')
 urls = (
-    '/','index'
+    '/tags','tags',
+    '/search','search',
+    '/*.*','main',
     )
-
-class index:
-    function_option={'tags':'','insite':'','dbinfo':''}
+class main:
     def GET(self):
-        para = web.input(word=None,action=None)
-        #决定显示什么界面
-        self.choose_function(para.action)
-        para['function_option'] = self.function_option
-        if (para.word != None and para.word!=''):
-            word_name = para.word.encode('utf-8')
-            if(para.action == 'tags'):
-                para['tags'] = self.show_tags(word_name)
-            elif(para.action == 'insite'):
-                try:
-                    web_id = int(word_name)
-                except:
-                    web_id = 51200    
-                para['insite'] = self.search_insite(web_id)
-        return render.main(para)
-
-    def show_tags(self,word_name):
-        result = get_tags().run(word_name)
-        return result
-    def search_insite(self,word_name):
-        result = Search_insite().run(word_name)
-        return result
-
-    def choose_function(self,option = 'insite'):
-        if option in self.function_option:
-            self.clear_function_option()
-            self.function_option[option] = 'active in'
+        self.para = web.input(ss=None,action=None,page=None)
+        if (self.para.ss == None or self.para.ss == ''):
+            return render.index()
         else:
-            self.choose_function()
+            try:
+                page = int(self.para.page)
+            except:
+                page = 1
+            self.search(page)
+            return render.search(self.para)
+    def search(self,page = 1):
+        (words,l1_tags,l2_tags,webs) = Search().search_sentence_op(self.para.ss,page)
+        self.para['words']=words
+        self.para['l1_tags']=l1_tags
+        self.para['l2_tags']=l2_tags
+        self.para['webs']=webs
+class disable:
+    def GET(self):
+        return "The service is temporarily closed."
+class tags:
+    def GET(self):
+       return
+class search:
+    def GET(self):                                                                    
+        self.para = web.input(ss=None,action=None)
+        if (self.para.ss == None or self.para.ss == ''):
+            return render.index()
+        else:
+            self.get_tags()
+            return render.search(self.para)
+    def get_tags(self):
+        (words,l1_tags,l2_tags) = Search().search_sentence_op(self.para.ss)
+        self.para['words']=words
+        self.para['l1_tags']=l1_tags
+        self.para['l2_tags']=l2_tags
 
-    def clear_function_option(self):
-        self.function_option={'tags':'','insite':'','dbinfo':''}
+#application = web.application(urls, globals()).wsgifunc()
+
 if __name__ == "__main__": 
     app = web.application(urls, globals())
     app.run()
