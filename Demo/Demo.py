@@ -11,7 +11,7 @@ abspath = os.path.dirname(__file__)
 sys.path.append(abspath)
 os.chdir(abspath)
 
-from Search import Search
+from Tsearch import Search
 
 render = web.template.render('templates/')
 urls = (

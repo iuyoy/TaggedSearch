@@ -131,7 +131,7 @@ class Search(object):
                 return True
         return False
     def get_words(self):
-        sql = "SELECT `id` FROM `wiki`.`words` WHERE `word_name`=%s"
+        sql = "SELECT `id` FROM `"+wiki_db+"`.`"+words_table+"` WHERE `word_name`=%s"
         for word in self.search_words:
             ret = self.db.select(sql,word)
             if ret:
@@ -141,7 +141,7 @@ class Search(object):
 
     def get_tags(self):
         sql = "SELECT we.`id`,we.`wikidata_id`,IF(`label_zh-hans`= '',IF(`label_zh-cn` = '',IF(`label_zh` = '',IF(`label_en` = '',IF (`description_zh-hans` = '',IF (`description_zh-cn` = '',IF (`description_zh` = '',`description_en`,`description_zh`),`description_zh-cn`),`description_zh-hans`),`label_en`),`label_zh`),`label_zh-cn`),`label_zh-hans`) AS `name` \
-        FROM `wiki`.`entities` AS we,`wiki`.`word_entity` AS wwe \
+        FROM `"+wiki_db+"`.`"+entities_table+"` AS we,`"+wiki_db+"`.`"+word_entity_table+"` AS wwe \
         WHERE wwe.`entity_id` = we.`id` AND wwe.`word_id` = %s"
         for word_id,rank in self.search_words.itervalues():
             ret = self.db.select(sql,word_id)
@@ -157,7 +157,7 @@ class Search(object):
     def get_deep_tags(self):
         sql = "SELECT we.`id`,`wikidata_id`,IF(`label_zh-hans`= '',IF(`label_zh-cn` = '',IF(`label_zh` = '',IF(`label_en` = '',IF (`description_zh-hans` = '',IF (`description_zh-cn` = '',IF (`description_zh` = '',`description_en`,`description_zh`),`description_zh-cn`),`description_zh-hans`),`label_en`),`label_zh`),`label_zh-cn`),`label_zh-hans`) \
 AS `name`,`property_name` AS property,count(we.id) AS `count` \
-FROM wiki.entities AS we,wiki.entity_properties AS wep \
+FROM `"+wiki_db+"`.`"+entities_table+"` AS we,`"+wiki_db+"`.`"+entity_properties_table+"` AS wep \
 WHERE we.wikidata_id = wep.property_value AND wep.entity_id = %s GROUP BY id \
 ORDER BY `count` DESC;"
         for tag_id in self.l1_tags:
