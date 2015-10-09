@@ -41,24 +41,31 @@
                     <input type="hidden" name="action" id="action" class="text" value="search">
                     <input type="text" name="ss" id="ss" class="text" placeholder="Search what your want...">
                 </form>
-                <button>GO!</button>
+                <button id="go">GO!</button>
             </div>
         </div>
-        <div class="sk-wandering-cubes" id="loading" style="display:none;">
-            <div class="sk-cube sk-cube1"></div>
-            <div class="sk-cube sk-cube2"></div>
-        </div>
+        <div id="wait"></div>
         <!--tag searchbox end-->
     </div>
     <!--web body end-->
     <script>
         $$(document).ready(function () {
-            $$("button").click(function () {
+            $$(go).click(function () {
                 var sentence = $$(ss).val();
                 var url_search = "";
                 if (sentence != "" && typeof (sentence) != "undefined") {
-                    $$(loading).show();
-                    $$("form").submit();
+                    var waiting = '\
+                    <div class="sk-wandering-cubes" id="content_loading">\
+                        <div class="sk-cube sk-cube1"></div>\
+                        <div class="sk-cube sk-cube2"></div>\
+                    </div>  ';
+                    $$(wait).html(waiting);
+                    j$$(search).submit();
+                }
+            });
+            $$(ss).keypress(function (e) {
+                if (event.witch == 13 || event.keyCode == 13) {
+                    $$(go).click()
                 }
             });
         });

@@ -18,16 +18,14 @@
     <!-- Scripts start-->
     <script src="static/js/jquery.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
-    <script src="static/js/scripts.js" type="text/javascript"></script>
+    <script src="static/js/scripts.js"></script>
+    <script src="static/js/highlight.js"></script>
     <!--[if lt IE 9]>
         <script src="static/js/html5.js"></script>
     <![endif]-->
     <!-- Scripts end -->
 </head>
 <body>
-    <script>
-        
-    </script>
     <!--top start-->
     <div class="top">
         <!--title start-->
@@ -61,19 +59,21 @@
     <!--top end-->
     <!--search_result start-->
     <div class="search_result">
-        <div class="content">
-            共有$para['webs']['total']条记录,当前第$para['webs']['page']页
+        <div class="content" id="content">
+            <b>共有 <em>$para['webs']['total']</em> 条记录,当前第 <em>$para['webs']['page']</em> 页</b>
             <hr>
+            <div id="result">
             $for i in xrange(para['webs']['npp']):
                 <div class="url">
                 <a href="$para['webs'][i][0]" target="_blank" >$para['webs'][i][1]</a>
                 </div>
                 <p> $para['webs'][i][2] </p>
                 <br>
+            </div>
             $ page_count = 0
             $ show_page = para['webs']['page'] - 2
-            $ total_page = para['webs']['total']/10+1 if (para['webs']['total']%10 == 0) else para['webs']['total']/10
-            共有 $total_page页记录,当前第$para['webs']['page']页
+            $ total_page = (para['webs']['total']/10+1) if (para['webs']['total']%10 == 0 and para['webs']['total']!= 0) else para['webs']['total']/10
+            <b>共有 <em>$total_page</em> 页记录,当前第 <em>$para['webs']['page']</em> 页</b>
             <nav>
                 $if(para['webs']['total']/10 > 0):
                     <ul class="pagination">
@@ -101,21 +101,24 @@
                                 $else:
                                     $break
                             $ show_page += 1
-                            
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
+                        $if(para['webs']['page']<total_page):    
+                            <li>
+                                <a href="/?action=search&ss=$para.ss&page=$(para['webs']['page']+1)" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        $else:
+                            <li class="disabled">
+                                <a aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
                     </ul>
             </nav>
-            <div class="sk-wandering-cubes" id="content_loading" style="display:none;">
-                <div class="sk-cube sk-cube1"></div>
-                <div class="sk-cube sk-cube2"></div>
-            </div>  
         </div>
+        
         <!--search_result end-->
-        <div class="search_right">
+        <div class="search_right" id="search_right">
             <b>分词列表</b>
             $for word in para['words']:
                 <button class="btn btn-primary" type="button">
@@ -135,21 +138,26 @@
                 <button class="btn btn-info" type="button">
                     <a href="http://www.wikidata.org/wiki/$tag[1]" target="_blank">$tag[2]</a>
                 </button>
-            <div class="sk-wandering-cubes" id="right_loading" style="display:none;">
-                <div class="sk-cube sk-cube1"></div>
-                <div class="sk-cube sk-cube2"></div>
-            </div>
         </div>
     </div>
     <script>
+        var highlight_words = "";
+        $for word in para['words']:
+            highlight_words += "$word ";
+        $$(result).textSearch(highlight_words);
         $$(document).ready(function () {
             $$(go).click(function () {
                 var sentence = $$(ss).val();
                 var url_search = "";
                 if (sentence != "" && typeof (sentence) != "undefined") {
-                    $$(right_loading).show();
-                    $$(content_loading).show();
-                    $$("form").submit();
+                    var waiting = '\
+                    <div class="sk-wandering-cubes" id="content_loading">\
+                        <div class="sk-cube sk-cube1"></div>\
+                        <div class="sk-cube sk-cube2"></div>\
+                    </div>  ';
+                    $$(content).html(waiting);
+                    $$(search_right).html(waiting);
+                    $$(search).submit();
                 }
             });
             $$(ss).keypress(function (e) {
@@ -158,7 +166,6 @@
                 }
             });
         });
-        
     </script>
 </body>
 </html>
