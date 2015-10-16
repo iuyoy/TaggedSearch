@@ -5,7 +5,7 @@
 #重要的全局变量
 
 #输出等级
-print_level = 1
+print_level = 0
 
 #数据库信息
 

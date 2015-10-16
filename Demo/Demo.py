@@ -32,7 +32,7 @@ class main:
             self.search(page)
             return render.search(self.para)
     def search(self,page = 1):
-        (words,l1_tags,l2_tags,webs) = Search().search_sentence_op(self.para.ss,page)
+        (words,l1_tags,l2_tags,webs) = Search().do_search(self.para.ss,page)
         self.para['words']=words
         self.para['l1_tags']=l1_tags
         self.para['l2_tags']=l2_tags
