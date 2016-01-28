@@ -9,14 +9,14 @@ from Global.config import *
 from Global.db_op import Db_op as DB
 from Global.global_function import *
 dbinfo={\
-'host' : '192.168.99.127'\
+'host' : 'localhost'\
 ,'user' : 'root'\
 ,'passwd' : 'root'\
-,'db' : 'search'\
+,'db' : 'wiki'\
 ,'port' : 3306\
 ,'charset' : 'utf8'\
 }
-stop_words_file = 'D:\ROW\DChuan2015\TaggedSearch\Word_Segment\stopwords.txt'
+stop_words_file = 'D:\ROW\DChuan2015\mine_stopwords_v1.txt'
 class insert_stopwords(object):
     db = DB(dbinfo = dbinfo)
     stop_words = set()
@@ -58,24 +58,24 @@ class insert_stopwords(object):
                     return True
         else:
             printout(2,"%s isn't inserted into db, then insert it into db." %(stop_word))
-            sql = 'INSERT INTO `search`.`words`(`word_name`,`pos`,`sign`) VALUES(%s,%s,%s)'
+            sql = 'INSERT INTO `wiki`.`words`(`word_name`,`pos`,`sign`) VALUES(%s,%s,%s)'
             id = self.db.insert(sql,(stop_word,'stop',2))
             if (id):
                 printout(2,"    Insert %s into db successfully." %(stop_word))
                 return True
     def change_sign(self,word_id):
-        sql = "UPDATE `search`.`words` SET sign = 2 WHERE id = %s "
+        sql = "UPDATE `wiki`.`words` SET sign = 2 WHERE id = %s "
         ret = self.db.update(sql,word_id)
         return ret
     def check_stop_word(self,stop_word):
-        sql = "SELECT `id`,`pos`,`sign` FROM `search`.`words` WHERE `word_name` = %s"
+        sql = "SELECT `id`,`pos`,`sign` FROM `wiki`.`words` WHERE `word_name` = %s"
         ret = self.db.select(sql,stop_word)
         if ret:
             return self.db.fetchOneRow()
         else:
             return False
-class insert_dict_into_words_table():
 
 if __name__ == "__main__":
     isw = insert_stopwords()
+    isw.run()
     

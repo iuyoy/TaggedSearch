@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>5ab86c62-112e-4a33-9754-d06a92372a46</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Tagged\web_tags.py</StartupFile>
+    <StartupFile>Demo\Paper_Search.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -37,6 +37,7 @@
     <Folder Include="Demo\templates\" />
     <Folder Include="Global\" />
     <Folder Include="Demo\" />
+    <Folder Include="Data\" />
     <Folder Include="Tagged\" />
     <Folder Include="Wikidata\" />
     <Folder Include="Word_Segment\" />
@@ -49,46 +50,49 @@
     <Content Include="Demo\static\css\chocolat.css" />
     <Content Include="Demo\static\css\font.css" />
     <Content Include="Demo\static\css\left-side.css" />
-    <Content Include="Demo\static\css\nav.css" />
+    <Content Include="Demo\static\css\spinkit.css" />
     <Content Include="Demo\static\css\style.css" />
-    <Content Include="Demo\static\css\style_bak.css" />
     <Content Include="Demo\static\font\icomoon.eot" />
     <Content Include="Demo\static\font\icomoon.svg" />
     <Content Include="Demo\static\font\icomoon.ttf" />
     <Content Include="Demo\static\font\icomoon.woff" />
-    <Content Include="Demo\static\images\background2.png" />
+    <Content Include="Demo\static\images\bg-texture-1.jpg" />
     <Content Include="Demo\static\images\bottom-bg.jpg" />
-    <Content Include="Demo\static\images\bottom-bg_bak.jpg" />
-    <Content Include="Demo\static\images\closew.gif" />
-    <Content Include="Demo\static\images\icons - 副本.png" />
-    <Content Include="Demo\static\images\icons.png" />
-    <Content Include="Demo\static\images\icons_bak.png" />
-    <Content Include="Demo\static\images\leftw.gif" />
-    <Content Include="Demo\static\images\move-top.png" />
-    <Content Include="Demo\static\images\rightw.gif" />
-    <Content Include="Demo\static\images\tw.png" />
     <Content Include="Demo\static\js\bootstrap.min.js" />
-    <Content Include="Demo\static\js\html5shiv.min.js" />
-    <Content Include="Demo\static\js\jquery-2.1.1.min.js" />
-    <Content Include="Demo\static\js\jquery.chocolat.js" />
-    <Content Include="Demo\static\js\jquery.easydropdown.js" />
+    <Content Include="Demo\static\js\highlight.js" />
     <Content Include="Demo\static\js\jquery.min.js" />
-    <Content Include="Demo\static\js\modernizr.custom.js" />
-    <Content Include="Demo\static\js\responsiveslides.min.js" />
+    <Content Include="Demo\static\js\scripts.js" />
+    <Content Include="Demo\templates\index.html" />
     <Content Include="Demo\templates\main.html" />
     <Content Include="Demo\templates\main_bak.html" />
+    <Content Include="Demo\templates\search.html" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Demo\Demo.py" />
+    <Compile Include="Data\Classify_doc.py" />
+    <Compile Include="Data\Dc2015_UI.py" />
+    <Compile Include="Data\Experiment_source.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Demo\Demo.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Demo\lda_search.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Demo\Paper_Search.py" />
     <Compile Include="Demo\Tsearch.py" />
     <Compile Include="Demo\__init__.py" />
     <Compile Include="Global\global_function.py" />
     <Compile Include="Global\config.py" />
     <Compile Include="Global\db_op.py" />
     <Compile Include="Global\__init__.py" />
+    <Compile Include="Tagged\auto_run.py" />
     <Compile Include="Tagged\get_data.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tagged\new_web_tags.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tagged\save_data.py">
@@ -109,10 +113,25 @@
     <Compile Include="Word_Segment\add_words.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Word_Segment\dict_op.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Word_Segment\generate_stopwords.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Word_Segment\import_website.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Word_Segment\ngd.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Word_Segment\words_op.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Word_Segment\word_segment.py" />
+    <Compile Include="Word_Segment\word_vector.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Word_Segment\__init__.py" />
   </ItemGroup>
   <ItemGroup>

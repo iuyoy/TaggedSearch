@@ -201,6 +201,6 @@ ORDER BY `count` DESC;"
         self.num_features = 0
 
 if __name__ == '__main__':
-    search_sentence = u"陆军"
+    search_sentence = u"苹果"
     sh = Search()
     sh.do_search(search_sentence)

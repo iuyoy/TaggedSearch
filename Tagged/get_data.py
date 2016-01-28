@@ -55,6 +55,17 @@ class Get_website(Get_data):
             return self.db.fetchAllRows()
         else:
             return []
+    def get_sogou_news_by_content(self,keywords,number=1,offset=0,sign=0):
+        number = int(number)
+        sign = int(sign)
+        sql = "SELECT `id`,`url`,`docno`,`title`,`content`,`sign` FROM `"+search_db+"`.`"+sogou_sogou_table+\
+            "` WHERE `content` like '%%s%' AND `sign` = %s LIMIT %s OFFSET %s"
+        para = (keywords,sign,id,number,offset)
+        result = self.db.select(sql,para)
+        if(result):
+            return self.db.fetchAllRows()
+        else:
+            return []
     def get_new_sogou_website_id(self):
         sql = "SELECT max(`website_id`) FROM `"+wiki_db+"`.`"+websites_words_table+"`"
         result = self.db.select(sql)
